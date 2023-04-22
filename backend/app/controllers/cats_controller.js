@@ -156,7 +156,7 @@ module.exports = {
                 if (cats) {
                     res.send({
                         success: true,
-                        message: "All owners owning cats with the " + breed + " breed have been found successfully",
+                        message: "All cats with the " + breed + " breed have been found successfully",
                         data: cats
                     })
                 } else {
