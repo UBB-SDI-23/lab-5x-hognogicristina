@@ -12,17 +12,9 @@ function GetOneCat(props) {
                 setCatData(response.data.data)
             })
     }, [props.id])
-
-    const pStyle = {
-        fontSize: '2rem',
-        lineHeight: 1.5,
-        color: '#777',
-        marginBottom: '1.5rem',
-        textShadow: '1px 1px #eee'
-    }
     
     if (catData) {
-        const { id, name, age, color, breed, weight, ownerData } = catData
+        const { name, age, color, breed, weight, ownerData } = catData
         const { owner } = ownerData
 
         return (
