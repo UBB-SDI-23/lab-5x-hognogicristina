@@ -1,9 +1,9 @@
-import React from "react"
 import { useState } from "react"
+import { Box, Button, TextField, Typography } from "@mui/material"
+import { createTheme, ThemeProvider } from '@mui/material/styles'
 
 function AddCat() {
     const [cat, setCat] = useState({
-        id: "",
         name: "",
         age: "",
         color: "",
@@ -14,7 +14,6 @@ function AddCat() {
 
     const [isLoading, setIsLoading] = useState(false)
     const [message, setMessage] = useState("")
-    const [error, setError] = useState("")
 
     const handleChange = (event) => {
         const value = event.target.value
@@ -27,13 +26,8 @@ function AddCat() {
     const handleSubmit = (event) => {
         event.preventDefault()
         setIsLoading(true)
-        setError("")
-        if (!cat.id) {
-            setError("ID is required")
-            return
-        }
         setMessage("")
-        fetch("/cats_add", {
+        fetch("http://localhost:8000/cats_add", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -42,106 +36,142 @@ function AddCat() {
         })
             .then((response) => response.json())
             .then((data) => {
-                console.log(data)
                 setIsLoading(false)
                 setMessage(data.message)
             })
     }
 
+    const handleReset = () => {
+        setCat({
+            name: "",
+            age: "",
+            color: "",
+            breed: "",
+            weight: "",
+            ownerId: "",
+        })
+    }
+
+    const buttonStyles = {
+        backgroundColor: 'transparent',
+        color: '#7c487c',
+        border: '2px solid #7c487c',
+        margin: 1,
+        '&:hover': {
+            backgroundColor: '#e2c7f7d8',
+            color: '7c487c',
+        }
+    }
+
+    const theme = createTheme({
+        palette: {
+            primary: {
+                main: "#d04c7d7a",
+            },
+        },
+    })
+
+    const h2Style = {
+        fontSize: '1.6rem',
+        color: '#333',
+        textTransform: 'uppercase',
+        letterSpacing: '0.1rem',
+        marginBottom: '1rem',
+        borderBottom: '3px solid #f36',
+        paddingBottom: '0.5rem',
+        textShadow: '1px 1px #eee'
+    }
+
     return (
-        <form className="crud-section" onSubmit={handleSubmit}>
-            <h3>Add Cat Section</h3>
-            <div className="form-group">
-                <label htmlFor="name">ID</label>
-                <input
-                    type="text"
-                    className="form-control"
-                    id="id"
-                    name="id"
-                    value={cat.id}
-                    onChange={handleChange}
-                    placeholder="Example: 1"
-                />
-                {error && <p className="error">{error}</p>}
-            </div>
-            <div className="form-group">
-                <label htmlFor="name">Name</label>
-                <input
-                    type="text"
-                    className="form-control"
-                    id="name"
-                    name="name"
-                    value={cat.name}
-                    onChange={handleChange}
-                    placeholder="Example: Tom"
-                />
-            </div>
-            <div className="form-group">
-                <label htmlFor="age">Age</label>
-                <input
-                    type="text"
-                    className="form-control"
-                    id="age"
-                    name="age"
-                    value={cat.age}
-                    onChange={handleChange}
-                    placeholder="Example: 2"
-                />
-            </div>
-            <div className="form-group">
-                <label htmlFor="color">Color</label>
-                <input
-                    type="text"
-                    className="form-control"
-                    id="color"
-                    name="color"
-                    value={cat.color}
-                    onChange={handleChange}
-                    placeholder="Example: black"
-                />
-            </div>
-            <div className="form-group">
-                <label htmlFor="breed">Breed</label>
-                <input
-                    type="text"
-                    className="form-control"
-                    id="breed"
-                    name="breed"
-                    value={cat.breed}
-                    onChange={handleChange}
-                    placeholder="Example: Persian"
-                />
-            </div>
-            <div className="form-group">
-                <label htmlFor="weight">Weight</label>
-                <input
-                    type="text"
-                    className="form-control"
-                    id="weight"
-                    name="weight"
-                    value={cat.weight}
-                    onChange={handleChange}
-                    placeholder="Example: 5"
-                />
-            </div>
-            <div className="form-group">
-                <label htmlFor="ownerId">Owner</label>
-                <input
-                    type="text"
-                    className="form-control"
-                    id="ownerId"
-                    name="ownerId"
-                    value={cat.ownerId}
-                    onChange={handleChange}
-                    placeholder="Example: 1"
-                />
-            </div>
-            {message && <p className="message">{message}</p>}
-            <button type="submit" className="btn btn-primary cat-button">
-                <span className="button-text">Submit</span>
-            </button>
-            {isLoading && <p>Loading...</p>}
-        </form>
+        <Box sx={{ textAlign: "center", p: 2, borderRadius: 2 }}>
+            <Typography variant="h5" sx={{ ...h2Style }}>
+                Add Cat Section
+            </Typography>
+            <form onSubmit={handleSubmit}>
+                <ThemeProvider theme={theme}>
+                    <TextField
+                        required
+                        fullWidth
+                        id="name"
+                        name="name"
+                        label="Name"
+                        value={cat.name}
+                        onChange={handleChange}
+                        margin="normal"
+                        variant="outlined"
+                        placeholder="Example: Tom"
+                    />
+                    <TextField
+                        required
+                        fullWidth
+                        id="age"
+                        name="age"
+                        label="Age"
+                        value={cat.age}
+                        onChange={handleChange}
+                        margin="normal"
+                        variant="outlined"
+                        placeholder="Example: 2"
+                    />
+                    <TextField
+                        required
+                        fullWidth
+                        id="color"
+                        name="color"
+                        label="Color"
+                        value={cat.color}
+                        onChange={handleChange}
+                        margin="normal"
+                        variant="outlined"
+                        placeholder="Example: black"
+                    />
+                    <TextField
+                        required
+                        fullWidth
+                        id="breed"
+                        name="breed"
+                        label="Breed"
+                        value={cat.breed}
+                        onChange={handleChange}
+                        margin="normal"
+                        variant="outlined"
+                        placeholder="Example: Persian"
+                    />
+                    <TextField
+                        required
+                        fullWidth
+                        id="weight"
+                        name="weight"
+                        label="Weight"
+                        value={cat.weight}
+                        onChange={handleChange}
+                        margin="normal"
+                        variant="outlined"
+                        placeholder="Example: 5"
+                    />
+                    <TextField
+                        required
+                        fullWidth
+                        id="ownerId"
+                        name="ownerId"
+                        label="Owner"
+                        value={cat.ownerId}
+                        onChange={handleChange}
+                        margin="normal"
+                        variant="outlined"
+                        placeholder="Example: 1"
+                    />
+                    {message && <Typography color="primary">{message}</Typography>}
+                    <Button type="submit" variant="contained" sx={{ ...buttonStyles }}>
+                        Submit
+                    </Button>
+                    <Button variant="contained" sx={{ ...buttonStyles }} onClick={handleReset}>
+                        Reset
+                    </Button>
+                    {isLoading && <Typography>Loading...</Typography>}
+                </ThemeProvider>
+            </form>
+        </Box>
     )
 }
 

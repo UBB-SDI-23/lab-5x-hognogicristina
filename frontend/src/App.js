@@ -1,49 +1,42 @@
-import './App.css'
+  import './App.css'
 
-import { faCat } from '@fortawesome/free-solid-svg-icons'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+  import Home from './Home'
+  import Navigation from './Navigation'
 
-import { Home } from './Home'
+  import Cats from './Cats/Cats'
+  import Owners from './Owners/Owners'
+  import Foods from './Foods/Foods'
 
-import Cats from './Cats/Cats'
-import Owners from './Owners/Owners'
-import Foods from './Foods/Foods'
+  import { BrowserRouter, Routes, Route } from 'react-router-dom'
+  import { Container, Box } from '@mui/material'
 
-import { BrowserRouter, Routes, Route, useNavigate } from 'react-router-dom'
+  const App = () => {
+    const containerStyles = {
+      flexGrow: 1,
+      maxWidth: '1200px',
+      margin: '0 auto',
+      padding: '20px',
+      bgcolor: '#fff',
+      borderRadius: '0px 10px 10px 0px',
+      boxShadow: '0px 0px 10px hsla(309, 16%, 26%, 0.885)'
+    }
 
-const Navigation = () => {
-  const navigate = useNavigate()
+    return (
+      <BrowserRouter>
+        <Box sx={{ display: 'flex' }}>
+          <Navigation />
 
-  return (
-    <div className="sidebar">
-      <div className="logo">
-        <FontAwesomeIcon icon={faCat} className="mr-2" /> Meow
-      </div>
-      <button className="menu-item" onClick={() => navigate('/')}>Home</button>
-      <button className="menu-item" onClick={() => navigate('/cats')}>Cats</button>
-      <button className="menu-item" onClick={() => navigate('/owners')}>Owners</button>
-      <button className="menu-item" onClick={() => navigate('/foods')}>Food</button>
-    </div>
-  )
-}
+          <Container sx={{ ...containerStyles }}>
+            <Routes>
+              <Route path="/" element={<Home />} />
+              <Route path="/cats" element={<Cats />} />
+              <Route path="/owners" element={<Owners />} />
+              <Route path="/foods" element={<Foods />} />
+            </Routes>
+          </Container>
+        </Box>
+      </BrowserRouter>
+    )
+  }
 
-const App = () => {
-  return (
-    <BrowserRouter>
-      <div className="container">
-        <Navigation />
-
-        <div className="main-content">
-          <Routes>
-            <Route path="/" Component={Home} exact />
-            <Route path="/cats" Component={Cats} />
-            <Route path="/owners" Component={Owners} />
-            <Route path="/foods" Component={Foods} />
-          </Routes>
-        </div>
-      </div>
-    </BrowserRouter>
-  )
-}
-
-export default App
+  export default App

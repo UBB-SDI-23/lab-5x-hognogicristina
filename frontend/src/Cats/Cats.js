@@ -4,6 +4,7 @@ import AddCat from "./AddCat"
 import DeleteCat from "./DeleteCat"
 import UpdateCat from "./UpdateCat"
 import { useState } from "react"
+import { Box, Button, Typography } from "@mui/material";
 
 function Cats() {
     const [showList, setShowList] = useState(false)
@@ -19,7 +20,7 @@ function Cats() {
         setShowDeleteForm(false)
         setShowUpdateForm(false)
     }
-    
+
     const handleShowFilterClick = () => {
         setShowFilter(true)
         setShowList(false)
@@ -35,7 +36,7 @@ function Cats() {
         setShowDeleteForm(false)
         setShowUpdateForm(false)
     }
-    
+
     const handleDeleteClick = () => {
         setShowDeleteForm(true)
         setShowList(false)
@@ -43,68 +44,76 @@ function Cats() {
         setShowAddForm(false)
         setShowUpdateForm(false)
     }
-    
+
     const handleUpdateClick = () => {
         setShowUpdateForm(true)
         setShowList(false)
         setShowFilter(false)
         setShowAddForm(false)
         setShowDeleteForm(false)
-    }    
+    }
+
+    const buttonStyles = {
+        backgroundColor: 'transparent',
+        color: '#7c487c',
+        border: '2px solid #7c487c',
+        margin: 1,
+        '&:hover': {
+            backgroundColor: '#e2c7f7d8',
+            color: '7c487c',
+        }
+    }
 
     return (
-        <div>
-            <h1>Cats Section</h1>
+        <Box>
+            <Typography variant="h4" align="center" sx={{ fontWeight: 'bold', mb: 2, color: '#7c487c', border: '2px solid #7c487c', boxShadow: '4px 4px 0 #7c487c' }}>
+                Cats Section
+            </Typography>
             {showList ? (
                 <>
-                    <p>Here you can add, update, and delete cats.</p>
                     <ListCats />
-                    <button className="cat-button" onClick={handleAddClick}>
-                        <span className="button-text">Add a Cat</span>
-                    </button>
-                    <button className="cat-button" onClick={handleUpdateClick}>
-                        <span className="button-text">Update a Cat</span>
-                    </button>
-                    <button className="cat-button" onClick={handleDeleteClick}>
-                        <span className="button-text">Delete a Cat</span>
-                    </button>
-                    <button className="cat-button" onClick={() => setShowList(false)}>
-                        <span className="button-text">Go Back</span>
-                    </button>
+                    <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                        <Button onClick={handleAddClick} sx={buttonStyles}>Add a Cat</Button>
+                        <Button onClick={handleUpdateClick} sx={buttonStyles}>Update a Cat</Button>
+                        <Button onClick={handleDeleteClick} sx={buttonStyles}>Delete a Cat</Button>
+                        <Button onClick={() => setShowList(false)} sx={buttonStyles}>Go Back</Button>
+                    </Box>
                 </>
             ) : showAddForm ? (
                 <>
                     <AddCat />
-                    <button className="cat-button" onClick={handleShowListClick}>
-                        <span className="button-text">Go Back</span>
-                    </button>
+                    <Box sx={{ flexDirection: 'row', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                        <Button onClick={handleShowListClick} sx={buttonStyles}>Go Back</Button>
+                    </Box>
                 </>
             ) : showUpdateForm ? (
                 <>
                     <UpdateCat />
-                    <button className="cat-button" onClick={handleShowListClick}>
-                        <span className="button-text">Go Back</span>
-                    </button>
+                    <Box sx={{ flexDirection: 'row', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                        <Button onClick={handleShowListClick} sx={{ ...buttonStyles }}>Go Back</Button>
+                    </Box>
                 </>
             ) : showDeleteForm ? (
                 <>
                     <DeleteCat />
-                    <button className="cat-button" onClick={handleShowListClick}>
-                        <span className="button-text">Go Back</span>
-                    </button>
+                    <Box sx={{ flexDirection: 'row', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                        <Button onClick={handleShowListClick} sx={buttonStyles}>Go Back</Button>
+                    </Box>
                 </>
             ) : (
                 <>
-                    <button className="cat-button" onClick={handleShowListClick}>
-                        <span className="button-text">Show the List of Cats</span>
-                    </button>
-                    <button className="cat-button" onClick={handleShowFilterClick}>
-                        <span className="button-text">Filter Cats By Weight</span>
-                    </button>
+                    <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                        <Button onClick={handleShowListClick} sx={buttonStyles}>List Cats</Button>
+                        <Button onClick={handleShowFilterClick} sx={buttonStyles}>Filter Cats</Button>
+                    </Box>
                 </>
             )}
-            {showFilter ? <FilterCats /> : null}
-        </div>
+            {showFilter ? (
+                <>
+                    <FilterCats />
+                </>
+            ) : null}
+        </Box>
     )
 }
 

@@ -1,52 +1,82 @@
-import React from "react"
 import { useState, useEffect } from "react"
+import { Box, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography } from "@mui/material"
+import { styled } from '@mui/material/styles'
+
+const StyledTable = styled(Table)({
+    borderCollapse: 'collapse',
+    width: '100%',
+    margin: '0 auto',
+    fontFamily: 'Arial, sans-serif',
+})
+
+const StyledTableCell = styled(TableCell)({
+    padding: 8,
+    textAlign: 'left',
+    borderBottom: '1px solid #ddd',
+})
+
+const StyledTableHeadCell = styled(StyledTableCell)({
+    backgroundColor: '#f2f2f2',
+    fontWeight: 'bold',
+})
+
+const StyledTableRow = styled(TableRow)({
+    '&:hover': {
+        backgroundColor: '#f5f5f5',
+    },
+})
 
 function Owners() {
-    const [owners, setOwners] = useState([])
-    const [isLoading, setIsLoading] = useState(false)
-
+    const [owners, setOwners] = useState([]);
+    const [isLoading, setIsLoading] = useState(false);
     useEffect(() => {
-        setIsLoading(true)
-        fetch("/owners")
+        setIsLoading(true);
+        fetch("http://localhost:8000/owners")
             .then((response) => response.json())
             .then((data) => {
-                setOwners(data.data)
-                setIsLoading(false)
+                setOwners(data.data);
+                setIsLoading(false);
             })
     }, [])
 
+    if (isLoading) {
+        return <Typography>Loading...</Typography>
+    }
+
     return (
-        <div>
-            <h1>Owner Section</h1>
-            <table className="cat-table">
-                <thead>
-                    <tr>
-                        <th>First Name</th>
-                        <th>Last Name</th>
-                        <th>Address</th>
-                        <th>Phone Number</th>
-                        <th>Email</th>
-                        <th>Age</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {owners.map((owner) => {
-                        return (
-                            <tr key={owner.id}>
-                                <td className="cat-name">{owner.firstName}</td>
-                                <td>{owner.lastName}</td>
-                                <td>{owner.address}</td>
-                                <td>{owner.phone}</td>
-                                <td className="cat-details">{owner.email}</td>
-                                <td>{owner.age}</td>
-                            </tr>
-                        )
-                    }
-                    )}
-                </tbody>
-            </table>
-            {isLoading && <p>Loading...</p>}
-        </div>
+        <Box>
+            <Typography variant="h4" align="center" sx={{ fontWeight: 'bold', mb: 2, color: '#7c487c', border: '2px solid #7c487c', boxShadow: '4px 4px 0 #7c487c' }}>
+                Owners Section
+            </Typography>
+            <TableContainer>
+                <StyledTable>
+                    <TableHead>
+                        <StyledTableRow>
+                            <StyledTableHeadCell>ID</StyledTableHeadCell>
+                            <StyledTableHeadCell>First Name</StyledTableHeadCell>
+                            <StyledTableHeadCell>Last Name</StyledTableHeadCell>
+                            <StyledTableHeadCell>Address</StyledTableHeadCell>
+                            <StyledTableHeadCell>Phone</StyledTableHeadCell>
+                            <StyledTableHeadCell>Email</StyledTableHeadCell>
+                            <StyledTableHeadCell>Age</StyledTableHeadCell>
+                        </StyledTableRow>
+                    </TableHead>
+                    <TableBody>
+                        {owners.map((owner) => (
+                            <StyledTableRow key={owner.id}>
+                                <StyledTableCell>{owner.id}</StyledTableCell>
+                                <StyledTableCell>{owner.firstName}</StyledTableCell>
+                                <StyledTableCell>{owner.lastName}</StyledTableCell>
+                                <StyledTableCell>{owner.address}</StyledTableCell>
+                                <StyledTableCell>{owner.phone}</StyledTableCell>
+                                <StyledTableCell>{owner.email}</StyledTableCell>
+                                <StyledTableCell>{owner.age}</StyledTableCell>
+                            </StyledTableRow>
+                        ))}
+                    </TableBody>
+                </StyledTable>
+            </TableContainer>
+        </Box>
     )
 }
 

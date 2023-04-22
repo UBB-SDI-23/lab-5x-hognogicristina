@@ -1,50 +1,81 @@
-import React from "react"
 import { useState, useEffect } from "react"
+import { Box, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography } from "@mui/material"
+import { styled } from '@mui/material/styles'
 
-function Foods() {
-    const [foods, setFoods] = useState([])
-    const [isLoading, setIsLoading] = useState(false)
+const StyledTable = styled(Table)({
+    borderCollapse: 'collapse',
+    width: '100%',
+    margin: '0 auto',
+    fontFamily: 'Arial, sans-serif',
+})
 
+const StyledTableCell = styled(TableCell)({
+    padding: 8,
+    textAlign: 'left',
+    borderBottom: '1px solid #ddd',
+})
+
+const StyledTableHeadCell = styled(StyledTableCell)({
+    backgroundColor: '#f2f2f2',
+    fontWeight: 'bold',
+})
+
+const StyledTableRow = styled(TableRow)({
+    '&:hover': {
+        backgroundColor: '#f5f5f5',
+    },
+})
+
+function ListFoods() {
+    const [foods, setFoods] = useState([]);
+    const [isLoading, setIsLoading] = useState(false);
     useEffect(() => {
-        setIsLoading(true)
-        fetch("/foods")
+        setIsLoading(true);
+        fetch("http://localhost:8000/foods")
             .then((response) => response.json())
             .then((data) => {
-                setFoods(data.data)
-                setIsLoading(false)
+                setFoods(data.data);
+                setIsLoading(false);
             })
     }, [])
 
+    if (isLoading) {
+        return <Typography>Loading...</Typography>
+    }
+
     return (
-        <div>
-            <h1>Food Section</h1>
-            <table className="cat-table">
-                <thead>
-                    <tr>
-                        <th>Name</th>
-                        <th>Brand</th>
-                        <th>Price</th>
-                        <th>Quantity</th>
-                        <th>Type</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {foods.map((food) => {
-                        return (
-                            <tr key={food.id}>
-                                <td className="cat-name">{food.name}</td>
-                                <td>{food.brand}</td>
-                                <td>{food.price}</td>
-                                <td>{food.quantity}</td>
-                                <td>{food.type}</td>
-                            </tr>
-                        )
-                    })}
-                </tbody>
-            </table>
-            {isLoading && <p>Loading...</p>}
-        </div>
+        <Box>
+            <Typography variant="h4" align="center" sx={{ fontWeight: 'bold', mb: 2, color: '#7c487c', border: '2px solid #7c487c', boxShadow: '4px 4px 0 #7c487c' }}>
+                Food Section
+            </Typography>
+            <TableContainer>
+                <StyledTable>
+                    <TableHead>
+                        <StyledTableRow>
+                            <StyledTableHeadCell>ID</StyledTableHeadCell>
+                            <StyledTableHeadCell>Name</StyledTableHeadCell>
+                            <StyledTableHeadCell>Brand</StyledTableHeadCell>
+                            <StyledTableHeadCell>Price</StyledTableHeadCell>
+                            <StyledTableHeadCell>Quantity</StyledTableHeadCell>
+                            <StyledTableHeadCell>Type</StyledTableHeadCell>
+                        </StyledTableRow>
+                    </TableHead>
+                    <TableBody>
+                        {foods.map((food) => (
+                            <StyledTableRow key={food.id}>
+                                <StyledTableCell>{food.id}</StyledTableCell>
+                                <StyledTableCell>{food.name}</StyledTableCell>
+                                <StyledTableCell>{food.brand}</StyledTableCell>
+                                <StyledTableCell>{food.price}</StyledTableCell>
+                                <StyledTableCell>{food.quantity}</StyledTableCell>
+                                <StyledTableCell>{food.type}</StyledTableCell>
+                            </StyledTableRow>
+                        ))}
+                    </TableBody>
+                </StyledTable>
+            </TableContainer>
+        </Box>
     )
 }
 
-export default Foods
+export default ListFoods
