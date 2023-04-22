@@ -58,6 +58,7 @@ function Cats() {
         color: '#7c487c',
         border: '2px solid #7c487c',
         margin: 1,
+        zIndex: 0,
         '&:hover': {
             backgroundColor: '#e2c7f7d8',
             color: '7c487c',
@@ -82,23 +83,17 @@ function Cats() {
             ) : showAddForm ? (
                 <>
                     <AddCat />
-                    <Box sx={{ flexDirection: 'row', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                        <Button onClick={handleShowListClick} sx={buttonStyles}>Go Back</Button>
-                    </Box>
+                    <Button onClick={handleShowListClick} sx={buttonStyles}>Go Back</Button>
                 </>
             ) : showUpdateForm ? (
                 <>
                     <UpdateCat />
-                    <Box sx={{ flexDirection: 'row', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                        <Button onClick={handleShowListClick} sx={{ ...buttonStyles }}>Go Back</Button>
-                    </Box>
+                    <Button onClick={handleShowListClick} sx={{ ...buttonStyles }}>Go Back</Button>
                 </>
             ) : showDeleteForm ? (
                 <>
                     <DeleteCat />
-                    <Box sx={{ flexDirection: 'row', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                        <Button onClick={handleShowListClick} sx={buttonStyles}>Go Back</Button>
-                    </Box>
+                    <Button onClick={handleShowListClick} sx={buttonStyles}>Go Back</Button>
                 </>
             ) : (
                 <>

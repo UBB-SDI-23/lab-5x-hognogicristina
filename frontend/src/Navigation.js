@@ -31,6 +31,7 @@ function Navigation() {
         boxShadow: '0px 0px 10px hsla(309, 16%, 26%, 0.885)',
         flex: '0 0 auto',
         transition: 'width 0.3s ease',
+        zIndex: 1,
         '&:hover': {
             width: 230,
         }

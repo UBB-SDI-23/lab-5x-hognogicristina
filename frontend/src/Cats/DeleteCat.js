@@ -1,7 +1,6 @@
 import { useState } from "react"
 import { Box, Button, TextField, Typography } from "@mui/material"
 import { createTheme, ThemeProvider } from '@mui/material/styles'
-import Cats from "./Cats"
 
 function DeleteCat() {
     const [cat, setCat] = useState({
@@ -92,15 +91,16 @@ function DeleteCat() {
                         margin="normal"
                         variant="outlined"
                         placeholder="Example: 1"
+                        sx={{ zIndex: 0 }}
                     />
-                    {message && <Typography color="primary">{message}</Typography>}
+                    {message && <Typography color="red">{message}</Typography>}
                     <Button type="submit" variant="contained" sx={{ ...buttonStyles }}>
                         Submit
                     </Button>
                     <Button variant="contained" sx={{ ...buttonStyles }} onClick={handleReset}>
                         Reset
                     </Button>
-                    {isLoading && <Typography>Loading...</Typography>}
+                    {isLoading && <Typography sx={{ color: "#777" }}>Loading...</Typography>}
                 </ThemeProvider>
             </form>
         </Box>

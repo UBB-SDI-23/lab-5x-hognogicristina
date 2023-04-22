@@ -27,6 +27,12 @@ html {
   background: #edd4d4;
 }
 
+img {
+  width: 70%;
+  height: 70%;
+  border-radius: 10px;
+}
+
 /* .container {
   display: flex;
   max-width: 1200px;

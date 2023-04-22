@@ -18,7 +18,7 @@
       padding: '20px',
       bgcolor: '#fff',
       borderRadius: '0px 10px 10px 0px',
-      boxShadow: '0px 0px 10px hsla(309, 16%, 26%, 0.885)'
+      boxShadow: '0px 0px 10px hsla(309, 16%, 26%, 0.885)'  
     }
 
     return (

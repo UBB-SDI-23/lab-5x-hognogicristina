@@ -100,6 +100,7 @@ function AddCat() {
                         margin="normal"
                         variant="outlined"
                         placeholder="Example: Tom"
+                        sx={{ zIndex: 0 }}
                     />
                     <TextField
                         required
@@ -112,6 +113,7 @@ function AddCat() {
                         margin="normal"
                         variant="outlined"
                         placeholder="Example: 2"
+                        sx={{ zIndex: 0 }}
                     />
                     <TextField
                         required
@@ -124,6 +126,7 @@ function AddCat() {
                         margin="normal"
                         variant="outlined"
                         placeholder="Example: black"
+                        sx={{ zIndex: 0 }}
                     />
                     <TextField
                         required
@@ -136,6 +139,7 @@ function AddCat() {
                         margin="normal"
                         variant="outlined"
                         placeholder="Example: Persian"
+                        sx={{ zIndex: 0 }}
                     />
                     <TextField
                         required
@@ -148,6 +152,7 @@ function AddCat() {
                         margin="normal"
                         variant="outlined"
                         placeholder="Example: 5"
+                        sx={{ zIndex: 0 }}
                     />
                     <TextField
                         required
@@ -160,15 +165,16 @@ function AddCat() {
                         margin="normal"
                         variant="outlined"
                         placeholder="Example: 1"
+                        sx={{ zIndex: 0 }}
                     />
-                    {message && <Typography color="primary">{message}</Typography>}
+                    {message && <Typography color="red">{message}</Typography>}
                     <Button type="submit" variant="contained" sx={{ ...buttonStyles }}>
                         Submit
                     </Button>
                     <Button variant="contained" sx={{ ...buttonStyles }} onClick={handleReset}>
                         Reset
                     </Button>
-                    {isLoading && <Typography>Loading...</Typography>}
+                    {isLoading && <Typography sx={{ color: "#777" }}>Loading...</Typography>}
                 </ThemeProvider>
             </form>
         </Box>

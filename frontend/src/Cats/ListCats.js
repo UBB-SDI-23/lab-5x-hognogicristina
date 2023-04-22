@@ -40,7 +40,7 @@ function ListCats() {
     }, [])
 
     if (isLoading) {
-        return <Typography>Loading...</Typography>
+        return <Typography sx={{ color: "#777" }}>Loading...</Typography>
     }
 
     return (

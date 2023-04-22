@@ -46,8 +46,6 @@ function Home() {
                 <img
                     src="https://e3.365dm.com/22/07/1600x900/skynews-cats-pet_5846440.jpg?20220726201324"
                     alt=""
-                    width='65%'
-                    height='65%'
                 />
             </Box>
         </Box>
