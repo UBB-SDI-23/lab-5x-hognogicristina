@@ -25,7 +25,7 @@ function NewListCats(props) {
 
     return (
         <>
-            {cats.length === 0 ? (
+            {cats === undefined ? (
                 <Typography variant="body1" align="center" sx={{ ...pStyle }}>
                     No cats found.
                 </Typography>
@@ -43,7 +43,7 @@ function NewListCats(props) {
                             </TableRow>
                         </TableHead>
                         <TableBody>
-                            {cats.map(cat => (
+                            {cats && cats.map(cat => (
                                 <TableRow key={cat.id}>
                                     <TableCell>{cat.name}</TableCell>
                                     <TableCell>{cat.age}</TableCell>

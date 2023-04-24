@@ -12,7 +12,7 @@ function GetOneCat(props) {
                 setCatData(response.data.data)
             })
     }, [props.id])
-    
+
     if (catData) {
         const { name, age, color, breed, weight, ownerData } = catData
         const { owner } = ownerData
@@ -23,11 +23,14 @@ function GetOneCat(props) {
                     <Table aria-label="cat information table">
                         <TableBody>
                             <TableRow>
+                                <TableCell component="th" scope="row" sx={{ fontWeight: 'bold', borderBottom: 'none' }}>Cat</TableCell>
+                            </TableRow>
+                            <TableRow>
                                 <TableCell component="th" scope="row">Name</TableCell>
                                 <TableCell>{name}</TableCell>
                             </TableRow>
                             <TableRow>
-                                <TableCell component="th" scope="row">Cat Age</TableCell>
+                                <TableCell component="th" scope="row">Age</TableCell>
                                 <TableCell>{age}</TableCell>
                             </TableRow>
                             <TableRow>
@@ -43,7 +46,10 @@ function GetOneCat(props) {
                                 <TableCell>{weight}</TableCell>
                             </TableRow>
                             <TableRow>
-                                <TableCell component="th" scope="row">Owner</TableCell>
+                                <TableCell component="th" scope="row" sx={{ fontWeight: 'bold', borderBottom: 'none' }}>Owner</TableCell>
+                            </TableRow>
+                            <TableRow>
+                                <TableCell component="th" scope="row">Name</TableCell>
                                 <TableCell>{owner[0].firstName} {owner[0].lastName}</TableCell>
                             </TableRow>
                             <TableRow>
@@ -59,7 +65,7 @@ function GetOneCat(props) {
                                 <TableCell>{owner[0].email}</TableCell>
                             </TableRow>
                             <TableRow>
-                                <TableCell component="th" scope="row">Owner Age</TableCell>
+                                <TableCell component="th" scope="row">Age</TableCell>
                                 <TableCell>{owner[0].age}</TableCell>
                             </TableRow>
                         </TableBody>
