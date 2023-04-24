@@ -6,7 +6,7 @@ module.exports = function (app) {
         changeOrigin: true,
         secure: false,
         pathRewrite: {
-            '^/': '/cats'
+            '^/cats': '/cats'
         },
     }))
 }
