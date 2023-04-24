@@ -6,7 +6,7 @@ export default function (app) {
         changeOrigin: true,
         secure: false,
         pathRewrite: {
-            '^/cats': '/cats'
+            '^/cats': ''
         },
     }))
 }
