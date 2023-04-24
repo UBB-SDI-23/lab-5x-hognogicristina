@@ -28,7 +28,7 @@ function UpdateCat() {
         event.preventDefault()
         setIsLoading(true)
         setMessage("")
-        fetch("http://localhost:8000/cats_update/" + cat.id, {
+        fetch("https://adopt-a-cat.onrender.com/cats_update/" + cat.id, {
             method: "PUT",
             headers: {
                 "Content-Type": "application/json",

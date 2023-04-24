@@ -22,7 +22,7 @@ function DeleteCat() {
         event.preventDefault()
         setIsLoading(true)
         setMessage("")
-        fetch("http://localhost:8000/cats_delete/" + cat.id, {
+        fetch("https://adopt-a-cat.onrender.com/cats_delete/" + cat.id, {
             method: "DELETE",
             headers: {
                 "Content-Type": "application/json",
