@@ -27,7 +27,7 @@ function AddCat() {
         event.preventDefault()
         setIsLoading(true)
         setMessage("")
-        fetch("https://adopt-a-cat.onrender.com/cats_add", {
+        fetch("/cats_add", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",

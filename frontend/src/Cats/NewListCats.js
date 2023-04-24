@@ -7,7 +7,7 @@ function NewListCats(props) {
 
     useEffect(() => {
         setIsLoading(true)
-        fetch("https://adopt-a-cat.onrender.com/cats_filter/" + props.weight)
+        fetch("/cats_filter/" + props.weight)
             .then((response) => response.json())
             .then((data) => {
                 setCats(data.data)

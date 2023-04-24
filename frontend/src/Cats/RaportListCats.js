@@ -7,7 +7,7 @@ function RaportListCats(props) {
     const [isLoading, setIsLoading] = useState(false)
 
     useEffect(() => {
-        axios.get("https://adopt-a-cat.onrender.com/cats_statistic/" + props.breed)
+        axios.get("/cats_statistic/" + props.breed)
             .then(response => {
                 setCatData(response.data.data)
                 setIsLoading(false)
