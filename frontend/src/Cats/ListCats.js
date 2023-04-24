@@ -31,7 +31,7 @@ function ListCats() {
     const [isLoading, setIsLoading] = useState(false);
     useEffect(() => {
         setIsLoading(true);
-        fetch("/cats")
+        fetch("https://adopt-a-cat.onrender.com/cats")
             .then((response) => response.json())
             .then((data) => {
                 setCats(data.data);

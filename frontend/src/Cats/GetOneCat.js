@@ -7,7 +7,7 @@ function GetOneCat(props) {
     const [catData, setCatData] = useState(null)
 
     useEffect(() => {
-        axios.get("/cats/" + props.id)
+        axios.get("https://adopt-a-cat.onrender.com/cats/" + props.id)
             .then(response => {
                 setCatData(response.data.data)
             })
