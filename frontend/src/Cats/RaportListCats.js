@@ -37,6 +37,7 @@ function RaportListCats(props) {
                                 <TableCell sx={{ fontWeight: 'bold' }}>Age</TableCell>
                                 <TableCell sx={{ fontWeight: 'bold' }}>Color</TableCell>
                                 <TableCell sx={{ fontWeight: 'bold' }}>Weight</TableCell>
+                                <TableCell sx={{ fontWeight: 'bold' }}>Description</TableCell>
                                 <TableCell sx={{ fontWeight: 'bold' }}>Owner</TableCell>
                                 <TableCell sx={{ fontWeight: 'bold' }}>Avg. Age</TableCell>
                             </TableRow>
@@ -48,6 +49,7 @@ function RaportListCats(props) {
                                     <TableCell>{cat.age}</TableCell>
                                     <TableCell>{cat.color}</TableCell>
                                     <TableCell>{cat.weight}</TableCell>
+                                    <TableCell>{cat.description}</TableCell>
                                     <TableCell>{cat.owner.firstName}</TableCell>
                                     <TableCell>{cat.avgAge}</TableCell>
                                 </TableRow>

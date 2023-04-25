@@ -47,11 +47,12 @@ module.exports = {
         var color = req.body.color
         var breed = req.body.breed
         var weight = req.body.weight
+        var description = req.body.description
         var ownerId = req.body.ownerId
 
         validationCat.validateCat(req.body, "add").then(result => {
             if (result == null) {
-                repo.createCat(name, age, color, breed, weight, ownerId)
+                repo.createCat(name, age, color, breed, weight, description, ownerId)
                 res.send({
                     success: true,
                     message: "Cat created successfully"
@@ -91,11 +92,12 @@ module.exports = {
         var color = req.body.color
         var breed = req.body.breed
         var weight = req.body.weight
+        var description = req.body.description
         var ownerId = req.body.ownerId
 
         validationCat.validateCat(req.body, "update").then(result => {
             if (result == null) {
-                repo.updateCat(id, name, age, color, breed, weight, ownerId)
+                repo.updateCat(id, name, age, color, breed, weight, description, ownerId)
                 res.send({
                     success: true,
                     message: "Cat updated successfully"

@@ -9,6 +9,7 @@ function AddCat() {
         color: "",
         breed: "",
         weight: "",
+        description: "",
         ownerId: "",
     })
 
@@ -48,6 +49,7 @@ function AddCat() {
             color: "",
             breed: "",
             weight: "",
+            description: "",
             ownerId: "",
         })
     }
@@ -152,6 +154,19 @@ function AddCat() {
                         margin="normal"
                         variant="outlined"
                         placeholder="Example: 5"
+                        sx={{ zIndex: 0 }}
+                    />
+                    <TextField
+                        required
+                        fullWidth
+                        id="description"
+                        name="description"
+                        label="Description"
+                        value={cat.description}
+                        onChange={handleChange}
+                        margin="normal"
+                        variant="outlined"
+                        placeholder="Example: Very cute cat"
                         sx={{ zIndex: 0 }}
                     />
                     <TextField

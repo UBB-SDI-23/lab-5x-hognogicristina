@@ -54,6 +54,7 @@ function ListCats() {
                         <StyledTableHeadCell>Color</StyledTableHeadCell>
                         <StyledTableHeadCell>Breed</StyledTableHeadCell>
                         <StyledTableHeadCell>Weight</StyledTableHeadCell>
+                        <StyledTableHeadCell>Description</StyledTableHeadCell>
                         <StyledTableHeadCell>Owner</StyledTableHeadCell>
                     </StyledTableRow>
                 </TableHead>
@@ -67,6 +68,7 @@ function ListCats() {
                                 <StyledTableCell>{cat.color}</StyledTableCell>
                                 <StyledTableCell>{cat.breed}</StyledTableCell>
                                 <StyledTableCell>{cat.weight}</StyledTableCell>
+                                <StyledTableCell>{cat.description}</StyledTableCell>
                                 <StyledTableCell>{cat.ownerId}</StyledTableCell>
                             </StyledTableRow>
                         )

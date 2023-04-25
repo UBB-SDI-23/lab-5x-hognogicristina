@@ -39,6 +39,7 @@ function NewListCats(props) {
                                 <TableCell sx={{ fontWeight: 'bold' }}>Color</TableCell>
                                 <TableCell sx={{ fontWeight: 'bold' }}>Breed</TableCell>
                                 <TableCell sx={{ fontWeight: 'bold' }}>Weight</TableCell>
+                                <TableCell sx={{ fontWeight: 'bold' }}>Description</TableCell>
                                 <TableCell sx={{ fontWeight: 'bold' }}>Owner</TableCell>
                             </TableRow>
                         </TableHead>
@@ -50,6 +51,7 @@ function NewListCats(props) {
                                     <TableCell>{cat.color}</TableCell>
                                     <TableCell>{cat.breed}</TableCell>
                                     <TableCell>{cat.weight}</TableCell>
+                                    <TableCell>{cat.description}</TableCell>
                                     <TableCell>{cat.ownerId}</TableCell>
                                 </TableRow>
                             ))}

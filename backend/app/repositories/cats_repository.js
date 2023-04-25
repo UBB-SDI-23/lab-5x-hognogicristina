@@ -56,8 +56,8 @@ module.exports = {
         return await db.getOneCatById(id)
     },
 
-    createCat: async function (name, age, color, breed, weight, ownerId) {
-        let newCat = new cat({ name: name, age: age, color: color, breed: breed, weight: weight, ownerId: ownerId })
+    createCat: async function (name, age, color, breed, weight, description, ownerId) {
+        let newCat = new cat({ name: name, age: age, color: color, breed: breed, weight: weight, description: description, ownerId: ownerId })
         return await db.addCat(newCat.dataValues)
     },
 
@@ -65,7 +65,7 @@ module.exports = {
         return await db.deleteCat(id)
     },
 
-    updateCat: async function (id, name, age, color, breed, weight, ownerId) {
+    updateCat: async function (id, name, age, color, breed, weight, description, ownerId) {
         let index = cats.filter(el => el.id == id)
 
         cats[index] = {
@@ -75,6 +75,7 @@ module.exports = {
             color: color,
             breed: breed,
             weight: weight,
+            description: description,
             ownerId: ownerId
 		}
 

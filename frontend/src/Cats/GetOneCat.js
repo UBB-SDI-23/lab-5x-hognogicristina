@@ -14,7 +14,7 @@ function GetOneCat(props) {
     }, [props.id])
 
     if (catData) {
-        const { name, age, color, breed, weight, ownerData } = catData
+        const { name, age, color, breed, weight, description, ownerData } = catData
         const { owner } = ownerData
 
         return (
@@ -44,6 +44,10 @@ function GetOneCat(props) {
                             <TableRow>
                                 <TableCell component="th" scope="row">Weight</TableCell>
                                 <TableCell>{weight}</TableCell>
+                            </TableRow>
+                            <TableRow>
+                                <TableCell component="th" scope="row">Description</TableCell>
+                                <TableCell>{catData.description}</TableCell>
                             </TableRow>
                             <TableRow>
                                 <TableCell component="th" scope="row" sx={{ fontWeight: 'bold', borderBottom: 'none' }}>Owner</TableCell>

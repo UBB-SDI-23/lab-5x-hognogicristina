@@ -37,6 +37,10 @@ cat.init({
         type: DataTypes.INTEGER,
         allowNull: false
     },
+    description: {
+        type: DataTypes.STRING(100),
+        allowNull: false
+    },
     ownerId: {
         type: DataTypes.INTEGER,
         allowNull: false,

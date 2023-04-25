@@ -26,7 +26,7 @@ async function deleteCat(id) {
 
 async function updateCat(cats) {
     return cat.update(
-        { name: cats.name, age: cats.age, color: cats.color, breed: cats.breed, weight: cats.weight, ownerId: cats.ownerId },
+        { name: cats.name, age: cats.age, color: cats.color, breed: cats.breed, weight: cats.weight, description: cats.description, ownerId: cats.ownerId },
         { where: { id: cats.id } })
 }
 
@@ -42,7 +42,7 @@ async function getStatisticReportBreed(breed) {
     cat.belongsTo(owner, { foreignKey: 'ownerId' })
 
     const result = await cat.findAll({
-        attributes: ['id', 'name', 'age', 'color', 'breed', 'weight', 'ownerId', [Sequelize.fn('AVG', Sequelize.col('owner.age')), 'avgAge']],
+        attributes: ['id', 'name', 'age', 'color', 'breed', 'weight', 'description', 'ownerId', [Sequelize.fn('AVG', Sequelize.col('owner.age')), 'avgAge']],
         include: [{
             model: owner,
             attributes: ['firstName']
