@@ -18,12 +18,9 @@ require("./app/routes/cats_routes.js")(app)
 require("./app/routes/foods_for_cats_routes.js")(app)
 require("./app/routes/foods_routes.js")(app)
 
-app.use(
-	'/api-docs',
-	swaggerUi.serve,
-	swaggerUi.setup(swaggerDocument),
+app.use('/swagger', swaggerUi.serve, swaggerUi.setup(swaggerDocument), (req, res) => {
 	res.header("Access-Control-Allow-Origin", "https://meow-adopt-a-cat.onrender.com")
-)
+})
 
 app.get("/api", (_, res) => {
 	res.send("Welcome to the Adopt a Cat app!")
