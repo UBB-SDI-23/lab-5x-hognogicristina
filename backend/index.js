@@ -4,8 +4,18 @@ const cors = require('cors')
 app.use(express.json())
 app.use(cors())
 
+// enable CORS
+app.use((req, res, next) => {
+	res.header('Access-Control-Allow-Origin', '*');
+	res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
+	next();
+});
+
+// your routes and other middleware here
+
+
 const swaggerUi = require('swagger-ui-express'),
-	swaggerDocument = require('./swagger.json');
+	swaggerDocument = require('./swagger.json')
 
 require("./app/routes/owners_routes.js")(app)
 require("./app/routes/cats_routes.js")(app)
@@ -16,7 +26,7 @@ app.use(
 	'/api-docs',
 	swaggerUi.serve,
 	swaggerUi.setup(swaggerDocument)
-);
+)
 
 app.get("/api", (_, res) => {
 	res.send("Welcome to the Adopt a Cat app!")
