@@ -31,7 +31,7 @@ function Owners() {
     const [isLoading, setIsLoading] = useState(false);
     useEffect(() => {
         setIsLoading(true);
-        fetch("/owners")
+        fetch("https://adopt-a-cat.onrender.com/owners")
             .then((response) => response.json())
             .then((data) => {
                 setOwners(data.data);

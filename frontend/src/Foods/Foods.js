@@ -31,7 +31,7 @@ function ListFoods() {
     const [isLoading, setIsLoading] = useState(false);
     useEffect(() => {
         setIsLoading(true);
-        fetch("/foods")
+        fetch("https://adopt-a-cat.onrender.com/foods")
             .then((response) => response.json())
             .then((data) => {
                 setFoods(data.data);
