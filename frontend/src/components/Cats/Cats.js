@@ -132,7 +132,7 @@ function Cats() {
             ) : showDeleteForm ? (
                 <>
                     <DeleteCat />
-                    <Button onClick={handleShowListClick} sx={buttonStyles}>Go Back</Button>
+                    <Button onClick={handleShowListClick} position='absolute' sx={buttonStyles}>Go Back</Button>
                 </>
             ) : (
                 <>
