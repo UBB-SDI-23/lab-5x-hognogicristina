@@ -4,15 +4,11 @@ const cors = require('cors')
 app.use(express.json())
 app.use(cors())
 
-// enable CORS
-app.use((req, res, next) => {
-	res.header('Access-Control-Allow-Origin', '*');
-	res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
-	next();
-});
-
-// your routes and other middleware here
-
+app.use(function (req, res, next) {
+	res.header("Access-Control-Allow-Origin", "https://644767ba21d4b003fd837225--meow-adopt-a-cat.netlify.app")
+	res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept")
+	next()
+})
 
 const swaggerUi = require('swagger-ui-express'),
 	swaggerDocument = require('./swagger.json')
