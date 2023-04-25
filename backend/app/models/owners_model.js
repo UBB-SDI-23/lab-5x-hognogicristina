@@ -1,4 +1,4 @@
-const { Sequelize, Model, DataTypes } = require('sequelize');
+const { Sequelize, Model, DataTypes } = require('sequelize')
 const mysql2 = require('mysql2')
 
 const sequelize = new Sequelize('bo8dhdnecmi9kqgy6joa', 'utjidt7rdyxmke4r', 'YRtSHxz0xzXW2m5UY4rT', {
@@ -31,11 +31,13 @@ owner.init({
     },
     phone: {
         type: DataTypes.INTEGER,
-        allowNull: false
+        allowNull: false,
+        unique: true
     },
     email: {
         type: DataTypes.STRING(100),
-        allowNull: false
+        allowNull: false,
+        unique: true
     },
     age: {
         type: DataTypes.INTEGER,
