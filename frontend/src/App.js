@@ -1,11 +1,11 @@
   import './App.css'
 
-  import Home from './Home'
-  import Navigation from './Navigation'
+  import Home from './pagination/Home'
+  import Navigation from './pagination/Navigation'
 
-  import Cats from './Cats/Cats'
-  import Owners from './Owners/Owners'
-  import Foods from './Foods/Foods'
+  import Cats from './components/Cats/Cats'
+  import Owners from './components/Owners/Owners'
+  import Foods from './components/Foods/Foods'
 
   import { BrowserRouter, Routes, Route } from 'react-router-dom'
   import { Container, Box } from '@mui/material'
