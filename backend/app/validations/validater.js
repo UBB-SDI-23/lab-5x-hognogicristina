@@ -19,6 +19,11 @@ class Validation {
         return re.test(name)
     }
 
+    static validateDescr(name) {
+        var re = /^[a-zA-Z]{50,}$/
+        return re.test(name)
+    }
+
     static validateDate(date) {
         var re = /^\d{4}-\d{2}-\d{2}$/
         return re.test(date)

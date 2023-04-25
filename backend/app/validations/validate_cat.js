@@ -7,6 +7,7 @@ class ValidationCat {
         var color = cat.color
         var breed = cat.breed
         var weight = cat.weight
+        var description = cat.description
         var ownerId = cat.ownerId
 
         if (name == null) {
@@ -31,6 +32,8 @@ class ValidationCat {
             return "Weight is a number greater than 0"
         } else if (!Validation.validateName(color)) {
             return "Color should have at least 3 letters"
+        } else if (!Validation.validateDescr(description)) {
+            return "Description should have at least 50 letters"
         } else if (!await Validation.isIdInUse(ownerId, "owner")) {
             return "Owner id does not exist"
         } else {
@@ -44,6 +47,7 @@ class ValidationCat {
         var color = cat.color
         var breed = cat.breed
         var weight = cat.weight
+        var description = cat.description
         var ownerId = cat.ownerId
 
         if (name == null) {
@@ -68,6 +72,8 @@ class ValidationCat {
             return "Weight is a number greater than 0"
         } else if (!Validation.validateName(color)) {
             return "Color should have at least 3 letters"
+        } else if (!Validation.validateDescr(description)) {
+            return "Description should have at least 50 letters"
         } else if (!await Validation.isIdInUse(ownerId, "owner")) {
             return "Owner id does not exist"
         } else {

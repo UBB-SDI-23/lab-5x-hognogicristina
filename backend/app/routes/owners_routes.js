@@ -33,12 +33,28 @@ module.exports = (app) => {
 
     gen()
 
-    app.get('/owners', controllerOwner.getOwner)
-    app.get('/owners/:id', controllerOwner.getOneOwner)
-    app.post('/owners_add', controllerOwner.createOwner)
-    app.delete('/owners_delete/:id', controllerOwner.deleteOwner)
-    app.put('/owners_update/:id', controllerOwner.updateOwner)
-    app.get('/owners_statistic', controllerOwner.getStatistics)
-    app.post('/owners/:id/cats_list', controllerOwner.changeOwnerIdOfCats)
-    app.post('/owners/:id/cats_create', controllerOwner.createCatForOwner)
+    app.get('/owners', controllerOwner.getOwner, (req, res) => {
+        res.header("Access-Control-Allow-Origin", "https://meow-adopt-a-cat.onrender.com")
+    })
+    app.get('/owners/:id', controllerOwner.getOneOwner, (req, res) => {
+        res.header("Access-Control-Allow-Origin", "https://meow-adopt-a-cat.onrender.com")
+    })
+    app.post('/owners_add', controllerOwner.createOwner, (req, res) => {
+        res.header("Access-Control-Allow-Origin", "https://meow-adopt-a-cat.onrender.com")
+    })
+    app.delete('/owners_delete/:id', controllerOwner.deleteOwner, (req, res) => {
+        res.header("Access-Control-Allow-Origin", "https://meow-adopt-a-cat.onrender.com")
+    })
+    app.put('/owners_update/:id', controllerOwner.updateOwner, (req, res) => {
+        res.header("Access-Control-Allow-Origin", "https://meow-adopt-a-cat.onrender.com")
+    })
+    app.get('/owners_statistic', controllerOwner.getStatistics, (req, res) => {
+        res.header("Access-Control-Allow-Origin", "https://meow-adopt-a-cat.onrender.com")
+    })
+    app.post('/owners/:id/cats_list', controllerOwner.changeOwnerIdOfCats, (req, res) => {
+        res.header("Access-Control-Allow-Origin", "https://meow-adopt-a-cat.onrender.com")
+    })
+    app.post('/owners/:id/cats_create', controllerOwner.createCatForOwner, (req, res) => {
+        res.header("Access-Control-Allow-Origin", "https://meow-adopt-a-cat.onrender.com")
+    })
 }
