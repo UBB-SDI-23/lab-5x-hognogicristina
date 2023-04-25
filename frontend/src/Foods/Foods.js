@@ -31,7 +31,7 @@ function ListFoods() {
     const [isLoading, setIsLoading] = useState(false);
     useEffect(() => {
         setIsLoading(true);
-        fetch("http://localhost:8000/foods")
+        fetch("/foods")
             .then((response) => response.json())
             .then((data) => {
                 setFoods(data.data);

@@ -31,7 +31,7 @@ function Owners() {
     const [isLoading, setIsLoading] = useState(false);
     useEffect(() => {
         setIsLoading(true);
-        fetch("http://localhost:8000/owners")
+        fetch("/owners")
             .then((response) => response.json())
             .then((data) => {
                 setOwners(data.data);
