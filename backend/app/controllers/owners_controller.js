@@ -42,7 +42,6 @@ module.exports = {
     },
 
     createOwner: function (req, res) {
-        var id = req.body.id
         var firstName = req.body.firstName
         var lastName = req.body.lastName
         var address = req.body.address
@@ -52,7 +51,7 @@ module.exports = {
 
         validationOwner.validateOwner(req.body, "add").then(result => {
             if (result == null) {
-                repoOwner.createOwner(id, firstName, lastName, address, phone, email, age)
+                repoOwner.createOwner(firstName, lastName, address, phone, email, age)
                 res.send({
                     success: true,
                     message: "Owner created successfully"

@@ -47,7 +47,7 @@ module.exports = {
 
         validationFood.validateFood(req.body, "add").then(result => {
             if (result == null) {
-                repo.createFood(id, name, brand, price, quantity, type)
+                repo.createFood(name, brand, price, quantity, type)
                 res.send({
                     success: true,
                     message: "Food created successfully"

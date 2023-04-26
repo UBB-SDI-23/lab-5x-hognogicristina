@@ -46,7 +46,7 @@ module.exports = {
 
         validateFoodCat.validateFoodForCat(req.body, "add").then(result => {
             if (result == null) {
-                repo.createFoodCat(id, catId, foodId, purchased, place)
+                repo.createFoodCat(catId, foodId, purchased, place)
                 res.send({
                     success: true,
                     message: "Food for cat created successfully"

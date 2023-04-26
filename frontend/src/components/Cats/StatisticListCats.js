@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { Typography, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper } from '@mui/material'
 import axios from 'axios'
 
-function RaportListCats(props) {
+function StatisticListCats(props) {
     const [catData, setCatData] = useState([])
     const [isLoading, setIsLoading] = useState(false)
 
@@ -63,4 +63,4 @@ function RaportListCats(props) {
     )
 }
 
-export default RaportListCats
+export default StatisticListCats

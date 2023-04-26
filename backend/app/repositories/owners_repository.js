@@ -7,16 +7,16 @@ module.exports = {
     genOwner: function () {
         owners = []
 
-        let owner1 = new owner({ id: 1, firstName: "Oliver", lastName: "Smith", address: "34 Cook Street", phone: 71838750, email: "olism@gmail.com", age: 34 })
-        let owner2 = new owner({ id: 2, firstName: "John", lastName: "Karev", address: "12 Main Street", phone: 71838751, email: "johnykav@yahoo.com", age: 40 })
-        let owner3 = new owner({ id: 3, firstName: "Mary", lastName: "Grey", address: "23 Park Avenue", phone: 71838752, email: "marygrey@gmail.com", age: 34 })
-        let owner4 = new owner({ id: 4, firstName: "Meredith", lastName: "Grey", address: "34 Cook Street", phone: 71838753, email: "mergrey@gmail.com", age: 16 })
-        let owner5 = new owner({ id: 5, firstName: "Alex", lastName: "Karev", address: "12 Main Street", phone: 71838754, email: "karev@yahoo.com", age: 89 })
-        let owner6 = new owner({ id: 6, firstName: "Jose", lastName: "Wilson", address: "23 Park Avenue", phone: 71838755, email: "jo@yahoo.com", age: 35 })
-        let owner7 = new owner({ id: 7, firstName: "Richard", lastName: "Webber", address: "34 Cook Street", phone: 71838756, email: "rich@yahoo.com", age: 89 })
-        let owner8 = new owner({ id: 8, firstName: "Jackson", lastName: "Avery", address: "12 Main Street", phone: 71838757, email: "jack@gmail.com", age: 34 })
-        let owner9 = new owner({ id: 9, firstName: "April", lastName: "Kepner", address: "23 Park Avenue", phone: 71838758, email: "april@yahoo.com", age: 16 })
-        let owner10 = new owner({ id: 10, firstName: "Callie", lastName: "Torres", address: "34 Cook Street", phone: 71838759, email: "callie@gmail.com", age: 89 })
+        let owner1 = new owner({ firstName: "Oliver", lastName: "Smith", address: "34 Cook Street", phone: 71838750, email: "olism@gmail.com", age: 34 })
+        let owner2 = new owner({ firstName: "John", lastName: "Karev", address: "12 Main Street", phone: 71838751, email: "johnykav@yahoo.com", age: 40 })
+        let owner3 = new owner({ firstName: "Mary", lastName: "Grey", address: "23 Park Avenue", phone: 71838752, email: "marygrey@gmail.com", age: 34 })
+        let owner4 = new owner({ firstName: "Meredith", lastName: "Grey", address: "34 Cook Street", phone: 71838753, email: "mergrey@gmail.com", age: 16 })
+        let owner5 = new owner({ firstName: "Alex", lastName: "Karev", address: "12 Main Street", phone: 71838754, email: "karev@yahoo.com", age: 89 })
+        let owner6 = new owner({ firstName: "Jose", lastName: "Wilson", address: "23 Park Avenue", phone: 71838755, email: "jo@yahoo.com", age: 35 })
+        let owner7 = new owner({ firstName: "Richard", lastName: "Webber", address: "34 Cook Street", phone: 71838756, email: "rich@yahoo.com", age: 89 })
+        let owner8 = new owner({ firstName: "Jackson", lastName: "Avery", address: "12 Main Street", phone: 71838757, email: "jack@gmail.com", age: 34 })
+        let owner9 = new owner({ firstName: "April", lastName: "Kepner", address: "23 Park Avenue", phone: 71838758, email: "april@yahoo.com", age: 16 })
+        let owner10 = new owner({ firstName: "Callie", lastName: "Torres", address: "34 Cook Street", phone: 71838759, email: "callie@gmail.com", age: 89 })
 
         owners.push(owner1)
         owners.push(owner2)
@@ -42,8 +42,8 @@ module.exports = {
         return await db.getOneOwnerById(id)
     },
 
-    createOwner: async function (id, firstName, lastName, address, phone, email, age) {
-        let newOwner = new owner({ id: id, firstName: firstName, lastName: lastName, address: address, phone: phone, email: email, age: age })
+    createOwner: async function (firstName, lastName, address, phone, email, age) {
+        let newOwner = new owner({ firstName: firstName, lastName: lastName, address: address, phone: phone, email: email, age: age })
         return await db.addOwner(newOwner.dataValues)
     },
 

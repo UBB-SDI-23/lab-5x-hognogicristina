@@ -1,7 +1,7 @@
 import ListCats from "./ListCats"
 import OneCat from "./OneCat"
 import FilterCats from "./FilterCats"
-import RaportCat from "./RaportCat"
+import StatisticCat from "./StatisticCat"
 import AddCat from "./AddCat"
 import DeleteCat from "./DeleteCat"
 import UpdateCat from "./UpdateCat"
@@ -12,7 +12,7 @@ function Cats() {
     const [showList, setShowList] = useState(false)
     const [showCat, setShowCat] = useState(false)
     const [showFilter, setShowFilter] = useState(false)
-    const [showRaport, setShowRaport] = useState(false)
+    const [showStatistic, setShowStatistic] = useState(false)
     const [showAddForm, setShowAddForm] = useState(false)
     const [showDeleteForm, setShowDeleteForm] = useState(false)
     const [showUpdateForm, setShowUpdateForm] = useState(false)
@@ -21,7 +21,7 @@ function Cats() {
         setShowList(true)
         setShowCat(false)
         setShowFilter(false)
-        setShowRaport(false)
+        setShowStatistic(false)
         setShowAddForm(false)
         setShowDeleteForm(false)
         setShowUpdateForm(false)
@@ -31,7 +31,7 @@ function Cats() {
         setShowCat(true)
         setShowList(false)
         setShowFilter(false)
-        setShowRaport(false)
+        setShowStatistic(false)
         setShowAddForm(false)
         setShowDeleteForm(false)
         setShowUpdateForm(false)
@@ -41,14 +41,14 @@ function Cats() {
         setShowFilter(true)
         setShowList(false)
         setShowCat(false)
-        setShowRaport(false)
+        setShowStatistic(false)
         setShowAddForm(false)
         setShowDeleteForm(false)
         setShowUpdateForm(false)
     }
 
     const handleShowRaportClick = () => {
-        setShowRaport(true)
+        setShowStatistic(true)
         setShowList(false)
         setShowCat(false)
         setShowFilter(false)
@@ -62,7 +62,7 @@ function Cats() {
         setShowList(false)
         setShowCat(false)
         setShowFilter(false)
-        setShowRaport(false)
+        setShowStatistic(false)
         setShowDeleteForm(false)
         setShowUpdateForm(false)
     }
@@ -72,7 +72,7 @@ function Cats() {
         setShowList(false)
         setShowCat(false)
         setShowFilter(false)
-        setShowRaport(false)
+        setShowStatistic(false)
         setShowAddForm(false)
         setShowUpdateForm(false)
     }
@@ -82,7 +82,7 @@ function Cats() {
         setShowList(false)
         setShowCat(false)
         setShowFilter(false)
-        setShowRaport(false)
+        setShowStatistic(false)
         setShowAddForm(false)
         setShowDeleteForm(false)
     }
@@ -140,7 +140,7 @@ function Cats() {
                         <Button onClick={handleShowListClick} sx={buttonStyles}>List Cats</Button>
                         <Button onClick={handleShowCatClick} sx={buttonStyles}>One Cat</Button>
                         <Button onClick={handleShowFilterClick} sx={buttonStyles}>Filter Cats</Button>
-                        <Button onClick={handleShowRaportClick} sx={buttonStyles}>Raport Cats</Button>
+                        <Button onClick={handleShowRaportClick} sx={buttonStyles}>Statistic Cats</Button>
                     </Box>
                 </>
             )}
@@ -154,9 +154,9 @@ function Cats() {
                     <FilterCats />
                 </>
             ) : null}
-            {showRaport ? (
+            {showStatistic ? (
                 <>
-                    <RaportCat />
+                    <StatisticCat />
                 </>
             ) : null}
         </Box>

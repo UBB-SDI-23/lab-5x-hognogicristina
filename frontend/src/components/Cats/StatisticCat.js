@@ -1,9 +1,9 @@
 import React, { useState } from "react"
 import { Box, Typography, TextField } from "@mui/material"
 import { createTheme, ThemeProvider } from '@mui/material/styles'
-import RaportListCats from "./RaportListCats"
+import StatisticListCats from "./StatisticListCats"
 
-function RaportCat() {
+function StatisticCat() {
     const [breed, setBreed] = useState("")
 
     const handleChange = (event) => {
@@ -63,9 +63,9 @@ function RaportCat() {
                     />
                 </ThemeProvider>
             </form>
-            {breed && <RaportListCats breed={breed} />}
+            {breed && <StatisticListCats breed={breed} />}
         </Box>
     )
 }
 
-export default RaportCat
+export default StatisticCat

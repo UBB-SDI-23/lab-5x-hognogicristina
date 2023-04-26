@@ -12,7 +12,7 @@ function AddCat() {
         description: "",
         ownerId: "",
     })
-
+    
     const [isLoading, setIsLoading] = useState(false)
     const [message, setMessage] = useState("")
 
