@@ -2,15 +2,12 @@ const Validation = require('../validations/validater.js')
 
 class ValidationFoodForCat {
     static async validateFoodForCatAdd(foodForCat) {
-        var id = foodForCat.id
         var foodId = foodForCat.foodId
         var catId = foodForCat.catId
         var purchased = foodForCat.purchased
         var place = foodForCat.place
 
-        if (id == null) {
-            return "Id is required"
-        } else if (foodId == null) {
+        if (foodId == null) {
             return "Food id is required"
         } else if (catId == null) {
             return "Cat id is required"
@@ -24,8 +21,6 @@ class ValidationFoodForCat {
             return "Purchased should be between 2000-01-01 and today's date"
         } else if (!Validation.validateName(place)) {
             return "Place should be at least 3 characters long and only contains letters"
-        } else if (await Validation.isIdInUse(id, "foodForCat")) {
-            return "Id is already in use"
         } else if (!await Validation.isIdInUse(foodId, "food")) {
             return "Food id does not exist"
         } else if (!await Validation.isIdInUse(catId, "cat")) {

@@ -1,5 +1,8 @@
-import ListOwners from './ListOwners'
-import AddOwner from './AddOwner'
+import ListOwners from './CRUD/ListOwners'
+import OneOwner from './SHOW/OneOwner'
+import AddOwner from './CRUD/AddOwner'
+import UpdateOwner from './CRUD/UpdateOwner'
+import DeleteOwner from './CRUD/DeleteOwner'
 import { useState } from "react"
 import { Box, Button, Typography } from "@mui/material"
 
@@ -119,7 +122,7 @@ function Owners() {
                 Owners Section
             </Typography>
             <Typography variant="body1" sx={{ fontWeight: 'bold', mb: 2, color: '#7c487c' }}>
-                Hi there! Welcome to the Owners Section. Here you can see all the owners in the database, you can filter them by age and manage cats lists. 
+                Hi there! Welcome to the Owners Section. Here you can see all the owners in the database, you can filter them by age and manage cats lists.
                 Also if you want you can acces a specific owner.
                 And you can also add, update or delete a owner.
             </Typography>
@@ -133,15 +136,35 @@ function Owners() {
                         <Button onClick={() => setShowList(false)} sx={buttonStyles}>Go Back</Button>
                     </Box>
                 </>
+            ) : showAddForm ? (
+                <>
+                    <AddOwner />
+                    <Button onClick={handleShowListClick} sx={buttonStyles}>Go Back</Button>
+                </>
+            ) : showUpdateForm ? (
+                <>
+                    <UpdateOwner />
+                    <Button onClick={handleShowListClick} sx={buttonStyles}>Go Back</Button>
+                </>
+            ) : showDeleteForm ? (
+                <>
+                    <DeleteOwner />
+                    <Button onClick={handleShowListClick} sx={buttonStyles}>Go Back</Button>
+                </>
             ) : (
                 <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                     <Button onClick={handleShowListClick} sx={buttonStyles}>List Owners</Button>
-                    <Button onClick={handleShowOwnerClick} sx={buttonStyles}>Show Owner</Button>
-                    <Button onClick={handleShowFilterClick} sx={buttonStyles}>Filter Owners</Button>
+                    <Button onClick={handleShowOwnerClick} sx={buttonStyles}>One Owner</Button>
+                    <Button onClick={handleShowFilterClick} sx={buttonStyles}>Statistic Owners</Button>
                     <Button onClick={handleShowChangeClick} sx={buttonStyles}>Change Owner's Cat</Button>
                     <Button onClick={handleShowCreateClick} sx={buttonStyles}>Create Cats With Owner ID</Button>
                 </Box>
             )}
+            {showOwner ? (
+                <>
+                    <OneOwner />
+                </>
+            ) : null}  
         </Box>
     )
 }

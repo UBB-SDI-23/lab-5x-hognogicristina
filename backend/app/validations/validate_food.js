@@ -9,9 +9,7 @@ class ValidationFood {
         var quantity = food.quantity
         var type = food.type
     
-        if (id == null) {
-            return "Id is required"
-        } else if (name == null) {
+        if (name == null) {
             return "Name is required"
         } else if (brand == null) {
             return "Brand is required"
@@ -31,8 +29,6 @@ class ValidationFood {
             return "Quantity is a number greater than 0"
         } else if (!Validation.validateName(type)) {
             return "Type should have at least 3 letters"
-        } else if (await Validation.isIdInUse(id, "food")) {
-            return "Id is already in use"
         } else {
             return null
         }
