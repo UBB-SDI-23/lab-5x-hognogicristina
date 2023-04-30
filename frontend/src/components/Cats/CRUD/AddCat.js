@@ -1,6 +1,7 @@
 import { useState } from "react"
 import { Box, Button, TextField, Typography } from "@mui/material"
 import { createTheme, ThemeProvider } from '@mui/material/styles'
+import axios from "axios"
 
 function AddCat() {
     const [cat, setCat] = useState({
@@ -29,17 +30,14 @@ function AddCat() {
         setIsLoading(true)
         setMessage("")
         
-        fetch("https://adopt-a-cat.onrender.com/cats_add", {
-            method: "POST",
+        axios.post("https://adopt-a-cat.onrender.com/cats_add", cat, {
             headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify(cat),
+                "Content-Type": "application/json"
+            }
         })
-            .then((response) => response.json())
-            .then((data) => {
+            .then((response) => {
                 setIsLoading(false)
-                setMessage(data.message)
+                setMessage(response.data.message)
             })
     }
 

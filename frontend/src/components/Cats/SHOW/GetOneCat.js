@@ -4,14 +4,14 @@ import { Table, TableBody, TableCell, TableContainer, TableRow } from '@mui/mate
 import axios from 'axios'
 
 function GetOneCat(props) {
-    const [catData, setCatData] = useState(null)
+    const [catData, setCatData] = useState([])
 
     useEffect(() => {
         axios.get("https://adopt-a-cat.onrender.com/cats/" + props.id)
             .then(response => {
                 setCatData(response.data.data)
             })
-    }, [props.id])
+    }, [catData, props.id])
 
     if (catData) {
         const { name, age, color, breed, weight, description, ownerData } = catData

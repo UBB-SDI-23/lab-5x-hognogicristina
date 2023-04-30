@@ -10,9 +10,8 @@ function GetOneOwner(props) {
         axios.get("https://adopt-a-cat.onrender.com/owners/" + props.id)
             .then(response => {
                 setOwnerData(response.data.data)
-
             })
-    }, [props.id])
+    }, [ownerData, props.id])
 
     if (ownerData) {
         const { firstName, lastName, address, phone, email, age, catsData } = ownerData

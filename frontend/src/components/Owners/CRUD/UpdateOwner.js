@@ -1,6 +1,7 @@
 import { useState } from "react"
 import { Box, Button, TextField, Typography } from "@mui/material"
 import { createTheme, ThemeProvider } from '@mui/material/styles'
+import axios from "axios"
 
 function UpdateOwner() {
     const [owner, setOwner] = useState({
@@ -29,17 +30,14 @@ function UpdateOwner() {
         setIsLoading(true)
         setMessage("")
         
-        fetch("https://adopt-a-cat.onrender.com/owners_update/" + owner.id, {
-            method: "PUT",
+        axios.put("https://adopt-a-cat.onrender.com/owners_update/" + owner.id, owner, {
             headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify(owner),
+                "Content-Type": "application/json"
+            }
         })
-            .then((response) => response.json())
-            .then((data) => {
+            .then((response) => {
                 setIsLoading(false)
-                setMessage(data.message)
+                setMessage(response.data.message)
             })
     }
 

@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react"
 import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography } from "@mui/material"
 import { styled } from '@mui/material/styles'
+import axios from "axios"
 
 const StyledTable = styled(Table)({
     borderCollapse: 'collapse',
@@ -32,10 +33,9 @@ function ListCats() {
     
     useEffect(() => {
         setIsLoading(true)
-        fetch("https://adopt-a-cat.onrender.com/cats")
-            .then((response) => response.json())
-            .then((data) => {
-                setCats(data.data)
+        axios.get("https://adopt-a-cat.onrender.com/cats")
+            .then((response) => {
+                setCats(response.data.data)
                 setIsLoading(false)
             })
     }, [])

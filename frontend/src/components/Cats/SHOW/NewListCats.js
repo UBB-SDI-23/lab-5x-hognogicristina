@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react"
 import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography, Paper } from "@mui/material"
+import axios from "axios"
 
 function NewListCats(props) {
     const [cats, setCats] = useState([])
@@ -7,10 +8,9 @@ function NewListCats(props) {
 
     useEffect(() => {
         setIsLoading(true)
-        fetch("https://adopt-a-cat.onrender.com/cats_filter/" + props.weight)
-            .then((response) => response.json())
-            .then((data) => {
-                setCats(data.data)
+        axios.get("https://adopt-a-cat.onrender.com/cats_filter/" + props.weight)
+            .then(response => {
+                setCats(response.data.data)
                 setIsLoading(false)
             })
     }, [props.weight])
@@ -23,9 +23,13 @@ function NewListCats(props) {
         textShadow: '1px 1px #eee'
     }
 
+    if (isLoading) {
+        return <Typography sx={{ color: "#777" }}>Loading...</Typography>
+    }
+
     return (
         <>
-            {cats === undefined ? (
+            {cats.length === 0 ? (
                 <Typography variant="body1" align="center" sx={{ ...pStyle }}>
                     No cats found.
                 </Typography>
@@ -34,32 +38,31 @@ function NewListCats(props) {
                     <Table aria-label="cat table">
                         <TableHead>
                             <TableRow >
-                                <TableCell sx={{ fontWeight: 'bold' }}>Name</TableCell>
-                                <TableCell sx={{ fontWeight: 'bold' }}>Age</TableCell>
-                                <TableCell sx={{ fontWeight: 'bold' }}>Color</TableCell>
-                                <TableCell sx={{ fontWeight: 'bold' }}>Breed</TableCell>
-                                <TableCell sx={{ fontWeight: 'bold' }}>Weight</TableCell>
-                                <TableCell sx={{ fontWeight: 'bold' }}>Description</TableCell>
-                                <TableCell sx={{ fontWeight: 'bold' }}>Owner</TableCell>
+                                <TableCell align="center" sx={{ fontWeight: 'bold' }}>Name</TableCell>
+                                <TableCell align="center" sx={{ fontWeight: 'bold' }}>Age</TableCell>
+                                <TableCell align="center" sx={{ fontWeight: 'bold' }}>Color</TableCell>
+                                <TableCell align="center" sx={{ fontWeight: 'bold' }}>Breed</TableCell>
+                                <TableCell align="center" sx={{ fontWeight: 'bold' }}>Weight</TableCell>
+                                <TableCell align="center" sx={{ fontWeight: 'bold' }}>Description</TableCell>
+                                <TableCell align="center" sx={{ fontWeight: 'bold' }}>Owner</TableCell>
                             </TableRow>
                         </TableHead>
                         <TableBody>
                             {cats && cats.map(cat => (
                                 <TableRow key={cat.id}>
-                                    <TableCell>{cat.name}</TableCell>
-                                    <TableCell>{cat.age}</TableCell>
-                                    <TableCell>{cat.color}</TableCell>
-                                    <TableCell>{cat.breed}</TableCell>
-                                    <TableCell>{cat.weight}</TableCell>
-                                    <TableCell>{cat.description}</TableCell>
-                                    <TableCell>{cat.ownerId}</TableCell>
+                                    <TableCell align="center">{cat.name}</TableCell>
+                                    <TableCell align="center">{cat.age}</TableCell>
+                                    <TableCell align="center">{cat.color}</TableCell>
+                                    <TableCell align="center">{cat.breed}</TableCell>
+                                    <TableCell align="center">{cat.weight}</TableCell>
+                                    <TableCell align="center">{cat.description}</TableCell>
+                                    <TableCell align="center">{cat.ownerId}</TableCell>
                                 </TableRow>
                             ))}
                         </TableBody>
                     </Table>
                 </TableContainer>
             )}
-            {isLoading && <Typography sx={{ color: "#777" }}>Loading...</Typography>}
         </>
     )
 }

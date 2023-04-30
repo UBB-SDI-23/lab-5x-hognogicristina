@@ -1,6 +1,7 @@
 import { useState } from "react"
 import { Box, Button, TextField, Typography } from "@mui/material"
 import { createTheme, ThemeProvider } from '@mui/material/styles'
+import axios from "axios"
 
 function DeleteOwner() {
     const [owner, setOwner] = useState({
@@ -22,18 +23,16 @@ function DeleteOwner() {
         event.preventDefault()
         setIsLoading(true)
         setMessage("")
-        
-        fetch("https://adopt-a-cat.onrender.com/owners_delete/" + owner.id, {
-            method: "DELETE",
+
+        axios.delete("https://adopt-a-cat.onrender.com/owners_delete/" + owner.id, {
             headers: {
                 "Content-Type": "application/json",
             },
-            body: JSON.stringify(owner),
+            data: owner,
         })
-            .then((response) => response.json())
-            .then((data) => {
+            .then((response) => {
                 setIsLoading(false)
-                setMessage(data.message)
+                setMessage(response.data.message)
             })
 
     }

@@ -22,6 +22,10 @@ function StatisticListCats(props) {
         textShadow: '1px 1px #eee'
     }
 
+    if (isLoading) {
+        return <Typography sx={{ color: "#777" }}>Loading...</Typography>
+    }
+
     return (
         <>
             {catData.length === 0 ? (
@@ -33,32 +37,33 @@ function StatisticListCats(props) {
                     <Table aria-label="cat table">
                         <TableHead>
                             <TableRow >
-                                <TableCell sx={{ fontWeight: 'bold' }}>Name</TableCell>
-                                <TableCell sx={{ fontWeight: 'bold' }}>Age</TableCell>
-                                <TableCell sx={{ fontWeight: 'bold' }}>Color</TableCell>
-                                <TableCell sx={{ fontWeight: 'bold' }}>Weight</TableCell>
-                                <TableCell sx={{ fontWeight: 'bold' }}>Description</TableCell>
-                                <TableCell sx={{ fontWeight: 'bold' }}>Owner</TableCell>
-                                <TableCell sx={{ fontWeight: 'bold' }}>Owners' Average Age</TableCell>
+                                <TableCell align="center" sx={{ fontWeight: 'bold' }}>Name</TableCell>
+                                <TableCell align="center" sx={{ fontWeight: 'bold' }}>Age</TableCell>
+                                <TableCell align="center" sx={{ fontWeight: 'bold' }}>Color</TableCell>
+                                <TableCell align="center" sx={{ fontWeight: 'bold' }}>Breed</TableCell>
+                                <TableCell align="center" sx={{ fontWeight: 'bold' }}>Weight</TableCell>
+                                <TableCell align="center" sx={{ fontWeight: 'bold' }}>Description</TableCell>
+                                <TableCell align="center" sx={{ fontWeight: 'bold' }}>Owner</TableCell>
+                                <TableCell align="center" sx={{ fontWeight: 'bold' }}>Owners' Average Age</TableCell>
                             </TableRow>
                         </TableHead>
                         <TableBody>
                             {catData.map(cat => (
                                 <TableRow key={cat.id}>
-                                    <TableCell>{cat.name}</TableCell>
-                                    <TableCell>{cat.age}</TableCell>
-                                    <TableCell>{cat.color}</TableCell>
-                                    <TableCell>{cat.weight}</TableCell>
-                                    <TableCell>{cat.description}</TableCell>
-                                    <TableCell>{cat.owner.firstName}</TableCell>
-                                    <TableCell>{cat.avgAge}</TableCell>
+                                    <TableCell align="center">{cat.name}</TableCell>
+                                    <TableCell align="center">{cat.age}</TableCell>
+                                    <TableCell align="center">{cat.color}</TableCell>
+                                    <TableCell align="center">{cat.breed}</TableCell>
+                                    <TableCell align="center">{cat.weight}</TableCell>
+                                    <TableCell align="center">{cat.description}</TableCell>
+                                    <TableCell align="center">{cat.owner.firstName}</TableCell>
+                                    <TableCell align="center">{cat.avgAge}</TableCell>
                                 </TableRow>
                             ))}
                         </TableBody>
                     </Table>
                 </TableContainer>
             )}
-            {isLoading && <Typography sx={{ color: "#777" }}>Loading...</Typography>}
         </>
     )
 }

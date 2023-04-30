@@ -1,6 +1,7 @@
 import { useState } from "react"
 import { Box, Button, TextField, Typography } from "@mui/material"
 import { createTheme, ThemeProvider } from '@mui/material/styles'
+import axios from "axios"
 
 function DeleteCat() {
     const [cat, setCat] = useState({
@@ -23,17 +24,15 @@ function DeleteCat() {
         setIsLoading(true)
         setMessage("")
         
-        fetch("https://adopt-a-cat.onrender.com/cats_delete/" + cat.id, {
-            method: "DELETE",
+        axios.delete("https://adopt-a-cat.onrender.com/cats_delete/" + cat.id, {
             headers: {
-                "Content-Type": "application/json",
+                "Content-Type": "application/json"
             },
-            body: JSON.stringify(cat),
+            data: cat,
         })
-            .then((response) => response.json())
-            .then((data) => {
+            .then((response) => {
                 setIsLoading(false)
-                setMessage(data.message)
+                setMessage(response.data.message)
             })
 
     }

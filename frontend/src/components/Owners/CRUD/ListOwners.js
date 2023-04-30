@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react"
 import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography } from "@mui/material"
 import { styled } from '@mui/material/styles'
+import axios from "axios"
 
 const StyledTable = styled(Table)({
     borderCollapse: 'collapse',
@@ -29,13 +30,13 @@ const StyledTableRow = styled(TableRow)({
 function ListOwners() {
     const [owners, setOwners] = useState([])
     const [isLoading, setIsLoading] = useState(false)
-    
+
     useEffect(() => {
         setIsLoading(true)
-        fetch("https://adopt-a-cat.onrender.com/owners")
-            .then((response) => response.json())
-            .then((data) => {
-                setOwners(data.data)
+
+        axios.get("https://adopt-a-cat.onrender.com/owners")
+            .then((response) => {
+                setOwners(response.data.data)
                 setIsLoading(false)
             })
     }, [])

@@ -4,6 +4,7 @@ import StatisticOwner from './SHOW/StatisticOwner'
 import AddOwner from './CRUD/AddOwner'
 import UpdateOwner from './CRUD/UpdateOwner'
 import DeleteOwner from './CRUD/DeleteOwner'
+import ChangeCat from './STATISTICS/ChangeCat'
 import { useState } from "react"
 import { Box, Button, Typography } from "@mui/material"
 
@@ -165,11 +166,16 @@ function Owners() {
                 <>
                     <OneOwner />
                 </>
-                
-            ) : null}  
+
+            ) : null}
             {showStatistic ? (
                 <>
                     <StatisticOwner />
+                </>
+            ) : null}
+            {showChangeForm ? (
+                <>
+                    <ChangeCat />
                 </>
             ) : null}
         </Box>

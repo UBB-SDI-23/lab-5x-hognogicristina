@@ -13,12 +13,6 @@ function StatisticOwner() {
                 setOwners(response.data.data)
                 setIsLoading(false)
             })
-        // fetch("https://adopt-a-cat.onrender.com/owners_statistic")
-        //     .then((response) => response.json())
-        //     .then((data) => {
-        //         setOwners(data.data)
-        //         setIsLoading(false)
-        //     })
     }, [])
 
     if (isLoading) {
@@ -44,8 +38,6 @@ function StatisticOwner() {
         textShadow: '1px 1px #eee'
     }
 
-    console.log(owners)
-
     return (
         <Box sx={{ textAlign: "center", p: 2, borderRadius: 2 }}>
             <Typography variant="h5" sx={{ ...h2Style }}>
@@ -54,8 +46,6 @@ function StatisticOwner() {
             <form onSubmit={(event) => event.preventDefault()}>
                 <Typography variant="body1" sx={{ margin: "1rem 0", ...pStyle }}>
                     This page shows a Statistic of Owners and their Cats by cats' average age.
-                </Typography>
-                <Typography variant="body1" sx={{ margin: "1rem 0", ...pStyle }}>
                     The owners are sorted by the average age of their cats in ascending order.
                 </Typography>
             </form>
@@ -69,25 +59,25 @@ function StatisticOwner() {
                         <Table aria-label="owner table">
                             <TableHead>
                                 <TableRow >
-                                    <TableCell sx={{ fontWeight: 'bold' }}>First Name</TableCell>
-                                    <TableCell sx={{ fontWeight: 'bold' }}>Last Name</TableCell>
-                                    <TableCell sx={{ fontWeight: 'bold' }}>Address</TableCell>
-                                    <TableCell sx={{ fontWeight: 'bold' }}>Phone</TableCell>
-                                    <TableCell sx={{ fontWeight: 'bold' }}>Email</TableCell>
-                                    <TableCell sx={{ fontWeight: 'bold' }}>Age</TableCell>
-                                    <TableCell sx={{ fontWeight: 'bold' }}>Cats' Averagex Age</TableCell>
+                                    <TableCell align="center" sx={{ fontWeight: 'bold' }}>First Name</TableCell>
+                                    <TableCell align="center" sx={{ fontWeight: 'bold' }}>Last Name</TableCell>
+                                    <TableCell align="center" sx={{ fontWeight: 'bold' }}>Address</TableCell>
+                                    <TableCell align="center" sx={{ fontWeight: 'bold' }}>Phone</TableCell>
+                                    <TableCell align="center" sx={{ fontWeight: 'bold' }}>Email</TableCell>
+                                    <TableCell align="center" sx={{ fontWeight: 'bold' }}>Age</TableCell>
+                                    <TableCell align="center" sx={{ fontWeight: 'bold' }}>Cats' Average Age</TableCell>
                                 </TableRow>
                             </TableHead>
                             <TableBody>
                                 {owners.map((owner) => (
                                     <TableRow key={owner.id}>
-                                        <TableCell>{owner.firstName}</TableCell>
-                                        <TableCell>{owner.lastName}</TableCell>
-                                        <TableCell>{owner.address}</TableCell>
-                                        <TableCell>{owner.phone}</TableCell>
-                                        <TableCell>{owner.email}</TableCell>
-                                        <TableCell>{owner.age}</TableCell>
-                                        <TableCell>{owner.avgAge}</TableCell>
+                                        <TableCell align="center">{owner.firstName}</TableCell>
+                                        <TableCell align="center">{owner.lastName}</TableCell>
+                                        <TableCell align="center">{owner.address}</TableCell>
+                                        <TableCell align="center">{owner.phone}</TableCell>
+                                        <TableCell align="center">{owner.email}</TableCell>
+                                        <TableCell align="center">{owner.age}</TableCell>
+                                        <TableCell align="center">{owner.avgAge}</TableCell>
                                     </TableRow>
                                 ))}
                             </TableBody>

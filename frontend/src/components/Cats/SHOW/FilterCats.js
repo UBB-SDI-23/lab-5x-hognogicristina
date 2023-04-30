@@ -4,7 +4,7 @@ import { createTheme, ThemeProvider } from '@mui/material/styles'
 import NewListCats from "./NewListCats"
 
 function FilterCats() {
-    const [weight, setWeight] = useState(null)
+    const [weight, setWeight] = useState("")
 
     const handleChange = (event) => {
         var value = event.target.value

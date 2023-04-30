@@ -1,13 +1,14 @@
 import { useState } from "react"
 import { Box, Button, TextField, Typography } from "@mui/material"
 import { createTheme, ThemeProvider } from '@mui/material/styles'
+import axios from "axios"
 
 function AddOwner() {
     const [owner, setOwner] = useState({
         firstName: "",
         lastName: "",
         address: "",
-        phone: "",
+        phone: null,
         email: "",
         age: "",
     })
@@ -27,18 +28,15 @@ function AddOwner() {
         event.preventDefault()
         setIsLoading(true)
         setMessage("")
-        
-        fetch("https://adopt-a-cat.onrender.com/owners_add", {
-            method: "POST",
+
+        axios.post("https://adopt-a-cat.onrender.com/owners_add", owner, {
             headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify(owner),
+                "Content-Type": "application/json"
+            }
         })
-            .then((response) => response.json())
-            .then((data) => {
+            .then((response) => {
                 setIsLoading(false)
-                setMessage(data.message)
+                setMessage(response.data.message)
             })
     }
 
