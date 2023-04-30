@@ -59,7 +59,7 @@ function NewListCats(props) {
                     </Table>
                 </TableContainer>
             )}
-            {isLoading && <Typography variant="body1" align="center" sx={{ color: "#777" }}>Loading...</Typography>}
+            {isLoading && <Typography sx={{ color: "#777" }}>Loading...</Typography>}
         </>
     )
 }

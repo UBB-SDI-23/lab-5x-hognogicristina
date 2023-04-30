@@ -46,6 +46,7 @@ function StatisticCat() {
             <form onSubmit={(event) => event.preventDefault()}>
                 <Typography variant="body1" sx={{ margin: "1rem 0", ...pStyle }}>
                     Enter a breed to filter the cats with that breed ordered by the average age of their owners.
+                    The cats are sorted by the average age of their owners in ascending order.
                 </Typography>
                 <ThemeProvider theme={theme}>
                     <TextField

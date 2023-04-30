@@ -1,5 +1,6 @@
 const owner = require('../models/owners_model.js')
 const cat = require('../models/cats_model.js')
+const Sequelize = require('sequelize')
 require('./database.js')
 
 async function getOwners() {
@@ -38,14 +39,14 @@ async function getStatisticReport() {
     cat.belongsTo(owner)
 
     const result = await owner.findAll({
-        attributes: ['id', 'firstName', 'lastName', 'address', 'phone', 'email', 'age', [sequelize.fn('AVG', sequelize.col('cats.age')), 'avgAge']],
+        attributes: ['id', 'firstName', 'lastName', 'address', 'phone', 'email', 'age', [Sequelize.fn('AVG', Sequelize.col('cats.age')), 'avgAge']],
         include: [{
             model: cat,
             attributes: [],
             as: 'cats'
         }],
         group: ['firstName'],
-        order: [[sequelize.fn('AVG', sequelize.col('cats.age')), 'ASC']]
+        order: [[Sequelize.fn('AVG', Sequelize.col('cats.age')), 'ASC']]
     })
 
     return result

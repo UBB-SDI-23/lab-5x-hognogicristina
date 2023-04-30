@@ -47,7 +47,7 @@ function GetOneCat(props) {
                             </TableRow>
                             <TableRow>
                                 <TableCell component="th" scope="row">Description</TableCell>
-                                <TableCell>{catData.description}</TableCell>
+                                <TableCell>{description}</TableCell>
                             </TableRow>
                             <TableRow>
                                 <TableCell component="th" scope="row" sx={{ fontWeight: 'bold', borderBottom: 'none' }}>Owner</TableCell>
@@ -81,7 +81,7 @@ function GetOneCat(props) {
 
     return (
         <>
-            <Typography variant="p" gutterBottom>Loading...</Typography>
+            <Typography sx={{ color: "#777" }}>Loading...</Typography>
         </>
     )
 }

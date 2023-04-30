@@ -1,5 +1,6 @@
 import ListOwners from './CRUD/ListOwners'
 import OneOwner from './SHOW/OneOwner'
+import StatisticOwner from './SHOW/StatisticOwner'
 import AddOwner from './CRUD/AddOwner'
 import UpdateOwner from './CRUD/UpdateOwner'
 import DeleteOwner from './CRUD/DeleteOwner'
@@ -9,7 +10,7 @@ import { Box, Button, Typography } from "@mui/material"
 function Owners() {
     const [showList, setShowList] = useState(false)
     const [showOwner, setShowOwner] = useState(false)
-    const [showFilter, setShowFilter] = useState(false)
+    const [showStatistic, setShowStatistic] = useState(false)
     const [showAddForm, setShowAddForm] = useState(false)
     const [showDeleteForm, setShowDeleteForm] = useState(false)
     const [showUpdateForm, setShowUpdateForm] = useState(false)
@@ -19,7 +20,7 @@ function Owners() {
     const handleShowListClick = () => {
         setShowList(true)
         setShowOwner(false)
-        setShowFilter(false)
+        setShowStatistic(false)
         setShowAddForm(false)
         setShowDeleteForm(false)
         setShowUpdateForm(false)
@@ -30,7 +31,7 @@ function Owners() {
     const handleShowOwnerClick = () => {
         setShowOwner(true)
         setShowList(false)
-        setShowFilter(false)
+        setShowStatistic(false)
         setShowAddForm(false)
         setShowDeleteForm(false)
         setShowUpdateForm(false)
@@ -38,8 +39,8 @@ function Owners() {
         setShowCreateForm(false)
     }
 
-    const handleShowFilterClick = () => {
-        setShowFilter(true)
+    const handleShowStatisticClick = () => {
+        setShowStatistic(true)
         setShowList(false)
         setShowOwner(false)
         setShowAddForm(false)
@@ -53,7 +54,7 @@ function Owners() {
         setShowAddForm(true)
         setShowList(false)
         setShowOwner(false)
-        setShowFilter(false)
+        setShowStatistic(false)
         setShowDeleteForm(false)
         setShowUpdateForm(false)
         setShowChangeForm(false)
@@ -64,7 +65,7 @@ function Owners() {
         setShowDeleteForm(true)
         setShowList(false)
         setShowOwner(false)
-        setShowFilter(false)
+        setShowStatistic(false)
         setShowAddForm(false)
         setShowUpdateForm(false)
         setShowChangeForm(false)
@@ -75,7 +76,7 @@ function Owners() {
         setShowUpdateForm(true)
         setShowList(false)
         setShowOwner(false)
-        setShowFilter(false)
+        setShowStatistic(false)
         setShowAddForm(false)
         setShowDeleteForm(false)
         setShowChangeForm(false)
@@ -86,7 +87,7 @@ function Owners() {
         setShowChangeForm(true)
         setShowList(false)
         setShowOwner(false)
-        setShowFilter(false)
+        setShowStatistic(false)
         setShowAddForm(false)
         setShowDeleteForm(false)
         setShowUpdateForm(false)
@@ -97,7 +98,7 @@ function Owners() {
         setShowCreateForm(true)
         setShowList(false)
         setShowOwner(false)
-        setShowFilter(false)
+        setShowStatistic(false)
         setShowAddForm(false)
         setShowDeleteForm(false)
         setShowUpdateForm(false)
@@ -155,7 +156,7 @@ function Owners() {
                 <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                     <Button onClick={handleShowListClick} sx={buttonStyles}>List Owners</Button>
                     <Button onClick={handleShowOwnerClick} sx={buttonStyles}>One Owner</Button>
-                    <Button onClick={handleShowFilterClick} sx={buttonStyles}>Statistic Owners</Button>
+                    <Button onClick={handleShowStatisticClick} sx={buttonStyles}>Statistic Owners</Button>
                     <Button onClick={handleShowChangeClick} sx={buttonStyles}>Change Owner's Cat</Button>
                     <Button onClick={handleShowCreateClick} sx={buttonStyles}>Create Cats With Owner ID</Button>
                 </Box>
@@ -164,7 +165,13 @@ function Owners() {
                 <>
                     <OneOwner />
                 </>
+                
             ) : null}  
+            {showStatistic ? (
+                <>
+                    <StatisticOwner />
+                </>
+            ) : null}
         </Box>
     )
 }

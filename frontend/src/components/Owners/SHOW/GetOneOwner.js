@@ -10,12 +10,19 @@ function GetOneOwner(props) {
         axios.get("https://adopt-a-cat.onrender.com/owners/" + props.id)
             .then(response => {
                 setOwnerData(response.data.data)
+
             })
     }, [props.id])
 
     if (ownerData) {
-        const { firstName, lastName, address, phone, email, age, catData } = ownerData
-        const { cat } = catData
+        const { firstName, lastName, address, phone, email, age, catsData } = ownerData;
+        let noCats = null;
+
+        if (catsData) {
+            noCats = catsData.noCats;
+        } else {
+            noCats = 0;
+        }
 
         return (
             <>
@@ -23,13 +30,12 @@ function GetOneOwner(props) {
                     <Table aria-label="cat information table">
                         <TableBody>
                             <TableRow>
-                                <TableCell component="th" scope="row" sx={{ fontWeight: 'bold', borderBottom: 'none' }}>Cat</TableCell>
+                                <TableCell component="th" scope="row" sx={{ fontWeight: 'bold', borderBottom: 'none' }}>Owner</TableCell>
                             </TableRow>
                             <TableRow>
                                 <TableCell component="th" scope="row">First Name</TableCell>
                                 <TableCell>{firstName}</TableCell>
                             </TableRow>
-                            
                             <TableRow>
                                 <TableCell component="th" scope="row">Last Name</TableCell>
                                 <TableCell>{lastName}</TableCell>
@@ -51,44 +57,55 @@ function GetOneOwner(props) {
                                 <TableCell>{age}</TableCell>
                             </TableRow>
                             <TableRow>
-                                <TableCell component="th" scope="row" sx={{ fontWeight: 'bold', borderBottom: 'none' }}>Cats</TableCell>
+                                <TableCell component="th" scope="row">Number of Cats</TableCell>
+                                <TableCell>{noCats === 0 ? "No cats" : noCats}</TableCell>
                             </TableRow>
-                            <TableRow>
-                                <TableCell component="th" scope="row">Name</TableCell>
-                                <TableCell>{cat[0].name}</TableCell>
-                            </TableRow>
-                            <TableRow>
-                                <TableCell component="th" scope="row">Age</TableCell>
-                                <TableCell>{cat[0].age}</TableCell>
-                            </TableRow>
-                            <TableRow>
-                                <TableCell component="th" scope="row">Color</TableCell>
-                                <TableCell>{cat[0].color}</TableCell>
-                            </TableRow>
-                            <TableRow>
-                                <TableCell component="th" scope="row">Breed</TableCell>
-                                <TableCell>{cat[0].breed}</TableCell>
-                            </TableRow>
-                            <TableRow>
-                                <TableCell component="th" scope="row">Weight</TableCell>
-                                <TableCell>{cat[0].weight}</TableCell>
-                            </TableRow>
-                            <TableRow>
-                                <TableCell component="th" scope="row">Description</TableCell>
-                                <TableCell>{cat[0].description}</TableCell>
-                            </TableRow>
+                            {catsData && catsData.cats.map((cat, index) => {
+                                return (
+                                    <>
+                                        <TableRow key={cat.id}>
+                                            <TableCell component="th" scope="row" sx={{ fontWeight: 'bold', borderBottom: 'none' }}>Cat {index + 1}</TableCell>
+                                        </TableRow>
+                                        <TableRow>
+                                            <TableCell component="th" scope="row">Name</TableCell>
+                                            <TableCell>{cat.name}</TableCell>
+                                        </TableRow>
+                                        <TableRow>
+                                            <TableCell component="th" scope="row">Age</TableCell>
+                                            <TableCell>{cat.age}</TableCell>
+                                        </TableRow>
+                                        <TableRow>
+                                            <TableCell component="th" scope="row">Color</TableCell>
+                                            <TableCell>{cat.color}</TableCell>
+                                        </TableRow>
+                                        <TableRow>
+                                            <TableCell component="th" scope="row">Breed</TableCell>
+                                            <TableCell>{cat.breed}</TableCell>
+                                        </TableRow>
+                                        <TableRow>
+                                            <TableCell component="th" scope="row">Weight</TableCell>
+                                            <TableCell>{cat.weight}</TableCell>
+                                        </TableRow>
+                                        <TableRow>
+                                            <TableCell component="th" scope="row">Description</TableCell>
+                                            <TableCell>{cat.description}</TableCell>
+                                        </TableRow>
+                                    </>
+                                )
+                            })
+                            }
                         </TableBody>
                     </Table>
                 </TableContainer>
             </>
         )
+    } else {
+        return (
+            <>
+                <Typography sx={{ color: "#777" }}>Loading...</Typography>
+            </>
+        )
     }
-
-    return (
-        <>
-            <Typography variant="p" gutterBottom>Loading...</Typography>
-        </>
-    )
 }
 
 export default GetOneOwner

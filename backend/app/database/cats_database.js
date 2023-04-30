@@ -3,7 +3,6 @@ const owner = require('../models/owners_model.js')
 const Sequelize = require('sequelize')
 require('./database.js')
 
-
 async function getCats() {
     return cat.findAll()
 }
@@ -48,7 +47,8 @@ async function getStatisticReportBreed(breed) {
             attributes: ['firstName']
         }],
         where: { breed: breed },
-        group: ['owner.firstName']
+        group: ['owner.firstName'],
+        order: [[Sequelize.fn('AVG', Sequelize.col('owner.age')), 'ASC']]
     })
 
     return result

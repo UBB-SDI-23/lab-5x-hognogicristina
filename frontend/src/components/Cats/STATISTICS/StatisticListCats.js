@@ -39,7 +39,7 @@ function StatisticListCats(props) {
                                 <TableCell sx={{ fontWeight: 'bold' }}>Weight</TableCell>
                                 <TableCell sx={{ fontWeight: 'bold' }}>Description</TableCell>
                                 <TableCell sx={{ fontWeight: 'bold' }}>Owner</TableCell>
-                                <TableCell sx={{ fontWeight: 'bold' }}>Avg. Age</TableCell>
+                                <TableCell sx={{ fontWeight: 'bold' }}>Owners' Average Age</TableCell>
                             </TableRow>
                         </TableHead>
                         <TableBody>
@@ -58,9 +58,10 @@ function StatisticListCats(props) {
                     </Table>
                 </TableContainer>
             )}
-            {isLoading && <Typography variant="body1" align="center" sx={{ color: "#777" }}>Loading...</Typography>}
+            {isLoading && <Typography sx={{ color: "#777" }}>Loading...</Typography>}
         </>
     )
 }
 
 export default StatisticListCats
+
