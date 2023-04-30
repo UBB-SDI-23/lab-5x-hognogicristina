@@ -37,7 +37,7 @@ function ChangeCat() {
         if (name === "owner") {
             setOwner(value)
         } else if (name === "cats") {
-            setCats(value.split(",").map((catId) => parseInt(catId)))
+            setCats(value.split(",").map((catId) => catId))
         }
     }
 
@@ -94,31 +94,33 @@ function ChangeCat() {
                         fullWidth
                         id="owner"
                         name="owner"
-                        label="Owner"
+                        label="Owner ID"
                         value={owner}
                         onChange={handleChange}
+                        placeholder="Example: 1"
                         margin="normal"
                         variant="outlined"
+                        sx={{ zIndex: 0 }}
                     />
                     <TextField
                         required
                         fullWidth
                         id="cats"
                         name="cats"
-                        label="Cats"
-                        value={cats.join(",")}
+                        label="Cats' IDs"
                         onChange={handleChange}
+                        placeholder="Example: 1,2,3"
                         margin="normal"
                         variant="outlined"
+                        sx={{ zIndex: 0 }}
                     />
                     {message && <Typography color="red">{message}</Typography>}
-                    <Button type="submit" variant="contained" sx={{ ...buttonStyles }}>
-                        Submit
+                    <Button type="submit" variant="contained" sx={{ marginRight: "1rem" }} disabled={isLoading}>
+                        {isLoading ? "Loading..." : "Submit"}
                     </Button>
-                    <Button variant="contained" sx={{ ...buttonStyles }} onClick={handleReset}>
+                    <Button variant="contained" sx={{ marginRight: "1rem" }} onClick={handleReset}>
                         Reset
                     </Button>
-                    {isLoading && <Typography sx={{ color: "#777" }}>Loading...</Typography>}
                 </ThemeProvider>
             </form>
             <ListChangedCats changedCats={changedCats} />

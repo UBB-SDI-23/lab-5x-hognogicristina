@@ -131,13 +131,13 @@ function Owners() {
             </Typography>
             {showList ? (
                 <>
-                    <ListOwners />
                     <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                         <Button onClick={handleAddClick} sx={buttonStyles}>Add a Owner</Button>
                         <Button onClick={handleUpdateClick} sx={buttonStyles}>Update a Owner</Button>
                         <Button onClick={handleDeleteClick} sx={buttonStyles}>Delete a Owner</Button>
                         <Button onClick={() => setShowList(false)} sx={buttonStyles}>Go Back</Button>
                     </Box>
+                    <ListOwners />
                 </>
             ) : showAddForm ? (
                 <>

@@ -111,13 +111,13 @@ function Cats() {
             </Typography>
             {showList ? (
                 <>
-                    <ListCats />
                     <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                         <Button onClick={handleAddClick} sx={buttonStyles}>Add a Cat</Button>
                         <Button onClick={handleUpdateClick} sx={buttonStyles}>Update a Cat</Button>
                         <Button onClick={handleDeleteClick} sx={buttonStyles}>Delete a Cat</Button>
                         <Button onClick={() => setShowList(false)} sx={buttonStyles}>Go Back</Button>
                     </Box>
+                    <ListCats />
                 </>
             ) : showAddForm ? (
                 <>

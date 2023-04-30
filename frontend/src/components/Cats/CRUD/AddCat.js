@@ -182,13 +182,12 @@ function AddCat() {
                         sx={{ zIndex: 0 }}
                     />
                     {message && <Typography color="red">{message}</Typography>}
-                    <Button type="submit" variant="contained" sx={{ ...buttonStyles }}>
-                        Submit
+                    <Button type="submit" variant="contained" sx={{ ...buttonStyles }} disabled={isLoading}>
+                        {isLoading ? "Loading..." : "Submit"}
                     </Button>
                     <Button variant="contained" sx={{ ...buttonStyles }} onClick={handleReset}>
                         Reset
                     </Button>
-                    {isLoading && <Typography sx={{ color: "#777" }}>Loading...</Typography>}
                 </ThemeProvider>
             </form>
         </Box>
