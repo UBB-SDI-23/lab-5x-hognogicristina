@@ -1,5 +1,5 @@
 import ListFoods from "./CRUD/ListFoods"
-import OneFood from "../SHOW/OneFood"
+import OneFood from "./SHOW/OneFood"
 import AddFood from "./CRUD/AddFood"
 import DeleteFood from "./CRUD/DeleteFood"
 import UpdateFood from "./CRUD/UpdateFood"
@@ -107,11 +107,6 @@ function Foods() {
                     </Box>
                 </>
             )}
-            {showFood ? (
-                <>
-                    <OneFood /> 
-                </>
-            ) : null}
         </Box>
     )
 }
