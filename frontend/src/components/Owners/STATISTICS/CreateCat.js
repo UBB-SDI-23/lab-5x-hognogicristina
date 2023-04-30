@@ -1,62 +1,70 @@
-import React, { useState } from "react";
-import { Box, Typography, TextField, Button } from "@mui/material";
-import { createTheme, ThemeProvider } from "@mui/material/styles";
-import axios from "axios";
-import ListChangedCats from "./ListChangedCats";
-
-const theme = createTheme();
+import React, { useState } from "react"
+import axios from "axios"
+import { Box, Typography, TextField, Button } from "@mui/material"
+import { createTheme, ThemeProvider } from "@mui/material/styles"
+import ListChangedCats from "./ListChangedCats"
 
 function CreateCat() {
-    const [owner, setOwner] = useState(""); // this is the owner ID
-    const [cats, setCats] = useState([]); // this is the list of cats introduced with all their attributes
-    const [changedCats, setChangedCats] = useState([]); // this is the changed list of cats
-    const [isLoading, setIsLoading] = useState(false);
-    const [message, setMessage] = useState("");
+    const [ownerId, setOwnerId] = useState("")
+    const [catsList, setCatsList] = useState([])
+    const [changedCats, setChangedCats] = useState([])
 
-    const handleOwnerChange = (event) => {
+    const [isLoading, setIsLoading] = useState(false)
+    const [message, setMessage] = useState("")
+
+    const handleOwnerIdChange = (event) => {
         const { value } = event.target
-        setOwner(value)
+        setOwnerId(value)
     }
 
     const handleAddCat = () => {
         const newCat = {
-            id: "",
             name: "",
             age: "",
             color: "",
             breed: "",
             weight: "",
             description: "",
-            ownerId: owner,
-        };
-        setCats([...cats, newCat]);
-    };
+            ownerId: ownerId,
+        }
+
+        setCatsList([...catsList, newCat])
+        setMessage("")
+    }
 
     const handleCatChange = (event, index) => {
-        const { name, value } = event.target;
-        const updatedCats = [...cats];
-        updatedCats[index] = { ...updatedCats[index], [name]: value };
-        setCats(updatedCats);
-    };
+        const { name, value } = event.target
+        const list = [...catsList]
+        list[index][name] = value
+        setCatsList(list)
+    }
 
-    const handleSave = async () => {
-        try {
-            setIsLoading(true);
-            const response = await axios.post(`https://adopt-a-cat.onrender.com/owners/${owner}/cats_list`, { cats }, { headers: { "Content-Type": "application/json", }, });
-            setIsLoading(false);
-            setMessage("Cats saved successfully!");
-            setChangedCats(response.data);
-        } catch (error) {
-            setIsLoading(false);
-            setMessage("Failed to save cats. Please try again.");
+    const handleSubmit = (event) => {
+        event.preventDefault()
+        setIsLoading(true)
+        setMessage("")
+
+        if (catsList.length === 0) {
+            setMessage("Please add at least one cat")
+            setIsLoading(false)
+            return
         }
-    };
+
+        axios.post(`https://adopt-a-cat.onrender.com/owners/${ownerId}/cats_create`, { cats_list: catsList },
+            { headers: { "Content-Type": "application/json", }, }
+        )
+            .then((response) => {
+                setChangedCats(response.data.data)
+                setIsLoading(false)
+                setMessage(response.data.message)
+            })
+    }
 
     const handleReset = () => {
-        setOwner("");
-        setCats([]);
-        setChangedCats([]);
-    };
+        setOwnerId("")
+        setCatsList([])
+        setChangedCats([])
+    }
 
     const theme = createTheme({
         palette: {
@@ -66,111 +74,142 @@ function CreateCat() {
         },
     })
 
+    const pStyle = {
+        fontSize: '1.2rem',
+        lineHeight: 1.5,
+        color: '#777',
+        marginBottom: '1.5rem',
+        textShadow: '1px 1px #eee'
+    }
+
+    const h2Style = {
+        fontSize: "1.6rem",
+        color: "#333",
+        textTransform: "uppercase",
+        letterSpacing: "0.1rem",
+        marginBottom: "1rem",
+        borderBottom: "3px solid #f36",
+        paddingBottom: "0.5rem",
+        textShadow: "1px 1px #eee",
+    }
+
     return (
         <ThemeProvider theme={theme}>
-            <Box sx={{ p: 3 }}>
-                <Typography variant="h4" sx={{ mb: 3 }}>
-                    Create Cat
-                </Typography>
-                <Box sx={{ display: "flex", alignItems: "center", mb: 3 }}>
-                    <Typography sx={{ mr: 2 }}>Owner ID:</Typography>
+            <form onSubmit={handleSubmit}>
+                <Box sx={{ textAlign: "center", p: 2, borderRadius: 2 }}>
+                    <Typography variant="h5" sx={{ ...h2Style }}>
+                        Create Cat
+                    </Typography>
+                    <Typography variant="body1" sx={{ margin: "1rem 0", ...pStyle }}>
+                        Enter a number and a list of cats to create cats for an owner given by id.
+                        If you want to create more than one cat, click on the "Add Cat" button.
+                    </Typography>
                     <TextField
+                        required
+                        fullWidth
+                        name="ownerId"
+                        label="Owner"
+                        value={ownerId}
+                        onChange={handleOwnerIdChange}
+                        placeholder="Example: 1"
+                        margin="normal"
                         variant="outlined"
-                        size="small"
-                        value={owner}
-                        onChange={handleOwnerChange}
+                        sx={{ zIndex: 0 }}
                     />
+                    {catsList.map((cat, index) => (
+                        <Box key={cat.id} >
+                            <Typography variant="h5" sx={{ ...pStyle, fontSize: "24px" }}>
+                                Cat {index + 1}
+                            </Typography>
+                            <TextField
+                                required
+                                fullWidth
+                                name="name"
+                                label="Name"
+                                value={cat.name}
+                                onChange={(event) => handleCatChange(event, index)}
+                                placeholder="Example: Kitty"
+                                variant="outlined"
+                                margin="normal"
+                                sx={{ zIndex: 0 }}
+                            />
+                            <TextField
+                                required
+                                fullWidth
+                                name="age"
+                                label="Age"
+                                value={cat.age}
+                                onChange={(event) => handleCatChange(event, index)}
+                                placeholder="Example: 2"
+                                variant="outlined"
+                                margin="normal"
+                                sx={{ zIndex: 0 }}
+                            />
+                            <TextField
+                                required
+                                fullWidth
+                                name="color"
+                                label="Color"
+                                variant="outlined"
+                                value={cat.color}
+                                onChange={(event) => handleCatChange(event, index)}
+                                placeholder="Example: white"
+                                margin="normal"
+                                sx={{ zIndex: 0 }}
+                            />
+                            <TextField
+                                required
+                                fullWidth
+                                name="breed"
+                                label="Breed"
+                                value={cat.breed}
+                                onChange={(event) => handleCatChange(event, index)}
+                                placeholder="Example: Persian"
+                                variant="outlined"
+                                margin="normal"
+                                sx={{ zIndex: 0 }}
+                            />
+                            <TextField
+                                required
+                                fullWidth
+                                name="weight"
+                                label="Weight"
+                                value={cat.weight}
+                                onChange={(event) => handleCatChange(event, index)}
+                                placeholder="Example: 5"
+                                variant="outlined"
+                                margin="normal"
+                                sx={{ zIndex: 0 }}
+                            />
+                            <TextField
+                                required
+                                fullWidth
+                                name="description"
+                                label="Description"
+                                value={cat.description}
+                                onChange={(event) => handleCatChange(event, index)}
+                                placeholder="Example: Very cute cat"
+                                variant="outlined"
+                                margin="normal"
+                                sx={{ zIndex: 0 }}
+                            />
+                        </Box>
+                    ))}
+                    {message && <Typography color="red">{message}</Typography>}
+                    <Button variant="contained" sx={{ marginRight: "1rem" }} onClick={handleAddCat}>
+                        Add Cat
+                    </Button>
+                    <Button type="submit" variant="contained" sx={{ marginRight: "1rem" }} disabled={isLoading}>
+                        {isLoading ? "Loading..." : "Submit"}
+                    </Button>
+                    <Button variant="contained" sx={{ marginRight: "1rem" }} onClick={handleReset}>
+                        Reset
+                    </Button>
+                    {changedCats.length > 0 && <ListChangedCats changedCats={changedCats} />}
                 </Box>
-                {cats.map((cat, index) => (
-                    <Box key={cat.id} sx={{ mb: 2 }}>
-                        <Typography variant="h6" sx={{ mb: 1 }}>
-                            Cat
-                        </Typography>
-                        <TextField
-                            name="id"
-                            label="ID"
-                            variant="outlined"
-                            size="small"
-                            value={cat.id}
-                            onChange={(event) => handleCatChange(event, index)}
-                            sx={{ mr: 2 }}
-                        />
-                        <TextField
-                            name="name"
-                            label="Name"
-                            variant="outlined"
-                            size="small"
-                            value={cat.name}
-                            onChange={(event) => handleCatChange(event, index)}
-                            sx={{ mr: 2 }}
-                        />
-                        <TextField
-                            name="age"
-                            label="Age"
-                            variant="outlined"
-                            size="small"
-                            value={cat.age}
-                            onChange={(event) => handleCatChange(event, index)}
-                            sx={{ mr: 2 }}
-                        />
-                        <TextField
-                            name="color"
-                            label="Color"
-                            variant="outlined"
-                            size="small"
-                            value={cat.color}
-                            onChange={(event) => handleCatChange(event, index)}
-                            sx={{ mr: 2 }}
-                        />
-                        <TextField
-                            name="breed"
-                            label="Breed"
-                            variant="outlined"
-                            size="small"
-                            value={cat.breed}
-                            onChange={(event) => handleCatChange(event, index)}
-                            sx={{ mr: 2 }}
-                        />
-                        <TextField
-                            name="weight"
-                            label="Weight"
-                            variant="outlined"
-                            size="small"
-                            value={cat.weight}
-                            onChange={(event) => handleCatChange(event, index)}
-                            sx={{ mr: 2 }}
-                        />
-                        <TextField
-                            name="description"
-                            label="Description"
-                            variant="outlined"
-                            size="small"
-                            value={cat.description}
-                            onChange={(event) => handleCatChange(event, index)}
-                            sx={{ mr: 2 }}
-                        />
-                        <TextField
-                            name="ownerId"
-                            label="Owner ID"
-                            variant="outlined"
-                            size="small"
-                            value={cat.ownerId}
-                            disabled
-                        />
-                    </Box>
-                ))}
-                <Button variant="contained" sx={{ marginRight: "1rem" }} onClick={handleAddCat}>
-                    Add Cat
-                </Button>
-                <Button type="submit" variant="contained" sx={{ marginRight: "1rem" }} disabled={isLoading} onClick={handleSave}>
-                    {isLoading ? "Loading..." : "Submit"}
-                </Button>
-                {message && (<Typography variant="body2" sx={{ mt: 2 }}>{message}</Typography>
-                )}
-                {changedCats.length > 0 && <ListChangedCats changedCats={changedCats} />}
-            </Box>
+            </form>
         </ThemeProvider>
-    );
+    )
 }
 
-export default CreateCat;      
+export default CreateCat

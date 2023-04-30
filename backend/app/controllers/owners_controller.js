@@ -173,7 +173,7 @@ module.exports = {
                     const dataWithoutIds = list.map(({ id, ...rest }) => rest)
                     res.send({
                         success: true,
-                        message: "Cats created successfully and owner id updated",
+                        message: "Cats created successfully",
                         data: dataWithoutIds,
                     });
                 });

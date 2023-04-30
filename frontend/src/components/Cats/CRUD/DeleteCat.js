@@ -76,7 +76,7 @@ function DeleteCat() {
     return (
         <Box sx={{ textAlign: "center", p: 2, borderRadius: 2 }}>
             <Typography variant="h5" sx={{ ...h2Style }}>
-                Delete Cat Section
+                Delete Cat
             </Typography>
             <form onSubmit={handleSubmit}>
                 <ThemeProvider theme={theme}>

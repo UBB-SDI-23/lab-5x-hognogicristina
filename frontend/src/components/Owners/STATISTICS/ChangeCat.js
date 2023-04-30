@@ -68,17 +68,6 @@ function ChangeCat() {
         textShadow: "1px 1px #eee",
     }
 
-    const buttonStyles = {
-        backgroundColor: "transparent",
-        color: "#7c487c",
-        border: "2px solid #7c487c",
-        margin: 1,
-        "&:hover": {
-            backgroundColor: "#e2c7f7d8",
-            color: "7c487c",
-        },
-    }
-
     return (
         <Box sx={{ textAlign: "center", p: 2, borderRadius: 2 }}>
             <Typography variant="h5" sx={{ ...h2Style }}>
@@ -123,7 +112,7 @@ function ChangeCat() {
                     </Button>
                 </ThemeProvider>
             </form>
-            <ListChangedCats changedCats={changedCats} />
+            {changedCats.length > 0 && <ListChangedCats changedCats={changedCats} />}
         </Box>
     )
 }

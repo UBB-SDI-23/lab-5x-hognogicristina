@@ -76,7 +76,7 @@ function DeleteOwner() {
     return (
         <Box sx={{ textAlign: "center", p: 2, borderRadius: 2 }}>
             <Typography variant="h5" sx={{ ...h2Style }}>
-                Delete Owner Section
+                Delete Owner
             </Typography>
             <form onSubmit={handleSubmit}>
                 <ThemeProvider theme={theme}>

@@ -88,7 +88,7 @@ function UpdateCat() {
     return (
         <Box sx={{ textAlign: "center", p: 2, borderRadius: 2 }}>
             <Typography variant="h5" sx={{ ...h2Style }}>
-                Update Cat Section
+                Update Cat
             </Typography>
             <form onSubmit={handleSubmit}>
                 <ThemeProvider theme={theme}>
