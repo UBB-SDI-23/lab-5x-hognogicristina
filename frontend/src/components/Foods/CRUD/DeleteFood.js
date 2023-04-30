@@ -3,8 +3,8 @@ import { Box, Button, TextField, Typography } from "@mui/material"
 import { createTheme, ThemeProvider } from '@mui/material/styles'
 import axios from "axios"
 
-function DeleteCat() {
-    const [cat, setCat] = useState({
+function DeleteFood() {
+    const [food, setFood] = useState({
         id: ""
     })
 
@@ -13,8 +13,8 @@ function DeleteCat() {
 
     const handleChange = (event) => {
         const value = event.target.value
-        setCat({
-            ...cat,
+        setFood({
+            ...food,
             [event.target.name]: value,
         })
     }
@@ -24,11 +24,11 @@ function DeleteCat() {
         setIsLoading(true)
         setMessage("")
         
-        axios.delete("https://adopt-a-cat.onrender.com/cats_delete/" + cat.id, {
+        axios.delete("https://adopt-a-food.onrender.com/foods_delete/" + food.id, {
             headers: {
                 "Content-Type": "application/json"
             },
-            data: cat,
+            data: food,
         })
             .then((response) => {
                 setIsLoading(false)
@@ -38,7 +38,7 @@ function DeleteCat() {
     }
 
     const handleReset = () => {
-        setCat({
+        setFood({
             id: "",
         })
     }
@@ -76,7 +76,7 @@ function DeleteCat() {
     return (
         <Box sx={{ textAlign: "center", p: 2, borderRadius: 2 }}>
             <Typography variant="h5" sx={{ ...h2Style }}>
-                Delete Cat
+                Delete Food
             </Typography>
             <form onSubmit={handleSubmit}>
                 <ThemeProvider theme={theme}>
@@ -86,7 +86,7 @@ function DeleteCat() {
                         id="id"
                         name="id"
                         label="ID"
-                        value={cat.id}
+                        value={food.id}
                         onChange={handleChange}
                         margin="normal"
                         variant="outlined"
@@ -106,4 +106,4 @@ function DeleteCat() {
     )
 }
 
-export default DeleteCat
+export default DeleteFood

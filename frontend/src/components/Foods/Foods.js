@@ -1,82 +1,119 @@
-import { useState, useEffect } from "react"
-import { Box, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography } from "@mui/material"
-import { styled } from '@mui/material/styles'
+import ListFoods from "./CRUD/ListFoods"
+import OneFood from "../SHOW/OneFood"
+import AddFood from "./CRUD/AddFood"
+import DeleteFood from "./CRUD/DeleteFood"
+import UpdateFood from "./CRUD/UpdateFood"
+import { useState } from "react"
+import { Box, Button, Typography } from "@mui/material"
 
-const StyledTable = styled(Table)({
-    borderCollapse: 'collapse',
-    width: '100%',
-    margin: '0 auto',
-    fontFamily: 'Arial, sans-serif',
-})
+function Foods() {
+    const [showList, setShowList] = useState(false)
+    const [showFood, setShowFood] = useState(false)
+    const [showAddForm, setShowAddForm] = useState(false)
+    const [showDeleteForm, setShowDeleteForm] = useState(false)
+    const [showUpdateForm, setShowUpdateForm] = useState(false)
 
-const StyledTableCell = styled(TableCell)({
-    padding: 8,
-    textAlign: 'left',
-    borderBottom: '1px solid #ddd',
-})
+    const handleShowListClick = () => {
+        setShowList(true)
+        setShowFood(false)
+        setShowAddForm(false)
+        setShowDeleteForm(false)
+        setShowUpdateForm(false)
+    }
 
-const StyledTableHeadCell = styled(StyledTableCell)({
-    backgroundColor: '#f2f2f2',
-    fontWeight: 'bold',
-})
+    const handleShowFoodClick = () => {
+        setShowFood(true)
+        setShowList(false)
+        setShowAddForm(false)
+        setShowDeleteForm(false)
+        setShowUpdateForm(false)
+    }
 
-const StyledTableRow = styled(TableRow)({
-    '&:hover': {
-        backgroundColor: '#f5f5f5',
-    },
-})
+    const handleAddClick = () => {
+        setShowAddForm(true)
+        setShowList(false)
+        setShowFood(false)
+        setShowDeleteForm(false)
+        setShowUpdateForm(false)
+    }
 
-function ListFoods() {
-    const [foods, setFoods] = useState([]);
-    const [isLoading, setIsLoading] = useState(false);
-    
-    useEffect(() => {
-        setIsLoading(true);
-        fetch("https://adopt-a-cat.onrender.com/foods")
-            .then((response) => response.json())
-            .then((data) => {
-                setFoods(data.data);
-                setIsLoading(false);
-            })
-    }, [])
+    const handleDeleteClick = () => {
+        setShowDeleteForm(true)
+        setShowList(false)
+        setShowFood(false)
+        setShowAddForm(false)
+        setShowUpdateForm(false)
+    }
 
-    if (isLoading) {
-        return <Typography>Loading...</Typography>
+    const handleUpdateClick = () => {
+        setShowUpdateForm(true)
+        setShowList(false)
+        setShowFood(false)
+        setShowAddForm(false)
+        setShowDeleteForm(false)
+    }
+
+    const buttonStyles = {
+        backgroundColor: 'transparent',
+        color: '#7c487c',
+        border: '2px solid #7c487c',
+        margin: 1,
+        zIndex: 0,
+        '&:hover': {
+            backgroundColor: '#e2c7f7d8',
+            color: '7c487c',
+        }
     }
 
     return (
         <Box>
             <Typography variant="h4" align="center" sx={{ fontWeight: 'bold', mb: 2, color: '#7c487c', border: '2px solid #7c487c', boxShadow: '4px 4px 0 #7c487c' }}>
-                Food Section
+                Foods Section
             </Typography>
-            <TableContainer>
-                <StyledTable>
-                    <TableHead>
-                        <StyledTableRow>
-                            <StyledTableHeadCell>ID</StyledTableHeadCell>
-                            <StyledTableHeadCell>Name</StyledTableHeadCell>
-                            <StyledTableHeadCell>Brand</StyledTableHeadCell>
-                            <StyledTableHeadCell>Price</StyledTableHeadCell>
-                            <StyledTableHeadCell>Quantity</StyledTableHeadCell>
-                            <StyledTableHeadCell>Type</StyledTableHeadCell>
-                        </StyledTableRow>
-                    </TableHead>
-                    <TableBody>
-                        {foods.map((food) => (
-                            <StyledTableRow key={food.id}>
-                                <StyledTableCell>{food.id}</StyledTableCell>
-                                <StyledTableCell>{food.name}</StyledTableCell>
-                                <StyledTableCell>{food.brand}</StyledTableCell>
-                                <StyledTableCell>{food.price}</StyledTableCell>
-                                <StyledTableCell>{food.quantity}</StyledTableCell>
-                                <StyledTableCell>{food.type}</StyledTableCell>
-                            </StyledTableRow>
-                        ))}
-                    </TableBody>
-                </StyledTable>
-            </TableContainer>
+            <Typography variant="body1" sx={{ fontWeight: 'bold', mb: 2, color: '#7c487c' }}>
+                Hi there! Welcome to the Foods Section. Here you can see all the foods in the database. If you want you can acces a specific food.
+                And you can also add, update or delete a food.
+            </Typography>
+            {showList ? (
+                <>
+                    <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                        <Button onClick={handleAddClick} sx={buttonStyles}>Add a Food</Button>
+                        <Button onClick={handleUpdateClick} sx={buttonStyles}>Update a Food</Button>
+                        <Button onClick={handleDeleteClick} sx={buttonStyles}>Delete a Food</Button>
+                        <Button onClick={() => setShowList(false)} sx={buttonStyles}>Go Back</Button>
+                    </Box>
+                    <ListFoods />
+                </>
+            ) : showAddForm ? (
+                <>
+                    <AddFood />
+                    <Button onClick={handleShowListClick} sx={buttonStyles}>Go Back</Button>
+                </>
+            ) : showUpdateForm ? (
+                <>
+                    <UpdateFood />
+                    <Button onClick={handleShowListClick} sx={buttonStyles}>Go Back</Button>
+                </>
+            ) : showDeleteForm ? (
+                <>
+                    <DeleteFood />
+                    <Button onClick={handleShowListClick} sx={buttonStyles}>Go Back</Button>
+                </>
+            ) : (
+                <>
+                    <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                        <Button onClick={handleShowListClick} sx={buttonStyles}>List Foods</Button>
+                        <Button onClick={handleShowFoodClick} sx={buttonStyles}>One Food</Button>
+                    </Box>
+                </>
+            )}
+            {showFood ? (
+                <>
+                    <OneFood /> 
+                </>
+            ) : null}
         </Box>
     )
 }
 
-export default ListFoods
+export default Foods

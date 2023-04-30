@@ -3,8 +3,8 @@ import { Box, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, 
 import axios from 'axios'
 
 function StatisticOwner() {
-    const [owners, setOwners] = useState([]);
-    const [isLoading, setIsLoading] = useState(false);
+    const [owners, setOwners] = useState([])
+    const [isLoading, setIsLoading] = useState(false)
     
     useEffect(() => {
         setIsLoading(true)

@@ -103,7 +103,7 @@ function DeleteOwner() {
                 </ThemeProvider>
             </form>
         </Box>
-    );
+    )
 }
 
 export default DeleteOwner
