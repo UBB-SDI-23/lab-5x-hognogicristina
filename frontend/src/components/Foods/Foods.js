@@ -107,6 +107,11 @@ function Foods() {
                     </Box>
                 </>
             )}
+            {showFood ? (
+                <>
+                    <OneFood />
+                </>
+            ) : null}
         </Box>
     )
 }
