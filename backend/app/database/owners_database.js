@@ -71,12 +71,14 @@ async function createCatForOwner(id_owner, cats_list) {
     const catsExists = await cat.findAll({ where: { id: id_cats } })
 
     let list = []
-    
+
     cats_list.cats_list.forEach(cats => {
         let catExists = catsExists.find(cat => cat.id === cats.id)
 
         if (catExists) {
-            list.push(changeOwnerIdOfCats(id_owner, cats.id))
+            catExists.ownerId = id_owner
+            catExists.save()
+            list.push(catExists.dataValues)
         } else {
             let newCat = new cat({ id: cats.id, name: cats.name, age: cats.age, color: cats.color, breed: cats.breed, weight: cats.weight, description: cats.description, ownerId: id_owner })
             newCat.save()
