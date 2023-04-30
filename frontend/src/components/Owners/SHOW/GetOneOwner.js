@@ -15,13 +15,13 @@ function GetOneOwner(props) {
     }, [props.id])
 
     if (ownerData) {
-        const { firstName, lastName, address, phone, email, age, catsData } = ownerData;
-        let noCats = null;
+        const { firstName, lastName, address, phone, email, age, catsData } = ownerData
+        let noCats = null
 
         if (catsData) {
-            noCats = catsData.noCats;
+            noCats = catsData.noCats
         } else {
-            noCats = 0;
+            noCats = 0
         }
 
         return (

@@ -22,6 +22,7 @@ function DeleteCat() {
         event.preventDefault()
         setIsLoading(true)
         setMessage("")
+        
         fetch("https://adopt-a-cat.onrender.com/cats_delete/" + cat.id, {
             method: "DELETE",
             headers: {

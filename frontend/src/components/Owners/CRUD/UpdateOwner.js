@@ -28,6 +28,7 @@ function UpdateOwner() {
         event.preventDefault()
         setIsLoading(true)
         setMessage("")
+        
         fetch("https://adopt-a-cat.onrender.com/owners_update/" + owner.id, {
             method: "PUT",
             headers: {

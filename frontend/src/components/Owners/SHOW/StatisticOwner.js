@@ -54,6 +54,8 @@ function StatisticOwner() {
             <form onSubmit={(event) => event.preventDefault()}>
                 <Typography variant="body1" sx={{ margin: "1rem 0", ...pStyle }}>
                     This page shows a Statistic of Owners and their Cats by cats' average age.
+                </Typography>
+                <Typography variant="body1" sx={{ margin: "1rem 0", ...pStyle }}>
                     The owners are sorted by the average age of their cats in ascending order.
                 </Typography>
             </form>
@@ -67,7 +69,6 @@ function StatisticOwner() {
                         <Table aria-label="owner table">
                             <TableHead>
                                 <TableRow >
-                                    <TableCell sx={{ fontWeight: 'bold' }}>ID</TableCell>
                                     <TableCell sx={{ fontWeight: 'bold' }}>First Name</TableCell>
                                     <TableCell sx={{ fontWeight: 'bold' }}>Last Name</TableCell>
                                     <TableCell sx={{ fontWeight: 'bold' }}>Address</TableCell>
@@ -80,9 +81,8 @@ function StatisticOwner() {
                             <TableBody>
                                 {owners.map((owner) => (
                                     <TableRow key={owner.id}>
-                                        <TableCell>{owner.id}</TableCell>
-                                        <TableCell>{owner.first_name}</TableCell>
-                                        <TableCell>{owner.last_name}</TableCell>
+                                        <TableCell>{owner.firstName}</TableCell>
+                                        <TableCell>{owner.lastName}</TableCell>
                                         <TableCell>{owner.address}</TableCell>
                                         <TableCell>{owner.phone}</TableCell>
                                         <TableCell>{owner.email}</TableCell>

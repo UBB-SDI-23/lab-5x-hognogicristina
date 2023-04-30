@@ -27,6 +27,7 @@ function AddOwner() {
         event.preventDefault()
         setIsLoading(true)
         setMessage("")
+        
         fetch("https://adopt-a-cat.onrender.com/owners_add", {
             method: "POST",
             headers: {

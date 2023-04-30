@@ -22,6 +22,7 @@ function DeleteOwner() {
         event.preventDefault()
         setIsLoading(true)
         setMessage("")
+        
         fetch("https://adopt-a-cat.onrender.com/owners_delete/" + owner.id, {
             method: "DELETE",
             headers: {

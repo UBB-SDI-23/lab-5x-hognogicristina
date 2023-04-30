@@ -29,6 +29,7 @@ function UpdateCat() {
         event.preventDefault()
         setIsLoading(true)
         setMessage("")
+        
         fetch("https://adopt-a-cat.onrender.com/cats_update/" + cat.id, {
             method: "PUT",
             headers: {

@@ -29,6 +29,7 @@ const StyledTableRow = styled(TableRow)({
 function ListCats() {
     const [cats, setCats] = useState([])
     const [isLoading, setIsLoading] = useState(false)
+    
     useEffect(() => {
         setIsLoading(true)
         fetch("https://adopt-a-cat.onrender.com/cats")
