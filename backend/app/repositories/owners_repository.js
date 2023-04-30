@@ -17,6 +17,7 @@ module.exports = {
         let owner8 = new owner({ firstName: "Jackson", lastName: "Avery", address: "12 Main Street", phone: 71838757, email: "jack@gmail.com", age: 34 })
         let owner9 = new owner({ firstName: "April", lastName: "Kepner", address: "23 Park Avenue", phone: 71838758, email: "april@yahoo.com", age: 16 })
         let owner10 = new owner({ firstName: "Callie", lastName: "Torres", address: "34 Cook Street", phone: 71838759, email: "callie@gmail.com", age: 89 })
+        let owner11 = new owner({ firstName: "Tiberiu", lastName: "Craiu", address: "12 Motilor", phone: 70888726, email: "tibi@gmail.com", age: 22 })
 
         owners.push(owner1)
         owners.push(owner2)
@@ -28,6 +29,7 @@ module.exports = {
         owners.push(owner8)
         owners.push(owner9)
         owners.push(owner10)
+        owners.push(owner11)
 
         owners.forEach((o) => {
             db.addOwner(o.dataValues)
