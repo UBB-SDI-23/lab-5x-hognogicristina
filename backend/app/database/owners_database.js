@@ -78,7 +78,7 @@ async function createCatForOwner(id_owner, cats_list) {
         if (catExists) {
             list.push(changeOwnerIdOfCats(id_owner, cats.id))
         } else {
-            let newCat = new cat({ id: cats.id, name: cats.name, age: cats.age, color: cats.color, breed: cats.breed, weight: cats.weight, ownerId: id_owner })
+            let newCat = new cat({ id: cats.id, name: cats.name, age: cats.age, color: cats.color, breed: cats.breed, weight: cats.weight, description: cats.description, ownerId: id_owner })
             newCat.save()
             list.push(newCat.dataValues)
         }

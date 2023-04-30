@@ -5,6 +5,7 @@ import AddOwner from './CRUD/AddOwner'
 import UpdateOwner from './CRUD/UpdateOwner'
 import DeleteOwner from './CRUD/DeleteOwner'
 import ChangeCat from './STATISTICS/ChangeCat'
+import CreateCat from './STATISTICS/CreateCat'
 import { useState } from "react"
 import { Box, Button, Typography } from "@mui/material"
 
@@ -176,6 +177,11 @@ function Owners() {
             {showChangeForm ? (
                 <>
                     <ChangeCat />
+                </>
+            ) : null}
+            {showCreateForm ? (
+                <>
+                    <CreateCat />
                 </>
             ) : null}
         </Box>

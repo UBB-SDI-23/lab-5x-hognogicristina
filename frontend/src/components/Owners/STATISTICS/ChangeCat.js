@@ -16,14 +16,8 @@ function ChangeCat() {
         setIsLoading(true)
         setMessage("")
 
-        axios.post(
-                `https://adopt-a-cat.onrender.com/owners/${owner}/cats_list`,
-                { id: cats },
-                {
-                    headers: {
-                        "Content-Type": "application/json",
-                    },
-                }
+        axios.post(`https://adopt-a-cat.onrender.com/owners/${owner}/cats_list`, { id: cats },
+                { headers: { "Content-Type": "application/json", }, }
             )
             .then((response) => {
                 setChangedCats(response.data.data)
@@ -117,6 +111,7 @@ function ChangeCat() {
                         margin="normal"
                         variant="outlined"
                     />
+                    {message && <Typography color="red">{message}</Typography>}
                     <Button type="submit" variant="contained" sx={{ ...buttonStyles }}>
                         Submit
                     </Button>
@@ -128,7 +123,7 @@ function ChangeCat() {
             </form>
             <ListChangedCats changedCats={changedCats} />
         </Box>
-    );
+    )
 }
 
-export default ChangeCat;
+export default ChangeCat
