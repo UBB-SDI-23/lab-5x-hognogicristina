@@ -15,14 +15,14 @@ class Validation {
     }
 
     static validateName(name) {
-        var re = /^[a-zA-Z]{3,}$/
+        var re = /^[a-zA-Z\s\-]{3,}$/
         return re.test(name)
     }
 
     static validateDescr(name) {
-        var re = /^[a-zA-Z]{50,}$/
+        var re = /^[a-zA-Z\s\.\-]{50,100}$/
         return re.test(name)
-    }
+    } 
 
     static validateDate(date) {
         var re = /^\d{4}-\d{2}-\d{2}$/

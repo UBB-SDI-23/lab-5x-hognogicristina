@@ -20,6 +20,8 @@ class ValidationCat {
             return "Breed is required"
         } else if (weight == null) {
             return "Weight is required"
+        } else if (description == null) {
+            return "Description is required"
         } else if (ownerId == null) {
             return "Owner id is required"
         } else if (!Validation.validateName(name)) {
@@ -33,7 +35,7 @@ class ValidationCat {
         } else if (!Validation.validateName(color)) {
             return "Color should have at least 3 letters"
         } else if (!Validation.validateDescr(description)) {
-            return "Description should have at least 50 letters"
+            return "Description should have at least 50 letters and 100 max"
         } else if (!await Validation.isIdInUse(ownerId, "owner")) {
             return "Owner id does not exist"
         } else {
@@ -60,6 +62,8 @@ class ValidationCat {
             return "Breed is required"
         } else if (weight == null) {
             return "Weight is required"
+        } else if (description == null) {
+            return "Description is required"
         } else if (ownerId == null) {
             return "Owner id is required"
         } else if (!Validation.validateName(name)) {
@@ -73,7 +77,7 @@ class ValidationCat {
         } else if (!Validation.validateName(color)) {
             return "Color should have at least 3 letters"
         } else if (!Validation.validateDescr(description)) {
-            return "Description should have at least 50 letters"
+            return "Description should have at least 50 letters and 100 max"
         } else if (!await Validation.isIdInUse(ownerId, "owner")) {
             return "Owner id does not exist"
         } else {
