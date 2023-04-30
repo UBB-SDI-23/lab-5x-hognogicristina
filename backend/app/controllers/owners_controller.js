@@ -167,19 +167,20 @@ module.exports = {
         var ownerid = req.params.id
         var cats_list = req.body
 
-        validation.isIdInUse(ownerid, "owner").then(owner => {
+        validation.isIdInUse(ownerid, "owner").then((owner) => {
             if (owner) {
-                repoOwner.createCatForOwner(ownerid, cats_list).then(list => {
+                repoOwner.createCatForOwner(ownerid, cats_list).then((list) => {
+                    const dataWithoutIds = list.map(({ id, ...rest }) => rest)
                     res.send({
                         success: true,
-                        message: "For owner created cats successfully and updated owner id of cats",
-                        data: list
-                    })
-                })
+                        message: "Cats created successfully and owner id updated",
+                        data: dataWithoutIds,
+                    });
+                });
             } else {
                 res.send({
                     success: false,
-                    message: result
+                    message: "Owner not found",
                 })
             }
         })
