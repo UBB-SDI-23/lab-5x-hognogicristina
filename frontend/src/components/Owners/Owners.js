@@ -2,8 +2,6 @@ import ListOwners from './CRUD/ListOwners'
 import OneOwner from './SHOW/OneOwner'
 import StatisticOwner from './SHOW/StatisticOwner'
 import AddOwner from './CRUD/AddOwner'
-import UpdateOwner from './CRUD/UpdateOwner'
-import DeleteOwner from './CRUD/DeleteOwner'
 import ChangeCat from './STATISTICS/ChangeCat'
 import CreateCat from './STATISTICS/CreateCat'
 import { useState } from "react"
@@ -14,8 +12,6 @@ function Owners() {
     const [showOwner, setShowOwner] = useState(false)
     const [showStatistic, setShowStatistic] = useState(false)
     const [showAddForm, setShowAddForm] = useState(false)
-    const [showDeleteForm, setShowDeleteForm] = useState(false)
-    const [showUpdateForm, setShowUpdateForm] = useState(false)
     const [showChangeForm, setShowChangeForm] = useState(false)
     const [showCreateForm, setShowCreateForm] = useState(false)
 
@@ -24,8 +20,6 @@ function Owners() {
         setShowOwner(false)
         setShowStatistic(false)
         setShowAddForm(false)
-        setShowDeleteForm(false)
-        setShowUpdateForm(false)
         setShowChangeForm(false)
         setShowCreateForm(false)
     }
@@ -35,8 +29,6 @@ function Owners() {
         setShowList(false)
         setShowStatistic(false)
         setShowAddForm(false)
-        setShowDeleteForm(false)
-        setShowUpdateForm(false)
         setShowChangeForm(false)
         setShowCreateForm(false)
     }
@@ -46,8 +38,6 @@ function Owners() {
         setShowList(false)
         setShowOwner(false)
         setShowAddForm(false)
-        setShowDeleteForm(false)
-        setShowUpdateForm(false)
         setShowChangeForm(false)
         setShowCreateForm(false)
     }
@@ -57,30 +47,6 @@ function Owners() {
         setShowList(false)
         setShowOwner(false)
         setShowStatistic(false)
-        setShowDeleteForm(false)
-        setShowUpdateForm(false)
-        setShowChangeForm(false)
-        setShowCreateForm(false)
-    }
-
-    const handleDeleteClick = () => {
-        setShowDeleteForm(true)
-        setShowList(false)
-        setShowOwner(false)
-        setShowStatistic(false)
-        setShowAddForm(false)
-        setShowUpdateForm(false)
-        setShowChangeForm(false)
-        setShowCreateForm(false)
-    }
-
-    const handleUpdateClick = () => {
-        setShowUpdateForm(true)
-        setShowList(false)
-        setShowOwner(false)
-        setShowStatistic(false)
-        setShowAddForm(false)
-        setShowDeleteForm(false)
         setShowChangeForm(false)
         setShowCreateForm(false)
     }
@@ -91,8 +57,6 @@ function Owners() {
         setShowOwner(false)
         setShowStatistic(false)
         setShowAddForm(false)
-        setShowDeleteForm(false)
-        setShowUpdateForm(false)
         setShowCreateForm(false)
     }
 
@@ -102,8 +66,6 @@ function Owners() {
         setShowOwner(false)
         setShowStatistic(false)
         setShowAddForm(false)
-        setShowDeleteForm(false)
-        setShowUpdateForm(false)
         setShowChangeForm(false)
     }
 
@@ -132,9 +94,7 @@ function Owners() {
             {showList ? (
                 <>
                     <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                        <Button onClick={handleAddClick} sx={buttonStyles}>Add a Owner</Button>
-                        <Button onClick={handleUpdateClick} sx={buttonStyles}>Update a Owner</Button>
-                        <Button onClick={handleDeleteClick} sx={buttonStyles}>Delete a Owner</Button>
+                        <Button onClick={handleAddClick} sx={buttonStyles}>Add</Button>
                         <Button onClick={() => setShowList(false)} sx={buttonStyles}>Go Back</Button>
                     </Box>
                     <ListOwners />
@@ -142,16 +102,6 @@ function Owners() {
             ) : showAddForm ? (
                 <>
                     <AddOwner />
-                    <Button onClick={handleShowListClick} sx={buttonStyles}>Go Back</Button>
-                </>
-            ) : showUpdateForm ? (
-                <>
-                    <UpdateOwner />
-                    <Button onClick={handleShowListClick} sx={buttonStyles}>Go Back</Button>
-                </>
-            ) : showDeleteForm ? (
-                <>
-                    <DeleteOwner />
                     <Button onClick={handleShowListClick} sx={buttonStyles}>Go Back</Button>
                 </>
             ) : (

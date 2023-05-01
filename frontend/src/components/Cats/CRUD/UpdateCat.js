@@ -3,9 +3,9 @@ import { Box, Button, TextField, Typography } from "@mui/material"
 import { createTheme, ThemeProvider } from '@mui/material/styles'
 import axios from "axios"
 
-function UpdateCat() {
+function UpdateCat({ catId }) {
     const [cat, setCat] = useState({
-        id: "",
+        id: catId,
         name: "",
         age: "",
         color: "",
@@ -44,7 +44,7 @@ function UpdateCat() {
 
     const handleReset = () => {
         setCat({
-            id: "",
+            id: catId,
             name: "",
             age: "",
             color: "",
@@ -104,6 +104,7 @@ function UpdateCat() {
                         variant="outlined"
                         placeholder="Example: 1"
                         sx={{ zIndex: 0 }}
+                        disabled
                     />
                     <TextField
                         required

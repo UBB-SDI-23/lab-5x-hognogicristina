@@ -3,8 +3,6 @@ import OneCat from "./SHOW/OneCat"
 import FilterCats from "./SHOW/FilterCats"
 import StatisticCat from "./STATISTICS/StatisticCat"
 import AddCat from "./CRUD/AddCat"
-import UpdateCat from "./CRUD/UpdateCat"
-import DeleteCat from "./CRUD/DeleteCat"
 import { useState } from "react"
 import { Box, Button, Typography } from "@mui/material"
 
@@ -14,8 +12,6 @@ function Cats() {
     const [showFilter, setShowFilter] = useState(false)
     const [showStatistic, setShowStatistic] = useState(false)
     const [showAddForm, setShowAddForm] = useState(false)
-    const [showDeleteForm, setShowDeleteForm] = useState(false)
-    const [showUpdateForm, setShowUpdateForm] = useState(false)
 
     const handleShowListClick = () => {
         setShowList(true)
@@ -23,8 +19,6 @@ function Cats() {
         setShowFilter(false)
         setShowStatistic(false)
         setShowAddForm(false)
-        setShowDeleteForm(false)
-        setShowUpdateForm(false)
     }
 
     const handleShowCatClick = () => {
@@ -33,8 +27,6 @@ function Cats() {
         setShowFilter(false)
         setShowStatistic(false)
         setShowAddForm(false)
-        setShowDeleteForm(false)
-        setShowUpdateForm(false)
     }
 
     const handleShowFilterClick = () => {
@@ -43,8 +35,6 @@ function Cats() {
         setShowCat(false)
         setShowStatistic(false)
         setShowAddForm(false)
-        setShowDeleteForm(false)
-        setShowUpdateForm(false)
     }
 
     const handleShowRaportClick = () => {
@@ -53,8 +43,6 @@ function Cats() {
         setShowCat(false)
         setShowFilter(false)
         setShowAddForm(false)
-        setShowDeleteForm(false)
-        setShowUpdateForm(false)
     }
 
     const handleAddClick = () => {
@@ -63,28 +51,6 @@ function Cats() {
         setShowCat(false)
         setShowFilter(false)
         setShowStatistic(false)
-        setShowDeleteForm(false)
-        setShowUpdateForm(false)
-    }
-
-    const handleDeleteClick = () => {
-        setShowDeleteForm(true)
-        setShowList(false)
-        setShowCat(false)
-        setShowFilter(false)
-        setShowStatistic(false)
-        setShowAddForm(false)
-        setShowUpdateForm(false)
-    }
-
-    const handleUpdateClick = () => {
-        setShowUpdateForm(true)
-        setShowList(false)
-        setShowCat(false)
-        setShowFilter(false)
-        setShowStatistic(false)
-        setShowAddForm(false)
-        setShowDeleteForm(false)
     }
 
     const buttonStyles = {
@@ -112,9 +78,7 @@ function Cats() {
             {showList ? (
                 <>
                     <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                        <Button onClick={handleAddClick} sx={buttonStyles}>Add a Cat</Button>
-                        <Button onClick={handleUpdateClick} sx={buttonStyles}>Update a Cat</Button>
-                        <Button onClick={handleDeleteClick} sx={buttonStyles}>Delete a Cat</Button>
+                        <Button onClick={handleAddClick} sx={buttonStyles}>Add</Button>
                         <Button onClick={() => setShowList(false)} sx={buttonStyles}>Go Back</Button>
                     </Box>
                     <ListCats />
@@ -122,16 +86,6 @@ function Cats() {
             ) : showAddForm ? (
                 <>
                     <AddCat />
-                    <Button onClick={handleShowListClick} sx={buttonStyles}>Go Back</Button>
-                </>
-            ) : showUpdateForm ? (
-                <>
-                    <UpdateCat />
-                    <Button onClick={handleShowListClick} sx={buttonStyles}>Go Back</Button>
-                </>
-            ) : showDeleteForm ? (
-                <>
-                    <DeleteCat />
                     <Button onClick={handleShowListClick} sx={buttonStyles}>Go Back</Button>
                 </>
             ) : (

@@ -5,7 +5,7 @@ import axios from 'axios'
 
 function GetOneCat(props) {
     const [catData, setCatData] = useState([])
-
+    
     useEffect(() => {
         axios.get("https://adopt-a-cat.onrender.com/cats/" + props.id)
             .then(response => {
@@ -15,7 +15,7 @@ function GetOneCat(props) {
 
     if (catData) {
         const { name, age, color, breed, weight, description, ownerData } = catData
-        const { owner } = ownerData
+        const owner = ownerData && ownerData.owner
 
         return (
             <>
@@ -54,23 +54,23 @@ function GetOneCat(props) {
                             </TableRow>
                             <TableRow>
                                 <TableCell component="th" scope="row">Name</TableCell>
-                                <TableCell>{owner[0].firstName} {owner[0].lastName}</TableCell>
+                                <TableCell>{owner && `${owner[0].firstName} ${owner[0].lastName}`}</TableCell>
                             </TableRow>
                             <TableRow>
                                 <TableCell component="th" scope="row">Address</TableCell>
-                                <TableCell>{owner[0].address}</TableCell>
+                                <TableCell>{owner && owner[0].address}</TableCell>
                             </TableRow>
                             <TableRow>
                                 <TableCell component="th" scope="row">Phone</TableCell>
-                                <TableCell>{owner[0].phone}</TableCell>
+                                <TableCell>{owner && owner[0].phone}</TableCell>
                             </TableRow>
                             <TableRow>
                                 <TableCell component="th" scope="row">Email</TableCell>
-                                <TableCell>{owner[0].email}</TableCell>
+                                <TableCell>{owner && owner[0].email}</TableCell>
                             </TableRow>
                             <TableRow>
                                 <TableCell component="th" scope="row">Age</TableCell>
-                                <TableCell>{owner[0].age}</TableCell>
+                                <TableCell>{owner && owner[0].age}</TableCell>
                             </TableRow>
                         </TableBody>
                     </Table>

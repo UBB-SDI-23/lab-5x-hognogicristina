@@ -3,9 +3,9 @@ import { Box, Button, TextField, Typography } from "@mui/material"
 import { createTheme, ThemeProvider } from '@mui/material/styles'
 import axios from "axios"
 
-function DeleteFood() {
+function DeleteFood({ foodId }) {
     const [food, setFood] = useState({
-        id: ""
+        id: foodId,
     })
 
     const [isLoading, setIsLoading] = useState(false)
@@ -35,12 +35,6 @@ function DeleteFood() {
                 setMessage(response.data.message)
             })
 
-    }
-
-    const handleReset = () => {
-        setFood({
-            id: "",
-        })
     }
 
     const buttonStyles = {
@@ -92,13 +86,11 @@ function DeleteFood() {
                         variant="outlined"
                         placeholder="Example: 1"
                         sx={{ zIndex: 0 }}
+                        disabled
                     />
                     {message && <Typography color="red">{message}</Typography>}
                     <Button type="submit" variant="contained" sx={{ ...buttonStyles }} disabled={isLoading}>
                         {isLoading ? "Loading..." : "Submit"}
-                    </Button>
-                    <Button variant="contained" sx={{ ...buttonStyles }} onClick={handleReset}>
-                        Reset
                     </Button>
                 </ThemeProvider>
             </form>

@@ -1,8 +1,6 @@
 import ListFoods from "./CRUD/ListFoods"
 import OneFood from "./SHOW/OneFood"
 import AddFood from "./CRUD/AddFood"
-import DeleteFood from "./CRUD/DeleteFood"
-import UpdateFood from "./CRUD/UpdateFood"
 import { useState } from "react"
 import { Box, Button, Typography } from "@mui/material"
 
@@ -10,47 +8,23 @@ function Foods() {
     const [showList, setShowList] = useState(false)
     const [showFood, setShowFood] = useState(false)
     const [showAddForm, setShowAddForm] = useState(false)
-    const [showDeleteForm, setShowDeleteForm] = useState(false)
-    const [showUpdateForm, setShowUpdateForm] = useState(false)
 
     const handleShowListClick = () => {
         setShowList(true)
         setShowFood(false)
         setShowAddForm(false)
-        setShowDeleteForm(false)
-        setShowUpdateForm(false)
     }
 
     const handleShowFoodClick = () => {
         setShowFood(true)
         setShowList(false)
         setShowAddForm(false)
-        setShowDeleteForm(false)
-        setShowUpdateForm(false)
     }
 
     const handleAddClick = () => {
         setShowAddForm(true)
         setShowList(false)
         setShowFood(false)
-        setShowDeleteForm(false)
-        setShowUpdateForm(false)
-    }
-
-    const handleDeleteClick = () => {
-        setShowDeleteForm(true)
-        setShowList(false)
-        setShowFood(false)
-        setShowAddForm(false)
-        setShowUpdateForm(false)
-    }
-
-    const handleUpdateClick = () => {
-        setShowUpdateForm(true)
-        setShowList(false)
-        setShowFood(false)
-        setShowAddForm(false)
-        setShowDeleteForm(false)
     }
 
     const buttonStyles = {
@@ -77,9 +51,7 @@ function Foods() {
             {showList ? (
                 <>
                     <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                        <Button onClick={handleAddClick} sx={buttonStyles}>Add a Food</Button>
-                        <Button onClick={handleUpdateClick} sx={buttonStyles}>Update a Food</Button>
-                        <Button onClick={handleDeleteClick} sx={buttonStyles}>Delete a Food</Button>
+                        <Button onClick={handleAddClick} sx={buttonStyles}>Add</Button>
                         <Button onClick={() => setShowList(false)} sx={buttonStyles}>Go Back</Button>
                     </Box>
                     <ListFoods />
@@ -87,16 +59,6 @@ function Foods() {
             ) : showAddForm ? (
                 <>
                     <AddFood />
-                    <Button onClick={handleShowListClick} sx={buttonStyles}>Go Back</Button>
-                </>
-            ) : showUpdateForm ? (
-                <>
-                    <UpdateFood />
-                    <Button onClick={handleShowListClick} sx={buttonStyles}>Go Back</Button>
-                </>
-            ) : showDeleteForm ? (
-                <>
-                    <DeleteFood />
                     <Button onClick={handleShowListClick} sx={buttonStyles}>Go Back</Button>
                 </>
             ) : (

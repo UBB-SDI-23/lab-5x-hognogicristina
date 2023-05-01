@@ -3,9 +3,9 @@ import { Box, Button, TextField, Typography } from "@mui/material"
 import { createTheme, ThemeProvider } from '@mui/material/styles'
 import axios from "axios"
 
-function UpdateOwner() {
+function UpdateOwner({ ownerId }) {
     const [owner, setOwner] = useState({
-        id: "",
+        id: ownerId,
         firstName: "",
         lastName: "",
         address: "",
@@ -43,7 +43,7 @@ function UpdateOwner() {
 
     const handleReset = () => {
         setOwner({
-            id: "",
+            id: ownerId,
             firstName: "",
             lastName: "",
             address: "",
@@ -102,6 +102,7 @@ function UpdateOwner() {
                         variant="outlined"
                         placeholder="Example: 1"
                         sx={{ zIndex: 0 }}
+                        disabled
                     />
                     <TextField
                         required

@@ -3,9 +3,9 @@ import { Box, Button, TextField, Typography } from "@mui/material"
 import { createTheme, ThemeProvider } from '@mui/material/styles'
 import axios from "axios"
 
-function UpdateFood() {
+function UpdateFood({ foodId }) {
     const [food, setFood] = useState({
-        id: "",
+        id: foodId,
         name: "",
         brand: "",
         price: "",
@@ -42,7 +42,7 @@ function UpdateFood() {
 
     const handleReset = () => {
         setFood({
-            id: "",
+            id: foodId,
             name: "",
             brand: "",
             price: "",
@@ -100,6 +100,7 @@ function UpdateFood() {
                         variant="outlined"
                         placeholder="Example: 1"
                         sx={{ zIndex: 0 }}
+                        disabled
                     />
                     <TextField
                         required
