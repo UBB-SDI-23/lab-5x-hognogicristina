@@ -43,24 +43,27 @@ function ListOwners() {
     const [pageSize, setPageSize] = useState(5)
     const [totalPages, setTotalPages] = useState(0)
 
-    // useEffect(() => {
-    //     setIsLoading(true)
-    //     axios.get("https://adopt-a-cat.onrender.com/owners")
-    //         .then((response) => {
-    //             setOwners(response.data.data)
-    //             setIsLoading(false)
-    //         })
-    // }, [showListOwners])
-
     useEffect(() => {
         setIsLoading(true)
-        axios.get(`http://localhost:8000/owners?page=${page}&pageSize=${pageSize}`)
+        axios.get(`https://adopt-a-cat.onrender.com/owners?page=${page}&pageSize=${pageSize}`)
             .then((response) => {
                 setOwners(response.data.data.owners)
                 setTotalPages(response.data.data.pageInfo.totalPages)
+            })
+            .finally(() => {
                 setIsLoading(false)
             })
     }, [showListOwners, page, pageSize])
+
+    // useEffect(() => {
+    //     setIsLoading(true)
+    //     axios.get(`http://localhost:8000/owners?page=${page}&pageSize=${pageSize}`)
+    //         .then((response) => {
+    //             setOwners(response.data.data.owners)
+    //             setTotalPages(response.data.data.pageInfo.totalPages)
+    //             setIsLoading(false)
+    //         })
+    // }, [showListOwners, page, pageSize])
 
     const handlePageChange = (event, value) => {
         setPage(value)

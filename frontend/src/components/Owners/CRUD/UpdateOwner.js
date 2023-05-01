@@ -30,8 +30,8 @@ function UpdateOwner({ ownerId }) {
         setIsLoading(true)
         setMessage("")
         
-        // axios.put("https://adopt-a-cat.onrender.com/owners_update/" + owner.id, owner, {
-        axios.put("http://localhost:8000/owners_update/" + owner.id, owner, {
+        axios.put(`https://adopt-a-cat.onrender.com/owners_update/${owner.id}`, owner, {
+        // axios.put(`http://localhost:8000/owners_update/${owner.id}`, owner, {
             headers: {
                 "Content-Type": "application/json"
             }

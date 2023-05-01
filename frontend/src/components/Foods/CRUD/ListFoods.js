@@ -43,24 +43,27 @@ function ListFoods() {
     const [pageSize, setPageSize] = useState(5)
     const [totalPages, setTotalPages] = useState(0)
 
-    // useEffect(() => {
-    //     setIsLoading(true)
-    //     axios.get("https://adopt-a-cat.onrender.com/foods")
-    //         .then((response) => {
-    //             setFoods(response.data.data)
-    //             setIsLoading(false)
-    //         })
-    // }, [showListFoods])
-
     useEffect(() => {
         setIsLoading(true)
-        axios.get(`http://localhost:8000/foods?page=${page}&pageSize=${pageSize}`)
+        axios.get(`https://adopt-a-cat.onrender.com/foods?page=${page}&pageSize=${pageSize}`)
             .then((response) => {
                 setFoods(response.data.data.foods)
                 setTotalPages(response.data.data.pageInfo.totalPages)
+            })
+            .finally(() => {
                 setIsLoading(false)
             })
     }, [showListFoods, page, pageSize])
+
+    // useEffect(() => {
+    //     setIsLoading(true)
+    //     axios.get(`http://localhost:8000/foods?page=${page}&pageSize=${pageSize}`)
+    //         .then((response) => {
+    //             setFoods(response.data.data.foods)
+    //             setTotalPages(response.data.data.pageInfo.totalPages)
+    //             setIsLoading(false)
+    //         })
+    // }, [showListFoods, page, pageSize])
 
     const handlePageChange = (event, value) => {
         setPage(value)

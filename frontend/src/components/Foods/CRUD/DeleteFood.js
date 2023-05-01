@@ -24,8 +24,8 @@ function DeleteFood({ foodId }) {
         setIsLoading(true)
         setMessage("")
         
-        // axios.delete("https://adopt-a-food.onrender.com/foods_delete/" + food.id, {
-        axios.delete("http://localhost:8000/foods_delete/" + food.id, {
+        axios.delete(`https://adopt-a-cat.onrender.com/foods_delete/${food.id}`, {
+        // axios.delete(`http://localhost:8000/foods_delete/${food.id}`, {
             headers: {
                 "Content-Type": "application/json"
             },

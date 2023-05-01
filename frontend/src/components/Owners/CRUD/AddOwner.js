@@ -29,8 +29,8 @@ function AddOwner() {
         setIsLoading(true)
         setMessage("")
 
-        // axios.post("https://adopt-a-cat.onrender.com/owners_add", owner, {
-        axios.post("http://localhost:8000/owners_add", owner, {
+        axios.post(`https://adopt-a-cat.onrender.com/cats_add`, cat, {
+        // axios.post(`http://localhost:8000/cats_add`, cat, {
             headers: {
                 "Content-Type": "application/json"
             }

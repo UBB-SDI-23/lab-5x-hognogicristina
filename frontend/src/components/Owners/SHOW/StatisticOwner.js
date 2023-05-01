@@ -11,24 +11,25 @@ function StatisticOwner() {
     const [pageSize, setPageSize] = useState(5)
     const [totalPages, setTotalPages] = useState(0)
 
-    // useEffect(() => {
-    //     setIsLoading(true)
-    //     axios.get("https://adopt-a-cat.onrender.com/owners_statistic")
-    //         .then(response => {
-    //             setOwners(response.data.data)
-    //             setIsLoading(false)
-    //         })
-    // }, [])
-
     useEffect(() => {
         setIsLoading(true)
-        axios.get(`http://localhost:8000/owners_statistic?page=${page}&page_size=${pageSize}`)
+        axios.get(`https://adopt-a-cat.onrender.com/owners_statistic?page=${page}&page_size=${pageSize}`)
             .then(response => {
                 setOwners(response.data.data.owners)
                 setTotalPages(response.data.data.pageInfo.totalPages)
                 setIsLoading(false)
             })
     }, [page, pageSize])
+
+    // useEffect(() => {
+    //     setIsLoading(true)
+    //     axios.get(`http://localhost:8000/owners_statistic?page=${page}&page_size=${pageSize}`)
+    //         .then(response => {
+    //             setOwners(response.data.data.owners)
+    //             setTotalPages(response.data.data.pageInfo.totalPages)
+    //             setIsLoading(false)
+    //         })
+    // }, [page, pageSize])
 
     const handlePageChange = (event, value) => {
         setPage(value)

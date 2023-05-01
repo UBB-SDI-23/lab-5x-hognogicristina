@@ -7,7 +7,8 @@ function GetOneFood(props) {
     const [foodData, setFoodData] = useState([])
 
     useEffect(() => {
-        axios.get("https://adopt-a-cat.onrender.com/foods/" + props.id)
+        axios.get(`https://adopt-a-cat.onrender.com/foods/${props.id}`)
+        // axios.get(`http://localhost:8000/foods/${props.id}`)
             .then(response => {
                 setFoodData(response.data.data)
             })
