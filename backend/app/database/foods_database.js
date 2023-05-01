@@ -1,8 +1,22 @@
 const foods = require('../models/foods_model.js')
 require('./database.js')
 
-async function getFoods() {
-    return foods.findAll()
+async function getFoods(page, pageSize) {
+    const offset = (page - 1) * pageSize
+    const limit = pageSize
+    const food = await foods.findAll({ offset, limit })
+    const count = await foods.count()
+    const totalPages = Math.ceil(count / pageSize)
+
+    return {
+        results: food,
+        pageInfo: {
+            page,
+            pageSize,
+            totalPages,
+            count,
+        },
+    }
 }
 
 async function getOneFoodById(id) {

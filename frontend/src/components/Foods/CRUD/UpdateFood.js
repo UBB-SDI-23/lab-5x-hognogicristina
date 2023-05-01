@@ -29,7 +29,8 @@ function UpdateFood({ foodId }) {
         setIsLoading(true)
         setMessage("")
         
-        axios.put("https://adopt-a-food.onrender.com/foods_update/" + food.id, food,{
+        // axios.put("https://adopt-a-food.onrender.com/foods_update/" + food.id, food, {
+        axios.put("http://localhost:8000/foods_update/" + food.id, food, {
             headers: {
                 "Content-Type": "application/json"
             }

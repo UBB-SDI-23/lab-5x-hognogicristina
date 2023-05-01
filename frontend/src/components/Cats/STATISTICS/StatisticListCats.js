@@ -1,18 +1,35 @@
 import React, { useState, useEffect } from 'react'
 import { Typography, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper } from '@mui/material'
 import axios from 'axios'
+import Pagination from '@mui/material/Pagination'
 
 function StatisticListCats(props) {
     const [catData, setCatData] = useState([])
     const [isLoading, setIsLoading] = useState(false)
 
+    const [page, setPage] = useState(1)
+    const [pageSize, setPageSize] = useState(5)
+    const [totalPages, setTotalPages] = useState(0)
+
+    // useEffect(() => {
+    //     axios.get("https://adopt-a-cat.onrender.com/cats_statistic/" + props.breed)
+    //         .then(response => {
+    //             setCatData(response.data.data)
+    //             setIsLoading(false)
+    //         })
+    // }, [props.breed])
+
     useEffect(() => {
-        axios.get("https://adopt-a-cat.onrender.com/cats_statistic/" + props.breed)
+        setIsLoading(true)
+        axios.get(`http://localhost:8000/cats_statistic/${props.breed}?page=${page}&pageSize=${pageSize}`)
             .then(response => {
-                setCatData(response.data.data)
+                setCatData(response.data.data.cats)
+                setTotalPages(response.data.data.pageInfo.totalPages)
+            })
+            .finally(() => {
                 setIsLoading(false)
             })
-    }, [props.breed])
+    }, [props.breed, page, pageSize])
 
     const pStyle = {
         fontSize: '1.2rem',
@@ -22,47 +39,76 @@ function StatisticListCats(props) {
         textShadow: '1px 1px #eee'
     }
 
+    const handlePageChange = (event, value) => {
+        setPage(value)
+    }
+
+    const handlePageSizeChange = (event) => {
+        setPageSize(event.target.value)
+        setPage(1)
+    }
+
     if (isLoading) {
         return <Typography sx={{ color: "#777" }}>Loading...</Typography>
     }
 
     return (
         <>
-            {catData.length === 0 ? (
+            {catData && catData.length === 0 ? (
                 <Typography variant="body1" align="center" sx={{ ...pStyle }}>
                     No cats found.
                 </Typography>
             ) : (
-                <TableContainer component={Paper}>
-                    <Table aria-label="cat table">
-                        <TableHead>
-                            <TableRow >
-                                <TableCell align="center" sx={{ fontWeight: 'bold' }}>Name</TableCell>
-                                <TableCell align="center" sx={{ fontWeight: 'bold' }}>Age</TableCell>
-                                <TableCell align="center" sx={{ fontWeight: 'bold' }}>Color</TableCell>
-                                <TableCell align="center" sx={{ fontWeight: 'bold' }}>Breed</TableCell>
-                                <TableCell align="center" sx={{ fontWeight: 'bold' }}>Weight</TableCell>
-                                <TableCell align="center" sx={{ fontWeight: 'bold' }}>Description</TableCell>
-                                <TableCell align="center" sx={{ fontWeight: 'bold' }}>Owner</TableCell>
-                                <TableCell align="center" sx={{ fontWeight: 'bold' }}>Owners' Average Age</TableCell>
-                            </TableRow>
-                        </TableHead>
-                        <TableBody>
-                            {catData.map(cat => (
-                                <TableRow key={cat.id}>
-                                    <TableCell align="center">{cat.name}</TableCell>
-                                    <TableCell align="center">{cat.age}</TableCell>
-                                    <TableCell align="center">{cat.color}</TableCell>
-                                    <TableCell align="center">{cat.breed}</TableCell>
-                                    <TableCell align="center">{cat.weight}</TableCell>
-                                    <TableCell align="center">{cat.description}</TableCell>
-                                    <TableCell align="center">{cat.owner.firstName}</TableCell>
-                                    <TableCell align="center">{cat.avgAge}</TableCell>
+                <>
+                    <TableContainer component={Paper}>
+                        <Table aria-label="cat table">
+                            <TableHead>
+                                <TableRow >
+                                    <TableCell align="center" sx={{ fontWeight: 'bold' }}>Name</TableCell>
+                                    <TableCell align="center" sx={{ fontWeight: 'bold' }}>Age</TableCell>
+                                    <TableCell align="center" sx={{ fontWeight: 'bold' }}>Color</TableCell>
+                                    <TableCell align="center" sx={{ fontWeight: 'bold' }}>Breed</TableCell>
+                                    <TableCell align="center" sx={{ fontWeight: 'bold' }}>Weight</TableCell>
+                                    <TableCell align="center" sx={{ fontWeight: 'bold' }}>Description</TableCell>
+                                    <TableCell align="center" sx={{ fontWeight: 'bold' }}>Owner</TableCell>
+                                    <TableCell align="center" sx={{ fontWeight: 'bold' }}>Owners' Average Age</TableCell>
                                 </TableRow>
-                            ))}
-                        </TableBody>
-                    </Table>
-                </TableContainer>
+                            </TableHead>
+                            <TableBody>
+                                {catData && catData.map(cat => (
+                                    <TableRow key={cat.id}>
+                                        <TableCell align="center">{cat.name}</TableCell>
+                                        <TableCell align="center">{cat.age}</TableCell>
+                                        <TableCell align="center">{cat.color}</TableCell>
+                                        <TableCell align="center">{cat.breed}</TableCell>
+                                        <TableCell align="center">{cat.weight}</TableCell>
+                                        <TableCell align="center">{cat.description}</TableCell>
+                                        <TableCell align="center">{cat.owner ? cat.owner.firstName : ""}</TableCell>
+                                        <TableCell align="center">{cat.avgAge}</TableCell>
+                                    </TableRow>
+                                ))}
+                            </TableBody>
+                        </Table>
+                    </TableContainer>
+                    <div style={{ display: "flex", justifyContent: "space-between", width: "100%", marginTop: "20px", alignItems: "center" }}>
+                        <Pagination count={totalPages} page={page} onChange={handlePageChange} style={{ marginLeft: "20px" }} />
+                        <div style={{ display: "flex", alignItems: "center", marginRight: "20px" }}>
+                            <Typography variant="body1" style={{ fontWeight: "bold", fontSize: "14px", marginRight: "10px", fontFamily: "monospace" }}>
+                                Items per page:
+                            </Typography>
+                            <select value={pageSize} onChange={handlePageSizeChange}>
+                                <option value="5">5</option>
+                                <option value="10">10</option>
+                                <option value="20">20</option>
+                                <option value="50">50</option>
+                                <option value="100">100</option>
+                                <option value="200">200</option>
+                                <option value="500">500</option>
+                                <option value="1000">1000</option>
+                            </select>
+                        </div>
+                    </div>
+                </>
             )}
         </>
     )

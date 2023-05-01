@@ -4,8 +4,8 @@ const validation = require("../validations/validater.js")
 const validationFood = require("../validations/validate_food.js")
 
 module.exports = {
-    getFood: function (_, res) {
-        repo.getFood().then(foods => {
+    getFood: function (req, res, page, pageSize) {
+        repo.getFood(page, pageSize).then(foods => {
             res.send({
                 success: true,
                 message: "Foods found successfully",

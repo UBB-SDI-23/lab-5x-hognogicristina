@@ -1,19 +1,43 @@
 import { useState, useEffect } from "react"
 import { Box, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography, Paper } from "@mui/material"
 import axios from 'axios'
+import Pagination from '@mui/material/Pagination'
 
 function StatisticOwner() {
     const [owners, setOwners] = useState([])
     const [isLoading, setIsLoading] = useState(false)
-    
+
+    const [page, setPage] = useState(1)
+    const [pageSize, setPageSize] = useState(5)
+    const [totalPages, setTotalPages] = useState(0)
+
+    // useEffect(() => {
+    //     setIsLoading(true)
+    //     axios.get("https://adopt-a-cat.onrender.com/owners_statistic")
+    //         .then(response => {
+    //             setOwners(response.data.data)
+    //             setIsLoading(false)
+    //         })
+    // }, [])
+
     useEffect(() => {
         setIsLoading(true)
-        axios.get("https://adopt-a-cat.onrender.com/owners_statistic")
+        axios.get(`http://localhost:8000/owners_statistic?page=${page}&page_size=${pageSize}`)
             .then(response => {
-                setOwners(response.data.data)
+                setOwners(response.data.data.owners)
+                setTotalPages(response.data.data.pageInfo.totalPages)
                 setIsLoading(false)
             })
-    }, [])
+    }, [page, pageSize])
+
+    const handlePageChange = (event, value) => {
+        setPage(value)
+    }
+
+    const handlePageSizeChange = (event) => {
+        setPageSize(event.target.value)
+        setPage(1)
+    }
 
     if (isLoading) {
         return <Typography sx={{ color: "#777" }}>Loading...</Typography>
@@ -55,34 +79,54 @@ function StatisticOwner() {
                         No owners found.
                     </Typography>
                 ) : (
-                    <TableContainer component={Paper}>
-                        <Table aria-label="owner table">
-                            <TableHead>
-                                <TableRow >
-                                    <TableCell align="center" sx={{ fontWeight: 'bold' }}>First Name</TableCell>
-                                    <TableCell align="center" sx={{ fontWeight: 'bold' }}>Last Name</TableCell>
-                                    <TableCell align="center" sx={{ fontWeight: 'bold' }}>Address</TableCell>
-                                    <TableCell align="center" sx={{ fontWeight: 'bold' }}>Phone</TableCell>
-                                    <TableCell align="center" sx={{ fontWeight: 'bold' }}>Email</TableCell>
-                                    <TableCell align="center" sx={{ fontWeight: 'bold' }}>Age</TableCell>
-                                    <TableCell align="center" sx={{ fontWeight: 'bold' }}>Cats' Average Age</TableCell>
-                                </TableRow>
-                            </TableHead>
-                            <TableBody>
-                                {owners.map((owner) => (
-                                    <TableRow key={owner.id}>
-                                        <TableCell align="center">{owner.firstName}</TableCell>
-                                        <TableCell align="center">{owner.lastName}</TableCell>
-                                        <TableCell align="center">{owner.address}</TableCell>
-                                        <TableCell align="center">{owner.phone}</TableCell>
-                                        <TableCell align="center">{owner.email}</TableCell>
-                                        <TableCell align="center">{owner.age}</TableCell>
-                                        <TableCell align="center">{owner.avgAge}</TableCell>
+                    <>
+                        <TableContainer component={Paper}>
+                            <Table aria-label="owner table">
+                                <TableHead>
+                                    <TableRow >
+                                        <TableCell align="center" sx={{ fontWeight: 'bold' }}>First Name</TableCell>
+                                        <TableCell align="center" sx={{ fontWeight: 'bold' }}>Last Name</TableCell>
+                                        <TableCell align="center" sx={{ fontWeight: 'bold' }}>Address</TableCell>
+                                        <TableCell align="center" sx={{ fontWeight: 'bold' }}>Phone</TableCell>
+                                        <TableCell align="center" sx={{ fontWeight: 'bold' }}>Email</TableCell>
+                                        <TableCell align="center" sx={{ fontWeight: 'bold' }}>Age</TableCell>
+                                        <TableCell align="center" sx={{ fontWeight: 'bold' }}>Cats' Average Age</TableCell>
                                     </TableRow>
-                                ))}
-                            </TableBody>
-                        </Table>
-                    </TableContainer>
+                                </TableHead>
+                                <TableBody>
+                                    {owners.map((owner) => (
+                                        <TableRow key={owner.id}>
+                                            <TableCell align="center">{owner.firstName}</TableCell>
+                                            <TableCell align="center">{owner.lastName}</TableCell>
+                                            <TableCell align="center">{owner.address}</TableCell>
+                                            <TableCell align="center">{owner.phone}</TableCell>
+                                            <TableCell align="center">{owner.email}</TableCell>
+                                            <TableCell align="center">{owner.age}</TableCell>
+                                            <TableCell align="center">{owner.avgAge}</TableCell>
+                                        </TableRow>
+                                    ))}
+                                </TableBody>
+                            </Table>
+                        </TableContainer>
+                        <div style={{ display: "flex", justifyContent: "space-between", width: "100%", marginTop: "20px", alignItems: "center" }}>
+                            <Pagination count={totalPages} page={page} onChange={handlePageChange} style={{ marginLeft: "20px" }} />
+                            <div style={{ display: "flex", alignItems: "center", marginRight: "20px" }}>
+                                <Typography variant="body1" style={{ fontWeight: "bold", fontSize: "14px", marginRight: "10px", fontFamily: "monospace" }}>
+                                    Items per page:
+                                </Typography>
+                                <select value={pageSize} onChange={handlePageSizeChange}>
+                                    <option value="5">5</option>
+                                    <option value="10">10</option>
+                                    <option value="20">20</option>
+                                    <option value="50">50</option>
+                                    <option value="100">100</option>
+                                    <option value="200">200</option>
+                                    <option value="500">500</option>
+                                    <option value="1000">1000</option>
+                                </select>
+                            </div>
+                        </div>
+                    </>
                 )}
             </>
         </Box>

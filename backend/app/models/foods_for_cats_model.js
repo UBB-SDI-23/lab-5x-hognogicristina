@@ -4,11 +4,18 @@
 const { Sequelize, Model, DataTypes } = require('sequelize');
 const mysql2 = require('mysql2')
 
-const sequelize = new Sequelize('bo8dhdnecmi9kqgy6joa', 'utjidt7rdyxmke4r', 'YRtSHxz0xzXW2m5UY4rT', {
-    host: 'bo8dhdnecmi9kqgy6joa-mysql.services.clever-cloud.com',
+// const sequelize = new Sequelize('bo8dhdnecmi9kqgy6joa', 'utjidt7rdyxmke4r', 'YRtSHxz0xzXW2m5UY4rT', {
+//     host: 'bo8dhdnecmi9kqgy6joa-mysql.services.clever-cloud.com',
+//     dialect: 'mysql',
+//     dialectModule: mysql2,
+//     port: 3306
+// })
+
+const sequelize = new Sequelize('meow', 'root', '', {
+    host: 'localhost',
     dialect: 'mysql',
     dialectModule: mysql2,
-    port: 3306
+    port: 3307
 })
 
 class foods_for_cats extends Model { }

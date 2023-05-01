@@ -33,8 +33,11 @@ module.exports = (app) => {
 
     gen()
 
-    app.get('/owners', controllerOwner.getOwner, (req, res) => {
-        res.header("Access-Control-Allow-Origin", "https://meow-adopt-a-cat.onrender.com")
+    app.get('/owners', (req, res) => {
+        // res.header("Access-Control-Allow-Origin", "https://meow-adopt-a-cat.onrender.com")
+        const page = parseInt(req.query.page) || 1
+        const pageSize = parseInt(req.query.pageSize) || 5
+        controllerOwner.getOwner(req, res, page, pageSize)
     })
     app.get('/owners/:id', controllerOwner.getOneOwner, (req, res) => {
         res.header("Access-Control-Allow-Origin", "https://meow-adopt-a-cat.onrender.com")
@@ -48,8 +51,11 @@ module.exports = (app) => {
     app.put('/owners_update/:id', controllerOwner.updateOwner, (req, res) => {
         res.header("Access-Control-Allow-Origin", "https://meow-adopt-a-cat.onrender.com")
     })
-    app.get('/owners_statistic', controllerOwner.getStatistics, (req, res) => {
-        res.header("Access-Control-Allow-Origin", "https://meow-adopt-a-cat.onrender.com")
+    app.get('/owners_statistic', (req, res) => {
+        // res.header("Access-Control-Allow-Origin", "https://meow-adopt-a-cat.onrender.com")
+        const page = parseInt(req.query.page) || 1
+        const pageSize = parseInt(req.query.pageSize) || 5
+        controllerOwner.getStatistics(req, res, page, pageSize)
     })
     app.post('/owners/:id/cats_list', controllerOwner.changeOwnerIdOfCats, (req, res) => {
         res.header("Access-Control-Allow-Origin", "https://meow-adopt-a-cat.onrender.com")

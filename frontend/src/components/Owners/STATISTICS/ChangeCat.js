@@ -16,7 +16,8 @@ function ChangeCat() {
         setIsLoading(true)
         setMessage("")
 
-        axios.post(`https://adopt-a-cat.onrender.com/owners/${owner}/cats_list`, { id: cats },
+        // axios.post(`https://adopt-a-cat.onrender.com/owners/${owner}/cats_list`, { id: cats },
+        axios.post('http://localhost:8000/owners/' + owner + '/cats_list', { id: cats },
                 { headers: { "Content-Type": "application/json", }, }
             )
             .then((response) => {

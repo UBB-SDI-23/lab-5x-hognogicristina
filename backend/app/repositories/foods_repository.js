@@ -34,8 +34,15 @@ module.exports = {
         })
     },
 
-    getFood: async function () {
-        return await db.getFoods()
+    getFood: async function (page, pageSize) {
+        const data = await db.getFoods(page, pageSize)
+        const food = data.foods
+        const pageInfo = data.pageInfo
+
+        return {
+            food,
+            pageInfo,
+        }
     },
 
     getOneFood: async function (id) {

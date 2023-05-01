@@ -7,11 +7,12 @@ function GetOneCat(props) {
     const [catData, setCatData] = useState([])
     
     useEffect(() => {
-        axios.get("https://adopt-a-cat.onrender.com/cats/" + props.id)
+        // axios.get("https://adopt-a-cat.onrender.com/cats/" + props.id)
+        axios.get("http://localhost:8000/cats/" + props.id)
             .then(response => {
                 setCatData(response.data.data)
             })
-    }, [catData, props.id])
+    }, [props.id])
 
     if (catData) {
         const { name, age, color, breed, weight, description, ownerData } = catData

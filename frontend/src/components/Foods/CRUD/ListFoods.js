@@ -1,9 +1,10 @@
 import { useState, useEffect } from "react"
-import { Box, Button, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography } from "@mui/material"
+import { Button, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography } from "@mui/material"
 import { styled } from '@mui/material/styles'
 import axios from "axios"
 import DeleteFood from "./DeleteFood"
 import UpdateFood from "./UpdateFood"
+import Pagination from "@mui/material/Pagination"
 
 const StyledTable = styled(Table)({
     borderCollapse: 'collapse',
@@ -38,14 +39,37 @@ function ListFoods() {
     const [showDeleteFood, setShowDeleteFood] = useState(false)
     const [foodId, setFoodId] = useState(null)
 
+    const [page, setPage] = useState(1)
+    const [pageSize, setPageSize] = useState(5)
+    const [totalPages, setTotalPages] = useState(0)
+
+    // useEffect(() => {
+    //     setIsLoading(true)
+    //     axios.get("https://adopt-a-cat.onrender.com/foods")
+    //         .then((response) => {
+    //             setFoods(response.data.data)
+    //             setIsLoading(false)
+    //         })
+    // }, [showListFoods])
+
     useEffect(() => {
         setIsLoading(true)
-        axios.get("https://adopt-a-cat.onrender.com/foods")
+        axios.get(`http://localhost:8000/foods?page=${page}&pageSize=${pageSize}`)
             .then((response) => {
-                setFoods(response.data.data)
+                setFoods(response.data.data.foods)
+                setTotalPages(response.data.data.pageInfo.totalPages)
                 setIsLoading(false)
             })
-    }, [showListFoods])
+    }, [showListFoods, page, pageSize])
+
+    const handlePageChange = (event, value) => {
+        setPage(value)
+    }
+
+    const handlePageSizeChange = (event) => {
+        setPageSize(event.target.value)
+        setPage(1)
+    }
 
     if (isLoading) {
         return <Typography sx={{ color: "#777" }}>Loading...</Typography>
@@ -117,7 +141,7 @@ function ListFoods() {
                                 </StyledTableRow>
                             </TableHead>
                             <TableBody>
-                                {foods.map((food) => (
+                                {foods && foods.map((food) => (
                                     <StyledTableRow key={food.id}>
                                         <StyledTableCell>{food.id}</StyledTableCell>
                                         <StyledTableCell>{food.name}</StyledTableCell>
@@ -136,6 +160,24 @@ function ListFoods() {
                             </TableBody>
                         </StyledTable>
                     </TableContainer>
+                    <div style={{ display: "flex", justifyContent: "space-between", width: "100%", marginTop: "20px", alignItems: "center" }}>
+                        <Pagination count={totalPages} page={page} onChange={handlePageChange} style={{ marginLeft: "20px" }} />
+                        <div style={{ display: "flex", alignItems: "center", marginRight: "20px" }}>
+                            <Typography variant="body1" style={{ fontWeight: "bold", fontSize: "14px", marginRight: "10px", fontFamily: "monospace" }}>
+                                Items per page:
+                            </Typography>
+                            <select value={pageSize} onChange={handlePageSizeChange}>
+                                <option value="5">5</option>
+                                <option value="10">10</option>
+                                <option value="20">20</option>
+                                <option value="50">50</option>
+                                <option value="100">100</option>
+                                <option value="200">200</option>
+                                <option value="500">500</option>
+                                <option value="1000">1000</option>
+                            </select>
+                        </div>
+                    </div>
                 </>
             )}
             {showUpdateFood && (

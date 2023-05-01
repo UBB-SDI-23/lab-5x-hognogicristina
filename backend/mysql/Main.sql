@@ -19,7 +19,6 @@ LOAD DATA INFILE 'D:/Fukulta/Collage/Courses/Second Year/Semester 4/Systems for 
 INTO TABLE foods_for_cats
 FIELDS TERMINATED BY ',' ENCLOSED BY '"' LINES TERMINATED BY '\r\n' IGNORE 1 ROWS;
 
-
 SELECT COUNT(*) AS 'Owners' FROM owners;
 SELECT COUNT(*) AS 'Cats' FROM cats;
 SELECT COUNT(*) AS 'Foods' FROM foods;

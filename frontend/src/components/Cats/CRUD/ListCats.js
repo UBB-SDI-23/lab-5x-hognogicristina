@@ -4,6 +4,7 @@ import { styled } from '@mui/material/styles'
 import axios from "axios"
 import UpdateCat from "./UpdateCat"
 import DeleteCat from "./DeleteCat"
+import Pagination from "@mui/material/Pagination"
 
 const StyledTable = styled(Table)({
     borderCollapse: 'collapse',
@@ -38,14 +39,37 @@ function ListCats() {
     const [showDeleteCat, setShowDeleteCat] = useState(false)
     const [catId, setCatId] = useState(null)
 
+    const [page, setPage] = useState(1)
+    const [pageSize, setPageSize] = useState(5)
+    const [totalPages, setTotalPages] = useState(0)
+
+    // useEffect(() => {
+    //     setIsLoading(true)
+    //     axios.get("https://adopt-a-cat.onrender.com/cats")
+    //         .then((response) => {
+    //             setCats(response.data.data)
+    //             setIsLoading(false)
+    //         })
+    // }, [showListCats])
+
     useEffect(() => {
         setIsLoading(true)
-        axios.get("https://adopt-a-cat.onrender.com/cats")
+        axios.get(`http://localhost:8000/cats?page=${page}&pageSize=${pageSize}`)
             .then((response) => {
-                setCats(response.data.data)
+                setCats(response.data.data.cats)
+                setTotalPages(response.data.data.pageInfo.totalPages)
                 setIsLoading(false)
             })
-    }, [showListCats])
+    }, [page, pageSize, showListCats])
+
+    const handlePageChange = (event, value) => {
+        setPage(value)
+    }
+
+    const handlePageSizeChange = (event) => {
+        setPageSize(event.target.value)
+        setPage(1)
+    }
 
     if (isLoading) {
         return <Typography sx={{ color: "#777" }}>Loading...</Typography>
@@ -142,6 +166,24 @@ function ListCats() {
                             </TableBody>
                         </StyledTable>
                     </TableContainer>
+                    <div style={{ display: "flex", justifyContent: "space-between", width: "100%", marginTop: "20px", alignItems: "center" }}>
+                        <Pagination count={totalPages} page={page} onChange={handlePageChange} style={{ marginLeft: "20px" }} />
+                        <div style={{ display: "flex", alignItems: "center", marginRight: "20px" }}>
+                            <Typography variant="body1" style={{ fontWeight: "bold", fontSize: "14px", marginRight: "10px", fontFamily: "monospace" }}>
+                                Items per page:
+                            </Typography>
+                            <select value={pageSize} onChange={handlePageSizeChange}>
+                                <option value="5">5</option>
+                                <option value="10">10</option>
+                                <option value="20">20</option>
+                                <option value="50">50</option>
+                                <option value="100">100</option>
+                                <option value="200">200</option>
+                                <option value="500">500</option>
+                                <option value="1000">1000</option>
+                            </select>
+                        </div>
+                    </div>
                 </>
             )}
             {showUpdateCat && (

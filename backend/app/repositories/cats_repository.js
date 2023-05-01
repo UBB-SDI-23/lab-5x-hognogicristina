@@ -48,11 +48,13 @@ module.exports = {
         })
     },
 
-    getCat: async function () {
-        try {
-            return await db.getCats()
-        } catch (err) {
-            console.log(err)
+    getCat: async function (page, pageSize) {
+        const { results, pageInfo } = await db.getCats(page, pageSize)
+        cats = results
+
+        return {
+            cats,
+            pageInfo,
         }
     },
 
@@ -86,15 +88,25 @@ module.exports = {
         return await db.updateCat(cats[index])
     },
 
-    filterCatByWeight: async function (weight) {
-        return await db.filterCatsByWeight(weight)
+    filterCatByWeight: async function (weight, page, pageSize) {
+        const data = await db.filterCatsByWeight(weight, page, pageSize)
+        const cats = data.cats
+        const pageInfo = data.pageInfo
+
+        return {
+            cats,
+            pageInfo,
+        }
     },
 
-    getStatisticReport: async function () {
-        return await db.getStatisticReport()
-    },
+    getStatisticReportBreed: async function (breed, page, pageSize) {
+        const data = await db.getStatisticReportBreed(breed, page, pageSize)
+        const cats = data.cats
+        const pageInfo = data.pageInfo
 
-    getStatisticReportBreed: async function (breed) {
-        return await db.getStatisticReportBreed(breed)
+        return {
+            cats,
+            pageInfo,
+        }
     }
 }

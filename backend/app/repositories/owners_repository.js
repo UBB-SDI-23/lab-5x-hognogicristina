@@ -36,8 +36,14 @@ module.exports = {
         })
     },
 
-    getOwner: async function () {
-        return await db.getOwners()
+    getOwner: async function (page, pageSize) {
+        const { results, pageInfo } = await db.getOwners(page, pageSize)
+        owners = results
+
+        return {
+            owners,
+            pageInfo,
+        }
     },
 
     getOneOwner: async function (id) {
@@ -69,8 +75,15 @@ module.exports = {
         return await db.updateOwner(owners[index])
     },
 
-    getStatisticReport: async function () {
-        return await db.getStatisticReport()
+    getStatisticReport: async function (page, pageSize) {
+        const data = await db.getStatisticReport(page, pageSize)
+        const cats = data.cats
+        const pageInfo = data.pageInfo
+
+        return {
+            cats,
+            pageInfo,
+        }
     },
 
     changeOwnerIdOfCats: async function (ownerid, cats_list) {

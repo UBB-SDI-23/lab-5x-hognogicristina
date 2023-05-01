@@ -4,6 +4,7 @@ import { styled } from '@mui/material/styles'
 import axios from "axios"
 import UpdateOwner from './UpdateOwner'
 import DeleteOwner from './DeleteOwner'
+import Pagination from "@mui/material/Pagination"
 
 const StyledTable = styled(Table)({
     borderCollapse: 'collapse',
@@ -38,15 +39,37 @@ function ListOwners() {
     const [showDeleteOwner, setShowDeleteOwner] = useState(false)
     const [ownerId, setOwnerId] = useState(null)
 
+    const [page, setPage] = useState(1)
+    const [pageSize, setPageSize] = useState(5)
+    const [totalPages, setTotalPages] = useState(0)
+
+    // useEffect(() => {
+    //     setIsLoading(true)
+    //     axios.get("https://adopt-a-cat.onrender.com/owners")
+    //         .then((response) => {
+    //             setOwners(response.data.data)
+    //             setIsLoading(false)
+    //         })
+    // }, [showListOwners])
+
     useEffect(() => {
         setIsLoading(true)
-
-        axios.get("https://adopt-a-cat.onrender.com/owners")
+        axios.get(`http://localhost:8000/owners?page=${page}&pageSize=${pageSize}`)
             .then((response) => {
-                setOwners(response.data.data)
+                setOwners(response.data.data.owners)
+                setTotalPages(response.data.data.pageInfo.totalPages)
                 setIsLoading(false)
             })
-    }, [showListOwners])
+    }, [showListOwners, page, pageSize])
+
+    const handlePageChange = (event, value) => {
+        setPage(value)
+    }
+
+    const handlePageSizeChange = (event) => {
+        setPageSize(event.target.value)
+        setPage(1)
+    }
 
     if (isLoading) {
         return <Typography sx={{ color: "#777" }}>Loading...</Typography>
@@ -97,7 +120,7 @@ function ListOwners() {
             backgroundColor: '#e2c7f7d8',
             color: '7c487c',
         }
-    }
+    }  
     
     return (
         <>
@@ -108,8 +131,8 @@ function ListOwners() {
                             <TableHead>
                                 <StyledTableRow>
                                     <StyledTableHeadCell>ID</StyledTableHeadCell>
-                                    <StyledTableHeadCell>First Name</StyledTableHeadCell>
-                                    <StyledTableHeadCell>Last Name</StyledTableHeadCell>
+                                    <StyledTableHeadCell sx={{width: '9%'}}>First Name</StyledTableHeadCell>
+                                    <StyledTableHeadCell sx={{width: '9%'}}>Last Name</StyledTableHeadCell>
                                     <StyledTableHeadCell>Address</StyledTableHeadCell>
                                     <StyledTableHeadCell>Phone</StyledTableHeadCell>
                                     <StyledTableHeadCell>Email</StyledTableHeadCell>
@@ -119,7 +142,7 @@ function ListOwners() {
                                 </StyledTableRow>
                             </TableHead>
                             <TableBody>
-                                {owners.map((owner) => (
+                                {owners && owners.map((owner) => (
                                     <StyledTableRow key={owner.id}>
                                         <StyledTableCell>{owner.id}</StyledTableCell>
                                         <StyledTableCell>{owner.firstName}</StyledTableCell>
@@ -139,6 +162,24 @@ function ListOwners() {
                             </TableBody>
                         </StyledTable>
                     </TableContainer>
+                    <div style={{ display: "flex", justifyContent: "space-between", width: "100%", marginTop: "20px", alignItems: "center" }}>
+                        <Pagination count={totalPages} page={page} onChange={handlePageChange} style={{ marginLeft: "20px" }} />
+                        <div style={{ display: "flex", alignItems: "center", marginRight: "20px" }}>
+                            <Typography variant="body1" style={{ fontWeight: "bold", fontSize: "14px", marginRight: "10px", fontFamily: "monospace" }}>
+                                Items per page:
+                            </Typography>
+                            <select value={pageSize} onChange={handlePageSizeChange}>
+                                <option value="5">5</option>
+                                <option value="10">10</option>
+                                <option value="20">20</option>
+                                <option value="50">50</option>
+                                <option value="100">100</option>
+                                <option value="200">200</option>
+                                <option value="500">500</option>
+                                <option value="1000">1000</option>
+                            </select>
+                        </div>
+                    </div>
                 </>
             )}
             {showUpdateOwner && (

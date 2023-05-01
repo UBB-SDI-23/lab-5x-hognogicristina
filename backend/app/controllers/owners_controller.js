@@ -5,8 +5,8 @@ const validation = require('../validations/validater.js')
 const validationOwner = require('../validations/validate_owner.js')
 
 module.exports = {
-    getOwner: function (_, res) {
-        repoOwner.getOwner().then(owners => {
+    getOwner: function (req, res, page, pageSize) {
+        repoOwner.getOwner(page, pageSize).then(owners => {
             res.send({
                 success: true,
                 message: "Owners found successfully",
@@ -118,10 +118,10 @@ module.exports = {
         })
     },
 
-    getStatistics: function (req, res) {
-        const listOwners = repoOwner.getStatisticReport().then(owners => {
+    getStatistics: function (req, res, page, pageSize) {
+        const listOwners = repoOwner.getStatisticReport(page, pageSize).then(owners => {
             if (req === undefined || res === undefined) {
-                return owners
+                return owners.owners
             } else {
                 if (owners) {
                     res.send({

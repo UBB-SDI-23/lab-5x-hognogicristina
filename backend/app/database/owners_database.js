@@ -3,8 +3,22 @@ const cat = require('../models/cats_model.js')
 const Sequelize = require('sequelize')
 require('./database.js')
 
-async function getOwners() {
-    return owner.findAll()
+async function getOwners(page, pageSize) {
+    const offset = (page - 1) * pageSize
+    const limit = pageSize
+    const owners = await owner.findAll({ offset, limit })
+    const count = await owner.count()
+    const totalPages = Math.ceil(count / pageSize)
+
+    return {
+        results: owners,
+        pageInfo: {
+            page,
+            pageSize,
+            totalPages,
+            count,
+        },
+    }
 }
 
 async function getOneOwnerById(id) {
@@ -34,22 +48,47 @@ async function getByTypeOwner(typeName, type) {
     return owner.findAll({ where: { [typeName]: type } })
 }
 
-async function getStatisticReport() {
+async function getStatisticReport(page, pageSize) {
+    const offset = (page - 1) * pageSize
+    const limit = pageSize
+    cat.belongsTo(owner, { foreignKey: 'ownerId' })
     owner.hasMany(cat, { foreignKey: 'ownerId' })
-    cat.belongsTo(owner)
 
-    const result = await owner.findAll({
+    var count = await owner.findAndCountAll({
         attributes: ['id', 'firstName', 'lastName', 'address', 'phone', 'email', 'age', [Sequelize.fn('AVG', Sequelize.col('cats.age')), 'avgAge']],
         include: [{
             model: cat,
-            attributes: [],
-            as: 'cats'
+            attributes: ['id', 'name', 'age', 'color', 'breed', 'weight', 'description'],
         }],
-        group: ['firstName'],
+        group: ['id'],
         order: [[Sequelize.fn('AVG', Sequelize.col('cats.age')), 'ASC']]
     })
 
-    return result
+    count = count.rows.length
+
+    const data = await owner.findAndCountAll({
+        attributes: ['id', 'firstName', 'lastName', 'address', 'phone', 'email', 'age', [Sequelize.fn('AVG', Sequelize.col('cats.age')), 'avgAge']],
+        include: [{
+            model: cat,
+            attributes: ['id', 'name', 'age', 'color', 'breed', 'weight', 'description'],
+        }],
+        group: ['id'],
+        order: [[Sequelize.fn('AVG', Sequelize.col('cats.age')), 'ASC']],
+        limit,
+        offset
+    })
+
+    const totalPages = Math.ceil(count / pageSize)
+
+    return {
+        owners: data.rows,
+        pageInfo: {
+            page,
+            pageSize,
+            totalPages,
+            count,
+        },
+    }
 }
 
 async function changeOwnerIdOfCats(id_owner, cats_list) {
@@ -73,7 +112,7 @@ async function createCatForOwner(id_owner, cats_list) {
         let newCat = new cat({ name: cats.name, age: cats.age, color: cats.color, breed: cats.breed, weight: cats.weight, description: cats.description, ownerId: id_owner })
         newCat.save()
         list.push(newCat.dataValues)
-        
+
     })
 
     return list

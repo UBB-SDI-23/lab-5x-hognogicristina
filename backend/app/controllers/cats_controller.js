@@ -5,8 +5,8 @@ const validation = require("../validations/validater.js")
 const validationCat = require("../validations/validate_cat.js")
 
 module.exports = {
-    getCat: function (_, res) {
-        repo.getCat().then(cats => {
+    getCat: function (req, res, page, pageSize) {
+        repo.getCat(page, pageSize).then(cats => {
             res.send({
                 success: true,
                 message: "Cats found successfully",
@@ -111,7 +111,7 @@ module.exports = {
         })
     },
 
-    filterCat: function (req, res) {
+    filterCat: function (req, res, page, pageSize) {
         var weight
 
         try {
@@ -128,9 +128,9 @@ module.exports = {
             }
 
             if (weight === 0 || weight % 1 === 0) {
-                const listCats = repo.filterCatByWeight(weight).then(cats => {
+                const listCats = repo.filterCatByWeight(weight, page, pageSize).then(cats => {
                     if (res === undefined) {
-                        return cats
+                        return cats.cats
                     } else {
                         if (cats) {
                             res.send({
@@ -146,7 +146,7 @@ module.exports = {
                         }
                     }
                 })
-    
+
                 return listCats
             } else {
                 throw new Error()
@@ -160,7 +160,7 @@ module.exports = {
         }
     },
 
-    getStatisticsBreed: function (req, res) {
+    getStatisticsBreed: function (req, res, page, pageSize) {
         var breed
 
         if (res === undefined) {
@@ -169,9 +169,9 @@ module.exports = {
             breed = req.params.breed
         }
 
-        const listCats = repo.getStatisticReportBreed(breed).then(cats => {
+        const listCats = repo.getStatisticReportBreed(breed, page, pageSize).then(cats => {
             if (res === undefined) {
-                return cats
+                return cats.cats
             } else {
                 if (cats) {
                     res.send({
