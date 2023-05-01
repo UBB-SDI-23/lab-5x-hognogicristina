@@ -34,7 +34,7 @@ module.exports = (app) => {
     gen()
 
     app.get('/owners', (req, res) => {
-        // res.header("Access-Control-Allow-Origin", "https://meow-adopt-a-cat.onrender.com")
+        res.header("Access-Control-Allow-Origin", "https://meow-adopt-a-cat.onrender.com")
         const page = parseInt(req.query.page) || 1
         const pageSize = parseInt(req.query.pageSize) || 5
         controllerOwner.getOwner(req, res, page, pageSize)
@@ -52,7 +52,7 @@ module.exports = (app) => {
         res.header("Access-Control-Allow-Origin", "https://meow-adopt-a-cat.onrender.com")
     })
     app.get('/owners_statistic', (req, res) => {
-        // res.header("Access-Control-Allow-Origin", "https://meow-adopt-a-cat.onrender.com")
+        res.header("Access-Control-Allow-Origin", "https://meow-adopt-a-cat.onrender.com")
         const page = parseInt(req.query.page) || 1
         const pageSize = parseInt(req.query.pageSize) || 5
         controllerOwner.getStatistics(req, res, page, pageSize)

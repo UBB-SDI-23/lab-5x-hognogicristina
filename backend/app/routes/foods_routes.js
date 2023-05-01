@@ -2,7 +2,7 @@ module.exports = (app) => {
     const controllerFood = require("../controllers/foods_controller.js")
 
     app.get('/foods', (req, res) => {
-        // res.header("Access-Control-Allow-Origin", "https://meow-adopt-a-cat.onrender.com")
+        res.header("Access-Control-Allow-Origin", "https://meow-adopt-a-cat.onrender.com")
         const page = parseInt(req.query.page) || 1
         const pageSize = parseInt(req.query.pageSize) || 5
         controllerFood.getFood(req, res, page, pageSize)
