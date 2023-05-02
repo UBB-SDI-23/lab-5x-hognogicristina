@@ -77,11 +77,11 @@ module.exports = {
 
     getStatisticReport: async function (page, pageSize) {
         const data = await db.getStatisticReport(page, pageSize)
-        const cats = data.cats
+        const owners = data.owners
         const pageInfo = data.pageInfo
 
         return {
-            cats,
+            owners,
             pageInfo,
         }
     },

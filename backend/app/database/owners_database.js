@@ -55,28 +55,26 @@ async function getStatisticReport(page, pageSize) {
     owner.hasMany(cat, { foreignKey: 'ownerId' })
 
     var count = await owner.findAndCountAll({
-        attributes: ['id', 'firstName', 'lastName', 'address', 'phone', 'email', 'age', [Sequelize.fn('AVG', Sequelize.col('cats.age')), 'avgAge']],
+        attributes: ['id', 'firstName', 'lastName', 'address', 'phone', 'email', 'age', [Sequelize.fn('COUNT', Sequelize.col('cat.id')), 'count']],
         include: [{
             model: cat,
-            attributes: ['id', 'name', 'age', 'color', 'breed', 'weight', 'description'],
+            attributes: []
         }],
         group: ['id'],
-        order: [[Sequelize.fn('AVG', Sequelize.col('cats.age')), 'ASC']]
     })
 
-    count = count.rows.length
-
     const data = await owner.findAndCountAll({
-        attributes: ['id', 'firstName', 'lastName', 'address', 'phone', 'email', 'age', [Sequelize.fn('AVG', Sequelize.col('cats.age')), 'avgAge']],
+        attributes: ['id', 'firstName', 'lastName', 'address', 'phone', 'email', 'age', [Sequelize.fn('COUNT', Sequelize.col('cat.id')), 'count']],
         include: [{
             model: cat,
-            attributes: ['id', 'name', 'age', 'color', 'breed', 'weight', 'description'],
+            attributes: []
         }],
         group: ['id'],
-        order: [[Sequelize.fn('AVG', Sequelize.col('cats.age')), 'ASC']],
         limit,
         offset
     })
+
+    count = count.rows.length
 
     const totalPages = Math.ceil(count / pageSize)
 
