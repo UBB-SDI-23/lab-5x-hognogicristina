@@ -13,7 +13,7 @@ function StatisticOwner() {
 
     useEffect(() => {
         setIsLoading(true)
-        axios.get(`https://adopt-a-cat.onrender.com/owners_statistic?page=${page}&page_size=${pageSize}`)
+        axios.get(`/owners_statistic?page=${page}&page_size=${pageSize}`)
             .then(response => {
                 setOwners(response.data.data.owners)
                 setTotalPages(response.data.data.pageInfo.totalPages)

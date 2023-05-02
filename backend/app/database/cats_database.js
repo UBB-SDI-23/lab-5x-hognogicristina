@@ -112,6 +112,9 @@ async function getStatisticReportBreed(breed, page, pageSize) {
     }
 }
 
+async function getStatisticReport
+
+
 module.exports = {
     getCats: getCats,
     getOneCatById: getOneCatById,

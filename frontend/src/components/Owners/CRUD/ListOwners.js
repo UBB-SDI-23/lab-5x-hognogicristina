@@ -45,7 +45,7 @@ function ListOwners() {
 
     useEffect(() => {
         setIsLoading(true)
-        axios.get(`https://adopt-a-cat.onrender.com/owners?page=${page}&pageSize=${pageSize}`)
+        axios.get(`/owners?page=${page}&pageSize=${pageSize}`)
             .then((response) => {
                 setOwners(response.data.data.owners)
                 setTotalPages(response.data.data.pageInfo.totalPages)
@@ -61,6 +61,9 @@ function ListOwners() {
     //         .then((response) => {
     //             setOwners(response.data.data.owners)
     //             setTotalPages(response.data.data.pageInfo.totalPages)
+    //             setIsLoading(false)
+    //         })
+    //         .finally(() => {
     //             setIsLoading(false)
     //         })
     // }, [showListOwners, page, pageSize])

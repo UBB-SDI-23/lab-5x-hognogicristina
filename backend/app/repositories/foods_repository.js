@@ -35,13 +35,12 @@ module.exports = {
     },
 
     getFood: async function (page, pageSize) {
-        const data = await db.getFoods(page, pageSize)
-        const food = data.foods
-        const pageInfo = data.pageInfo
+        const { results, pageInfo } = await db.getFoods(page, pageSize)
+        food = results
 
         return {
             food,
-            pageInfo,
+            pageInfo
         }
     },
 

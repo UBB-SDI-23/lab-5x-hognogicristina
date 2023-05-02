@@ -45,7 +45,7 @@ function ListFoods() {
 
     useEffect(() => {
         setIsLoading(true)
-        axios.get(`https://adopt-a-cat.onrender.com/foods?page=${page}&pageSize=${pageSize}`)
+        axios.get(`/foods?page=${page}&pageSize=${pageSize}`)
             .then((response) => {
                 setFoods(response.data.data.foods)
                 setTotalPages(response.data.data.pageInfo.totalPages)
@@ -63,6 +63,9 @@ function ListFoods() {
     //             setTotalPages(response.data.data.pageInfo.totalPages)
     //             setIsLoading(false)
     //         })
+    //          .finally(() => {
+    //                setIsLoading(false)
+    //            })
     // }, [showListFoods, page, pageSize])
 
     const handlePageChange = (event, value) => {
