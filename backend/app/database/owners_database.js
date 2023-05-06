@@ -51,50 +51,36 @@ async function getByTypeOwner(typeName, type) {
 async function getStatisticReport(page, pageSize) {
     const offset = (page - 1) * pageSize
     const limit = pageSize
+
+    owner.hasMany(cat, { foreignKey: 'ownerId', as: 'cat' });
     cat.belongsTo(owner, { foreignKey: 'ownerId' })
-    owner.hasMany(cat, { foreignKey: 'ownerId' })
 
-    var ageCats = await cat.findAll({
-        attributes: ['age'],
-    })
-
-    console.log(ageCats)
-    return
-
-    var count = await owner.findAndCountAll({
-        attributes: ['id', 'firstName', 'lastName', 'address', 'phone', 'email', 'age', [Sequelize.fn('AVG', Sequelize.col('cat.age')), 'avgAge']],
-        include: [{
-            model: cat,
-            attributes: []
-        }],
-        group: ['firstName'],
-    })
-
-    const data = await owner.findAndCountAll({
-        attributes: ['id', 'firstName', 'lastName', 'address', 'phone', 'email', 'age', [Sequelize.fn('AVG', Sequelize.col('cat.age')), 'avgAge']],
-        include: [{
-            model: cat,
-            attributes: []
-        }],
-        group: ['firstName'],
-        limit,
-        offset
-    })
-
-    count = count.rows.length
-
+    const count = await owner.count()
     const totalPages = Math.ceil(count / pageSize)
 
+    const result = await owner.findAll({
+        attributes: ['id', 'firstName', 'lastName', 'address', 'phone', 'email', 'age', [Sequelize.literal('(SELECT AVG(age) FROM cats WHERE cats.ownerId = owner.id)'), 'averageAge']],
+        include: [{
+            model: cat,
+            as: 'cat',
+            attributes: []
+        }],
+        group: ['owner.id'],
+        offset,
+        limit
+    })
+
     return {
-        owners: data.rows,
+        owners: result,
         pageInfo: {
             page,
             pageSize,
             totalPages,
             count,
         },
-    }
+    };
 }
+
 
 async function changeOwnerIdOfCats(id_owner, cats_list) {
     id_owner = parseInt(id_owner)

@@ -1,4 +1,5 @@
 const { Sequelize, Model, DataTypes } = require('sequelize')
+const cat = require('./cats_model')
 const mysql2 = require('mysql2')
 
 const sequelize = new Sequelize('bo8dhdnecmi9kqgy6joa', 'utjidt7rdyxmke4r', 'YRtSHxz0xzXW2m5UY4rT', {
@@ -55,5 +56,7 @@ owner.init({
     modelName: 'owner',
     timestamps: false
 })
+
+owner.hasMany(cat, { foreignKey: 'ownerId' })
 
 module.exports = owner

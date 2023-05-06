@@ -79,7 +79,7 @@ async function getStatisticReportBreed(breed, page, pageSize) {
             model: owner,
             attributes: ['firstName'],
         }],
-        where: { breed: breed },
+        where: { breed: breed },    
         group: ['owner.firstName'],
         order: [[Sequelize.fn('AVG', Sequelize.col('owner.age')), 'ASC']]
     })
