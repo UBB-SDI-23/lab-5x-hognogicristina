@@ -7,7 +7,7 @@ function GetOneCat(props) {
     const [catData, setCatData] = useState([])
     
     useEffect(() => {
-        axios.get(`https://adopt-a-cat.onrender.com/cats/${props.id}`)
+        axios.get(`/cats/${props.id}`)
         // axios.get("http://localhost:8000/cats/" + props.id)
             .then(response => {
                 setCatData(response.data.data)
@@ -78,13 +78,15 @@ function GetOneCat(props) {
                 </TableContainer>
             </>
         )
+    } else if (!catData) {
+        return (
+            <>
+                <Typography variant="body1" align="center" sx={{ fontSize: '1.2rem', lineHeight: 1.5, color: '#777', marginBottom: '1.5rem', textShadow: '1px 1px #eee' }}>
+                    No cat found.
+                </Typography>
+            </>
+        )
     }
-
-    return (
-        <>
-            <Typography sx={{ color: "#777" }}>Loading...</Typography>
-        </>
-    )
 }
 
 export default GetOneCat

@@ -34,7 +34,7 @@ class Validation {
     }
 
     static validateDateRange(dateString) {
-        var date = new Date(dateString);
+        var date = new Date(dateString)
 
         if (isNaN(date.getTime())) {
             return false
@@ -52,18 +52,6 @@ class Validation {
 
     static isPhoneInUse(phone) {
         return owner.findOne({ where: { phone: phone } })
-    }
-
-    static ownerExists(id) {
-        return owner.findOne({ where: { id: id } })
-    }
-
-    static catExists(id) {
-        return cat.findOne({ where: { id: id } })
-    }
-
-    static foodExists(id) {
-        return food.findOne({ where: { id: id } })
     }
 
     static async isIdInUse(id, type) {

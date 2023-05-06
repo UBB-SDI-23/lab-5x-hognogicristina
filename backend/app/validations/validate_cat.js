@@ -16,7 +16,21 @@ class ValidationCat {
         return errors
     }
 
-    static validateCatAdd(cat) {
+    static async validateId(id) {
+        const errors = {}
+
+        if (!id) {
+            errors.id = "ID is required"
+        } else if (!Validation.validateNumber(id)) {
+            errors.id = "ID should be a number greater than 0."
+        } else if (!await Validation.isIdInUse(id, "cat")) {
+            errors.id = "ID does not exist"
+        }
+
+        return errors
+    }
+
+    static validateCat(cat) {
         var name = cat.name
         var age = cat.age
         var color = cat.color
@@ -63,58 +77,6 @@ class ValidationCat {
         }
 
         return errors
-    }
-
-    static async validateCatUpdate(cat) {
-        var name = cat.name
-        var age = cat.age
-        var color = cat.color
-        var breed = cat.breed
-        var weight = cat.weight
-        var description = cat.description
-        var ownerId = cat.ownerId
-
-        if (name == null) {
-            return "Name is required"
-        } else if (age == null) {
-            return "Age is required"
-        } else if (color == null) {
-            return "Color is required"
-        } else if (breed == null) {
-            return "Breed is required"
-        } else if (weight == null) {
-            return "Weight is required"
-        } else if (description == null) {
-            return "Description is required"
-        } else if (ownerId == null) {
-            return "Owner id is required"
-        } else if (!Validation.validateName(name)) {
-            return "Name should have at least 3 letters"
-        } else if (!Validation.validateNumber(age)) {
-            return "Age is a number greater than 0"
-        } else if (!Validation.validateName(breed)) {
-            return "Breed should have at least 3 letters"
-        } else if (!Validation.validateNumber(weight)) {
-            return "Weight is a number greater than 0"
-        } else if (!Validation.validateName(color)) {
-            return "Color should have at least 3 letters"
-        } else if (!Validation.validateDescr(description)) {
-            return "Description should have at least 50 letters and 100 max"
-        } else if (!await Validation.isIdInUse(ownerId, "owner")) {
-            return "Owner id does not exist"
-        } else {
-            return null
-        }
-    }
-
-    static async validateCat(cat, type) {
-        if (type == "add") {
-            return this.validateCatAdd(cat)
-        } else if (type == "update") {
-            return await this.validateCatUpdate(cat)
-        }
-
-        return null
     }
 }
 

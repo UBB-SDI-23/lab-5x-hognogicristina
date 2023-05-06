@@ -106,7 +106,7 @@ function DeleteCat({ catId }) {
                         sx={{ zIndex: 0 }}
                         disabled
                     />
-                    {message && <Typography color="red">{message}</Typography>}
+                    {message && <Typography color="green">{message}</Typography>}
                     <Button type="submit" variant="contained" sx={{ ...buttonStyles }} disabled={isLoading}>
                         {isLoading ? "Loading..." : "Submit"}
                     </Button>

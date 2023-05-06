@@ -50,7 +50,7 @@ module.exports = {
         var description = req.body.description
         var ownerId = req.body.ownerId
 
-        const errors = validationCat.validateCatAdd(req.body)
+        const errors = validationCat.validateCat(req.body)
         const ownerErrors = await validationCat.validateOwner(ownerId)
         const allErrors = Object.assign(errors, ownerErrors)
 
@@ -85,7 +85,7 @@ module.exports = {
         })
     },
 
-    updateCat: function (req, res) {
+    updateCat: async function (req, res) {
         var id = req.params.id
         var name = req.body.name
         var age = req.body.age
@@ -95,20 +95,21 @@ module.exports = {
         var description = req.body.description
         var ownerId = req.body.ownerId
 
-        validationCat.validateCat(req.body, "update").then(result => {
-            if (result == null) {
-                repo.updateCat(id, name, age, color, breed, weight, description, ownerId)
-                res.send({
-                    success: true,
-                    message: "Cat updated successfully"
-                })
-            } else {
-                res.send({
-                    success: false,
-                    message: result
-                })
-            }
-        })
+        const errors = validationCat.validateCat(req.body)
+        const ownerErrors = await validationCat.validateOwner(ownerId)
+        const idErrors = await validationCat.validateId(id)
+
+        const allErrors = Object.assign(errors, ownerErrors, idErrors)
+
+        if (Object.keys(allErrors).length > 0) {
+            res.status(400).send({ success: false, errors: allErrors })
+        } else {
+            repo.updateCat(id, name, age, color, breed, weight, description, ownerId)
+            res.send({
+                success: true,
+                message: "Cat updated successfully"
+            })
+        }
     },
 
     filterCat: function (req, res, page, pageSize) {
@@ -119,7 +120,7 @@ module.exports = {
                 if (req < 0) {
                     throw new Error()
                 }
-                weight = parseInt(req);
+                weight = parseInt(req)
             } else {
                 if (req.params.weight < 0) {
                     throw new Error()
