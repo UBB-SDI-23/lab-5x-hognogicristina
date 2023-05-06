@@ -12,7 +12,7 @@ function GetOneCat(props) {
             .then(response => {
                 setCatData(response.data.data)
             })
-    }, [props.id])
+    }, [catData, props.id])
 
     if (catData) {
         const { name, age, color, breed, weight, description, ownerData } = catData

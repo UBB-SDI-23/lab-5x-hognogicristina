@@ -164,7 +164,7 @@ function AddCat() {
                         placeholder="Example: Tom"
                         sx={{ zIndex: 0 }}
                     />
-                    {errors && errors.name && (<ErrorMessage message={errors.name} severity="warning" />)}
+                    {errors && errors.name && (<ErrorMessage message={errors.name} />)}
                     <TextField
                         error={errors && errors.age ? true : false}
                         fullWidth
@@ -178,7 +178,7 @@ function AddCat() {
                         placeholder="Example: 2"
                         sx={{ zIndex: 0 }}
                     />
-                    {errors && errors.age && (<ErrorMessage message={errors.age} severity="warning" />)}
+                    {errors && errors.age && (<ErrorMessage message={errors.age} />)}
                     <TextField
                         error={errors && errors.age ? true : false}
                         fullWidth
@@ -192,7 +192,7 @@ function AddCat() {
                         placeholder="Example: black"
                         sx={{ zIndex: 0 }}
                     />
-                    {errors && errors.color && (<ErrorMessage message={errors.color} severity="warning" />)}
+                    {errors && errors.color && (<ErrorMessage message={errors.color} />)}
                     <TextField
                         error={errors && errors.age ? true : false}
                         fullWidth
@@ -206,7 +206,7 @@ function AddCat() {
                         placeholder="Example: Persian"
                         sx={{ zIndex: 0 }}
                     />
-                    {errors && errors.breed && (<ErrorMessage message={errors.breed} severity="warning" />)}
+                    {errors && errors.breed && (<ErrorMessage message={errors.breed} />)}
                     <TextField
                         error={errors && errors.age ? true : false}
                         fullWidth
@@ -220,7 +220,7 @@ function AddCat() {
                         placeholder="Example: 5"
                         sx={{ zIndex: 0 }}
                     />
-                    {errors && errors.weight && (<ErrorMessage message={errors.weight} severity="warning" />)}
+                    {errors && errors.weight && (<ErrorMessage message={errors.weight} />)}
                     <TextField
                         error={errors && errors.age ? true : false}
                         fullWidth
@@ -234,7 +234,7 @@ function AddCat() {
                         placeholder="Example: Very cute cat"
                         sx={{ zIndex: 0 }}
                     />
-                    {errors && errors.description && (<ErrorMessage message={errors.description} severity="warning" />)}
+                    {errors && errors.description && (<ErrorMessage message={errors.description} />)}
                     <TextField
                         error={errors && errors.age ? true : false}
                         fullWidth
@@ -248,7 +248,7 @@ function AddCat() {
                         placeholder="Example: 1"
                         sx={{ zIndex: 0 }}
                     />
-                    {errors && errors.ownerId && (<ErrorMessage message={errors.ownerId} severity="warning" />)}
+                    {errors && errors.ownerId && (<ErrorMessage message={errors.ownerId} />)}
                     {message && <SuccessMessage message={message} />}
                     <Box sx={{ display: "flex", justifyContent: "center", mt: 2 }}>
                         <Button type="submit" variant="contained" sx={{ ...buttonStyles, mr: 2 }} disabled={isLoading}>

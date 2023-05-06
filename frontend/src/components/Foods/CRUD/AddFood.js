@@ -1,6 +1,7 @@
 import { useState } from "react"
 import { Box, Button, TextField, Typography } from "@mui/material"
 import { createTheme, ThemeProvider } from '@mui/material/styles'
+import { green, red } from '@mui/material/colors'
 import axios from "axios"
 
 function AddFood() {
@@ -14,6 +15,7 @@ function AddFood() {
 
     const [isLoading, setIsLoading] = useState(false)
     const [message, setMessage] = useState("")
+    const [errors, setErrors] = useState({})
 
     const handleChange = (event) => {
         setFood({
@@ -27,7 +29,7 @@ function AddFood() {
         setIsLoading(true)
         setMessage("")
 
-        axios.post(`https://adopt-a-cat.onrender.com/foods_add`, food, {
+        axios.post(`/foods_add`, food, {
         // axios.post(`http://localhost:8000/foods_add`, food, {
             headers: {
                 "Content-Type": "application/json"
@@ -36,6 +38,14 @@ function AddFood() {
             .then((response) => {
                 setIsLoading(false)
                 setMessage(response.data.message)
+                setErrors({})
+            })
+            .catch((error) => {
+                setIsLoading(false)
+                if (error.response && error.response.status === 400) {
+                    const errors = error.response.data.errors
+                    setErrors(errors)
+                }
             })
     }
 
@@ -47,6 +57,9 @@ function AddFood() {
             quantity: "",
             type: ""
         })
+
+        setMessage("")
+        setErrors({})
     }
 
     const buttonStyles = {
@@ -68,6 +81,50 @@ function AddFood() {
         },
     })
 
+    const successMessageStyle = {
+        backgroundColor: green[700],
+        color: '#fff',
+        display: 'flex',
+        alignItems: 'center',
+        padding: '12px',
+        borderRadius: '4px',
+    }
+
+    const SuccessIcon = () => (
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+            <path fill="#fff" d="M20.75 4.56a1.01 1.01 0 0 0-1.4-.14l-9.9 8.75-4.35-4.36a1 1 0 0 0-1.4 1.42l4.92 4.92a1 1 0 0 0 1.42 0l10.4-9.19c.38-.33.47-.88.14-1.27z" />
+        </svg>
+    )
+
+    const SuccessMessage = ({ message }) => (
+        <Box sx={successMessageStyle}>
+            <SuccessIcon sx={{ marginRight: '8px' }} />
+            <Typography>{message}</Typography>
+        </Box>
+    )
+
+    const errorMessageStyle = {
+        backgroundColor: red[700],
+        color: '#fff',
+        display: 'flex',
+        alignItems: 'center',
+        padding: '12px',
+        borderRadius: '4px',
+    }
+
+    const ErrorIcon = () => (
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+            <path fill="#fff" d="M13 2h-2v9h2V2zm0 11h-2v2h2v-2z" />
+        </svg>
+    )
+
+    const ErrorMessage = ({ message }) => (
+        <Box sx={errorMessageStyle}>
+            <ErrorIcon sx={{ marginRight: '8px' }} />
+            <Typography>{message}</Typography>
+        </Box>
+    )
+
     const h2Style = {
         fontSize: '1.6rem',
         color: '#333',
@@ -87,7 +144,7 @@ function AddFood() {
             <form onSubmit={handleSubmit}>
                 <ThemeProvider theme={theme}>
                     <TextField
-                        required
+                        error={errors && errors.name ? true : false}
                         fullWidth
                         id="name"
                         name="name"
@@ -99,8 +156,9 @@ function AddFood() {
                         placeholder="Example: Purina Cat Chow"
                         sx={{ zIndex: 0 }}
                     />
+                    {errors && errors.name && <ErrorMessage message={errors.name} />}
                     <TextField
-                        required
+                        error={errors && errors.brand ? true : false}
                         fullWidth
                         id="brand"
                         name="brand"
@@ -112,8 +170,9 @@ function AddFood() {
                         placeholder="Example: Purina"
                         sx={{ zIndex: 0 }}
                     />
+                    {errors && errors.brand && <ErrorMessage message={errors.brand} />}
                     <TextField
-                        required
+                        error={errors && errors.price ? true : false}
                         fullWidth
                         id="price"
                         name="price"
@@ -125,8 +184,9 @@ function AddFood() {
                         placeholder="Example: 10"
                         sx={{ zIndex: 0 }}
                     />
+                    {errors && errors.price && <ErrorMessage message={errors.price} />}
                     <TextField
-                        required
+                        error={errors && errors.quantity ? true : false}
                         fullWidth
                         id="quantity"
                         name="quantity"
@@ -138,8 +198,9 @@ function AddFood() {
                         placeholder="Example: 10"
                         sx={{ zIndex: 0 }}
                     />
+                    {errors && errors.quantity && <ErrorMessage message={errors.quantity} />}
                     <TextField
-                        required
+                        error={errors && errors.type ? true : false}
                         fullWidth
                         id="type"
                         name="type"
@@ -151,13 +212,16 @@ function AddFood() {
                         placeholder="Example: Dry/Wet"
                         sx={{ zIndex: 0 }}
                     />
-                    {message && <Typography color="red">{message}</Typography>}
-                    <Button type="submit" variant="contained" sx={{ ...buttonStyles }} disabled={isLoading}>
-                        {isLoading ? "Loading..." : "Submit"}
-                    </Button>
-                    <Button variant="contained" sx={{ ...buttonStyles }} onClick={handleReset}>
-                        Reset
-                    </Button>
+                    {errors && errors.type && <ErrorMessage message={errors.type} />}
+                    {message && <SuccessMessage message={message} />}
+                    <Box sx={{ display: "flex", justifyContent: "center", mt: 2 }}>
+                        <Button type="submit" variant="contained" sx={{ ...buttonStyles, mr: 2 }} disabled={isLoading}>
+                            {isLoading ? "Loading..." : "Submit"}
+                        </Button>
+                        <Button variant="contained" sx={{ ...buttonStyles }} onClick={handleReset}>
+                            Reset
+                        </Button>
+                    </Box>
                 </ThemeProvider>
             </form>
         </Box>

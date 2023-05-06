@@ -7,7 +7,7 @@ function GetOneFood(props) {
     const [foodData, setFoodData] = useState([])
 
     useEffect(() => {
-        axios.get(`https://adopt-a-cat.onrender.com/foods/${props.id}`)
+        axios.get(`/foods/${props.id}`)
         // axios.get(`http://localhost:8000/foods/${props.id}`)
             .then(response => {
                 setFoodData(response.data.data)
@@ -50,13 +50,15 @@ function GetOneFood(props) {
                 </TableContainer>
             </>
         )
+    } else if (!foodData) {
+        return (
+            <>
+                <Typography variant="body1" align="center" sx={{ fontSize: '1.2rem', lineHeight: 1.5, color: '#777', marginBottom: '1.5rem', textShadow: '1px 1px #eee' }}>
+                    No food found.
+                </Typography>
+            </>
+        )
     }
-
-    return (
-        <>
-            <Typography sx={{ color: "#777" }}>Loading...</Typography>
-        </>
-    )
 }
 
 export default GetOneFood

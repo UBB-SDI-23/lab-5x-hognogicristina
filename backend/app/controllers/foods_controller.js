@@ -61,7 +61,7 @@ module.exports = {
     deleteFood: function (req, res) {
         var id = req.params.id
 
-        validation.validateId(id, "food").then(result => {
+        validation.isIdInUse(id, "food").then(result => {
             if (result == null) {
                 repo.deleteFood(id)
                 res.send({

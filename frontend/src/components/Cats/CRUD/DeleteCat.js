@@ -48,7 +48,6 @@ function DeleteCat({ catId }) {
         })
             .then((response) => {
                 setIsLoading(false)
-                console.log(response.status)
                 if (response.data.success) {
                     setMessage(response.data.message)
                     setOpen(false)
@@ -180,7 +179,6 @@ function DeleteCat({ catId }) {
             </form>
         </Box>
     )
-
 }
 
 export default DeleteCat

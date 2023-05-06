@@ -7,7 +7,7 @@ function GetOneOwner(props) {
     const [ownerData, setOwnerData] = useState(null)
 
     useEffect(() => {
-        axios.get("https://adopt-a-cat.onrender.com/owners/" + props.id)
+        axios.get("/owners/" + props.id)
         // axios.get("http://localhost:8000/owners/" + props.id)
             .then(response => {
                 setOwnerData(response.data.data)
@@ -99,10 +99,12 @@ function GetOneOwner(props) {
                 </TableContainer>
             </>
         )
-    } else {
+    } else if (!ownerData) {
         return (
             <>
-                <Typography sx={{ color: "#777" }}>Loading...</Typography>
+                <Typography variant="body1" align="center" sx={{ fontSize: '1.2rem', lineHeight: 1.5, color: '#777', marginBottom: '1.5rem', textShadow: '1px 1px #eee' }}>
+                    No owner found.
+                </Typography>
             </>
         )
     }
