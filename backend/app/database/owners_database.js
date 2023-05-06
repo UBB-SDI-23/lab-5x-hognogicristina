@@ -52,7 +52,7 @@ async function getStatisticReport(page, pageSize) {
     const offset = (page - 1) * pageSize
     const limit = pageSize
 
-    owner.hasMany(cat, { foreignKey: 'ownerId', as: 'cats' });
+    owner.hasMany(cat, { foreignKey: 'ownerId' });
     cat.belongsTo(owner, { foreignKey: 'ownerId' })
 
     const count = await owner.count()
@@ -62,7 +62,6 @@ async function getStatisticReport(page, pageSize) {
         attributes: ['id', 'firstName', 'lastName', 'address', 'phone', 'email', 'age', [Sequelize.literal('(SELECT AVG(age) FROM cats WHERE cats.ownerId = owner.id)'), 'averageAge']],
         include: [{
             model: cat,
-            as: 'cat',
             attributes: []
         }],
         group: ['owner.id'],
