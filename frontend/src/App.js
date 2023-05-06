@@ -1,7 +1,7 @@
   import './App.css'
 
-  import Home from './pagination/Home'
-  import Navigation from './pagination/Navigation'
+  import Home from './Home'
+  import Navigation from './Navigation'
 
   import Cats from './components/Cats/Cats'
   import Owners from './components/Owners/Owners'

@@ -35,8 +35,9 @@ module.exports = {
     },
 
     getFood: async function (page, pageSize) {
-        const { results, pageInfo } = await db.getFoods(page, pageSize)
-        food = results
+        const data = await db.getFoods(page, pageSize)
+        const food = data.food
+        const pageInfo = data.pageInfo
 
         return {
             food,

@@ -55,21 +55,21 @@ async function getStatisticReport(page, pageSize) {
     owner.hasMany(cat, { foreignKey: 'ownerId' })
 
     var count = await owner.findAndCountAll({
-        attributes: ['id', 'firstName', 'lastName', 'address', 'phone', 'email', 'age', [Sequelize.fn('COUNT', Sequelize.col('cat.id')), 'count']],
+        attributes: ['id', 'firstName', 'lastName', 'address', 'phone', 'email', 'age', [Sequelize.fn('AVG', Sequelize.col('cat.age')), 'avgAge']],
         include: [{
             model: cat,
             attributes: []
         }],
-        group: ['id'],
+        group: ['firstName'],
     })
 
     const data = await owner.findAndCountAll({
-        attributes: ['id', 'firstName', 'lastName', 'address', 'phone', 'email', 'age', [Sequelize.fn('COUNT', Sequelize.col('cat.id')), 'count']],
+        attributes: ['id', 'firstName', 'lastName', 'address', 'phone', 'email', 'age', [Sequelize.fn('AVG', Sequelize.col('cat.age')), 'avgAge']],
         include: [{
             model: cat,
             attributes: []
         }],
-        group: ['id'],
+        group: ['firstName'],
         limit,
         offset
     })

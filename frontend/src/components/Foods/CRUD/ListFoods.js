@@ -47,8 +47,9 @@ function ListFoods() {
         setIsLoading(true)
         axios.get(`/foods?page=${page}&pageSize=${pageSize}`)
             .then((response) => {
-                setFoods(response.data.data.foods)
-                setTotalPages(response.data.data.pageInfo.totalPages)
+                console.log(response)
+                // setFoods(response.data.data.foods)
+                // setTotalPages(response.data.data.pageInfo.totalPages)
             })
             .finally(() => {
                 setIsLoading(false)

@@ -5,11 +5,11 @@ const validationFood = require("../validations/validate_food.js")
 
 module.exports = {
     getFood: function (req, res, page, pageSize) {
-        repo.getFood(page, pageSize).then(foods => {
+        repo.getFood(page, pageSize).then(food => {
             res.send({
                 success: true,
-                message: "Foods found successfully",
-                data: foods
+                message: "Food found lasjgh",
+                data: food
             })
         })
     },
