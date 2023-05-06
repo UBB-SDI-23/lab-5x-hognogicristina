@@ -103,7 +103,7 @@ function StatisticOwner() {
                                             <TableCell align="center">{owner.phone}</TableCell>
                                             <TableCell align="center">{owner.email}</TableCell>
                                             <TableCell align="center">{owner.age}</TableCell>
-                                            <TableCell align="center">{owner.averageAge}</TableCell>
+                                            <TableCell align="center">{owner.averageAge ? owner.averageAge : 0}</TableCell>
                                         </TableRow>
                                     ))}
                                 </TableBody>
