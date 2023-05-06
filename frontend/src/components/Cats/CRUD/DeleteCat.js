@@ -2,6 +2,7 @@ import { useState } from "react"
 import { Box, Button, TextField, Typography } from "@mui/material"
 import { createTheme, ThemeProvider } from '@mui/material/styles'
 import { Dialog, DialogTitle, DialogContent, DialogActions } from '@mui/material'
+import { green, amber } from '@mui/material/colors'
 import axios from "axios"
 
 function DeleteCat({ catId }) {
@@ -11,6 +12,7 @@ function DeleteCat({ catId }) {
 
     const [isLoading, setIsLoading] = useState(false)
     const [message, setMessage] = useState("")
+    const [warning, setWarning] = useState("")
     const [open, setOpen] = useState(false)
 
     const handleChange = (event) => {
@@ -30,6 +32,7 @@ function DeleteCat({ catId }) {
         event.preventDefault()
         setIsLoading(true)
         setMessage("")
+        setWarning("")
         setOpen(true)
     }
 
@@ -37,7 +40,7 @@ function DeleteCat({ catId }) {
         setIsLoading(true)
 
         axios.delete(`/cats_delete/${cat.id}`, {
-        // axios.delete(`http://localhost:8000/cats_delete/${cat.id}`, {
+            // axios.delete(`http://localhost:8000/cats_delete/${cat.id}`, {
             headers: {
                 "Content-Type": "application/json"
             },
@@ -45,8 +48,14 @@ function DeleteCat({ catId }) {
         })
             .then((response) => {
                 setIsLoading(false)
-                setMessage(response.data.message)
-                setOpen(false)
+                console.log(response.status)
+                if (response.data.success) {
+                    setMessage(response.data.message)
+                    setOpen(false)
+                } else {
+                    setWarning("Cat already deleted, please go back and try to delete another cat.")
+                    setOpen(false)
+                }
             })
     }
 
@@ -73,6 +82,50 @@ function DeleteCat({ catId }) {
             },
         },
     })
+
+    const successMessageStyle = {
+        backgroundColor: green[700],
+        color: '#fff',
+        display: 'flex',
+        alignItems: 'center',
+        padding: '12px',
+        borderRadius: '4px',
+    }
+
+    const SuccessIcon = () => (
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+            <path fill="#fff" d="M20.75 4.56a1.01 1.01 0 0 0-1.4-.14l-9.9 8.75-4.35-4.36a1 1 0 0 0-1.4 1.42l4.92 4.92a1 1 0 0 0 1.42 0l10.4-9.19c.38-.33.47-.88.14-1.27z" />
+        </svg>
+    )
+
+    const SuccessMessage = ({ message }) => (
+        <Box sx={successMessageStyle}>
+            <SuccessIcon sx={{ marginRight: '8px' }} />
+            <Typography>{message}</Typography>
+        </Box>
+    )
+
+    const warningMessageStyle = {
+        backgroundColor: amber[700],
+        color: '#fff',
+        display: 'flex',
+        alignItems: 'center',
+        padding: '12px',
+        borderRadius: '4px',
+    }
+
+    const WarningIcon = () => (
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+            <path fill="#fff" d="M12 2a9 9 0 1 0 9 9A9 9 0 0 0 12 2zm0 17a7 7 0 1 1 7-7 7 7 0 0 1-7 7zm0-11h-2v6h2V8z" />
+        </svg>
+    )
+
+    const WarningMessage = ({ message }) => (
+        <Box sx={warningMessageStyle}>
+            <WarningIcon sx={{ marginRight: '8px' }} />
+            <Typography>{message}</Typography>
+        </Box>
+    )
 
     const h2Style = {
         fontSize: '1.6rem',
@@ -102,11 +155,14 @@ function DeleteCat({ catId }) {
                         onChange={handleChange}
                         margin="normal"
                         variant="outlined"
-                        placeholder="Example: 1"
                         sx={{ zIndex: 0 }}
                         disabled
                     />
-                    {message && <Typography color="green">{message}</Typography>}
+                    {message ? (
+                        <SuccessMessage message={message} />
+                    ) : warning ? (
+                        <WarningMessage message={warning} />
+                    ) : null}
                     <Button type="submit" variant="contained" sx={{ ...buttonStyles }} disabled={isLoading}>
                         {isLoading ? "Loading..." : "Submit"}
                     </Button>

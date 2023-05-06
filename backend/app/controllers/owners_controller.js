@@ -3,6 +3,7 @@ var repoOwner = require("../repositories/owners_repository.js")
 const dbCats = require('../database/cats_database.js')
 const validation = require('../validations/validater.js')
 const validationOwner = require('../validations/validate_owner.js')
+const ValidationOwner = require("../validations/validate_owner.js")
 
 module.exports = {
     getOwner: function (req, res, page, pageSize) {
@@ -49,20 +50,20 @@ module.exports = {
         var email = req.body.email
         var age = req.body.age
 
-        validationOwner.validateOwner(req.body, "add").then(result => {
-            if (result == null) {
-                repoOwner.createOwner(firstName, lastName, address, phone, email, age)
-                res.send({
-                    success: true,
-                    message: "Owner created successfully"
-                })
-            } else {
-                res.send({
-                    success: false,
-                    message: result
-                })
-            }
-        })
+        const errors = validationOwner.validateOwner(req.body)
+        const phoneErrors = ValidationOwner.validatePhoneOwner(phone)
+        const emailErrors = validationOwner.validateEmailOwner(email)
+        const allErrors = Object.assign(errors, phoneErrors, emailErrors)
+
+        if (Object.keys(allErrors).length > 0) {
+            res.status(400).send({ success: false, errors: allErrors })
+        } else {
+            repoOwner.createOwner(firstName, lastName, address, phone, email, age)
+            res.send({
+                success: true,
+                message: "Owner created successfully"
+            })
+        }
     },
 
     deleteOwner: function (req, res) {
@@ -93,29 +94,21 @@ module.exports = {
         var email = req.body.email
         var age = req.body.age
 
-        validation.isIdInUse(id, "owner").then(owner => {
-            if (owner) {
-                validationOwner.validateOwner(req.body, "update").then(result => {
-                    if (result == null) {
-                        repoOwner.updateOwner(id, firstName, lastName, address, phone, email, age)
-                        res.send({
-                            success: true,
-                            message: "Owner updated successfully"
-                        })
-                    } else {
-                        res.send({
-                            success: false,
-                            message: result
-                        })
-                    }
-                })
-            } else {
-                res.send({
-                    success: false,
-                    message: "Owner not found"
-                })
-            }
-        })
+        const errors = validationOwner.validateOwner(req.body)
+        const phoneErrors = ValidationOwner.validatePhoneOwner(phone)
+        const emailErrors = validationOwner.validateEmailOwner(email)
+        const idErrors = validationOwner.validateId(id)
+        const allErrors = Object.assign(errors, phoneErrors, emailErrors, idErrors)
+
+        if (Object.keys(allErrors).length > 0) {
+            res.status(400).send({ success: false, errors: allErrors })
+        } else {
+            repoOwner.updateOwner(id, firstName, lastName, address, phone, email, age)
+            res.send({
+                success: true,
+                message: "Owner updated successfully"
+            })
+        }
     },
 
     getStatistics: function (req, res, page, pageSize) {

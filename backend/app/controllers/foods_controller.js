@@ -45,20 +45,17 @@ module.exports = {
         var quantity = req.body.quantity
         var type = req.body.type
 
-        validationFood.validateFood(req.body, "add").then(result => {
-            if (result == null) {
-                repo.createFood(name, brand, price, quantity, type)
-                res.send({
-                    success: true,
-                    message: "Food created successfully"
-                })
-            } else {
-                res.send({
-                    success: false,
-                    message: result
-                })
-            }
-        })
+        const errors = validationFood.validateFood(req.body)
+
+        if (Object.keys(errors).length > 0) {
+            res.status(400).send({ success: false, errors: errors })
+        } else {
+            repo.createFood(id, name, brand, price, quantity, type)
+            res.send({
+                success: true,
+                message: "Food created successfully"
+            })
+        }
     },
 
     deleteFood: function (req, res) {
@@ -88,19 +85,18 @@ module.exports = {
         var quantity = req.body.quantity
         var type = req.body.type
 
-        validationFood.validateFood(req.body, "update").then(result => {
-            if (result == null) {
-                repo.updateFood(id, name, brand, price, quantity, type)
-                res.send({
-                    success: true,
-                    message: "Food updated successfully"
-                })
-            } else {
-                res.send({
-                    success: false,
-                    message: result
-                })
-            }
-        })
+        const errors = validationFood.validateFood(req.body)
+        const idErrors = validationFood.validateId(id)
+        const allErrors = Object.assign(errors, idErrors)
+
+        if (Object.keys(allErrors).length > 0) {
+            res.status(400).send({ success: false, errors: allErrors })
+        } else {
+            repo.updateFood(id, name, brand, price, quantity, type)
+            res.send({
+                success: true,
+                message: "Food updated successfully"
+            })
+        }
     }
 }

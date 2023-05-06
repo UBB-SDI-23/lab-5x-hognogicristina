@@ -1,6 +1,7 @@
 import { useState } from "react"
 import { Box, Button, TextField, Typography } from "@mui/material"
 import { createTheme, ThemeProvider } from '@mui/material/styles'
+import { green, red } from '@mui/material/colors'
 import axios from "axios"
 
 function UpdateCat({ catId }) {
@@ -17,6 +18,7 @@ function UpdateCat({ catId }) {
 
     const [isLoading, setIsLoading] = useState(false)
     const [message, setMessage] = useState("")
+    const [errors, setErrors] = useState({})
 
     const handleChange = (event) => {
         const value = event.target.value
@@ -31,7 +33,7 @@ function UpdateCat({ catId }) {
         setIsLoading(true)
         setMessage("")
         
-        axios.put(`https://adopt-a-cat.onrender.com/cats_update/${cat.id}`, cat, {
+        axios.put(`/cats_update/${cat.id}`, cat, {
         // axios.put(`http://localhost:8000/cats_update/${cat.id}`, cat, {
             headers: {
                 "Content-Type": "application/json"
@@ -40,6 +42,14 @@ function UpdateCat({ catId }) {
             .then((response) => {
                 setIsLoading(false)
                 setMessage(response.data.message)
+                setErrors({})
+            })
+            .catch((error) => {
+                setIsLoading(false)
+                if (error.response && error.response.status === 400) {
+                    const errors = error.response.data.errors
+                    setErrors(errors)
+                }
             })
     }
 
@@ -54,6 +64,9 @@ function UpdateCat({ catId }) {
             description: "",
             ownerId: "",
         })
+
+        setMessage("")
+        setErrors({})
     }
 
     const buttonStyles = {
@@ -74,6 +87,50 @@ function UpdateCat({ catId }) {
             },
         },
     })
+
+    const successMessageStyle = {
+        backgroundColor: green[700],
+        color: '#fff',
+        display: 'flex',
+        alignItems: 'center',
+        padding: '12px',
+        borderRadius: '4px',
+    }
+
+    const SuccessIcon = () => (
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+            <path fill="#fff" d="M20.75 4.56a1.01 1.01 0 0 0-1.4-.14l-9.9 8.75-4.35-4.36a1 1 0 0 0-1.4 1.42l4.92 4.92a1 1 0 0 0 1.42 0l10.4-9.19c.38-.33.47-.88.14-1.27z" />
+        </svg>
+    )
+
+    const SuccessMessage = ({ message }) => (
+        <Box sx={successMessageStyle}>
+            <SuccessIcon sx={{ marginRight: '8px' }} />
+            <Typography>{message}</Typography>
+        </Box>
+    )
+
+    const errorMessageStyle = {
+        backgroundColor: red[700],
+        color: '#fff',
+        display: 'flex',
+        alignItems: 'center',
+        padding: '12px',
+        borderRadius: '4px',
+    }
+
+    const ErrorIcon = () => (
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+            <path fill="#fff" d="M13 2h-2v9h2V2zm0 11h-2v2h2v-2z" />
+        </svg>
+    )
+
+    const ErrorMessage = ({ message }) => (
+        <Box sx={errorMessageStyle}>
+            <ErrorIcon sx={{ marginRight: '8px' }} />
+            <Typography>{message}</Typography>
+        </Box>
+    )
 
     const h2Style = {
         fontSize: '1.6rem',
@@ -103,12 +160,11 @@ function UpdateCat({ catId }) {
                         onChange={handleChange}
                         margin="normal"
                         variant="outlined"
-                        placeholder="Example: 1"
                         sx={{ zIndex: 0 }}
                         disabled
                     />
                     <TextField
-                        required
+                        error={errors && errors.name ? true : false}
                         fullWidth
                         id="name"
                         name="name"
@@ -120,8 +176,9 @@ function UpdateCat({ catId }) {
                         placeholder="Example: Tom"
                         sx={{ zIndex: 0 }}
                     />
+                    {errors && errors.name && (<ErrorMessage message={errors.name} severity="warning" />)}
                     <TextField
-                        required
+                        error={errors && errors.age ? true : false}
                         fullWidth
                         id="age"
                         name="age"
@@ -133,8 +190,9 @@ function UpdateCat({ catId }) {
                         placeholder="Example: 2"
                         sx={{ zIndex: 0 }}
                     />
+                    {errors && errors.age && (<ErrorMessage message={errors.age} severity="warning" />)}
                     <TextField
-                        required
+                        error={errors && errors.age ? true : false}
                         fullWidth
                         id="color"
                         name="color"
@@ -146,8 +204,9 @@ function UpdateCat({ catId }) {
                         placeholder="Example: black"
                         sx={{ zIndex: 0 }}
                     />
+                    {errors && errors.color && (<ErrorMessage message={errors.color} severity="warning" />)}
                     <TextField
-                        required
+                        error={errors && errors.age ? true : false}
                         fullWidth
                         id="breed"
                         name="breed"
@@ -159,8 +218,9 @@ function UpdateCat({ catId }) {
                         placeholder="Example: Persian"
                         sx={{ zIndex: 0 }}
                     />
+                    {errors && errors.breed && (<ErrorMessage message={errors.breed} severity="warning" />)}
                     <TextField
-                        required
+                        error={errors && errors.age ? true : false}
                         fullWidth
                         id="weight"
                         name="weight"
@@ -172,8 +232,9 @@ function UpdateCat({ catId }) {
                         placeholder="Example: 5"
                         sx={{ zIndex: 0 }}
                     />
+                    {errors && errors.weight && (<ErrorMessage message={errors.weight} severity="warning" />)}
                     <TextField
-                        required
+                        error={errors && errors.age ? true : false}
                         fullWidth
                         id="description"
                         name="description"
@@ -182,11 +243,12 @@ function UpdateCat({ catId }) {
                         onChange={handleChange}
                         margin="normal"
                         variant="outlined"
-                        placeholder="Example: This is a very cute cat"
+                        placeholder="Example: Very cute cat"
                         sx={{ zIndex: 0 }}
                     />
+                    {errors && errors.description && (<ErrorMessage message={errors.description} severity="warning" />)}
                     <TextField
-                        required
+                        error={errors && errors.age ? true : false}
                         fullWidth
                         id="ownerId"
                         name="ownerId"
@@ -198,13 +260,16 @@ function UpdateCat({ catId }) {
                         placeholder="Example: 1"
                         sx={{ zIndex: 0 }}
                     />
-                    {message && <Typography color="red">{message}</Typography>}
-                    <Button type="submit" variant="contained" sx={{ ...buttonStyles }} disabled={isLoading}>
-                        {isLoading ? "Loading..." : "Submit"}
-                    </Button>
-                    <Button variant="contained" sx={{ ...buttonStyles }} onClick={handleReset}>
-                        Reset
-                    </Button>
+                    {errors && errors.ownerId && (<ErrorMessage message={errors.ownerId} severity="warning" />)}
+                    {message && <SuccessMessage message={message} />}                    
+                    <Box sx={{ display: "flex", justifyContent: "center", mt: 2 }}>
+                        <Button type="submit" variant="contained" sx={{ ...buttonStyles, mr: 2 }} disabled={isLoading}>
+                            {isLoading ? "Loading..." : "Submit"}
+                        </Button>
+                        <Button variant="contained" sx={{ ...buttonStyles }} onClick={handleReset}>
+                            Reset
+                        </Button>
+                    </Box>
                 </ThemeProvider>
             </form>
         </Box>

@@ -1,93 +1,81 @@
 const Validation = require('../validations/validater.js')
 
 class ValidationOwner {
-    static async validateOwnerAdd(owner) {
+    static async validateEmailOwner(email) {
+        const errors = {}
+
+        if (!email) {
+            errors.email = "Email is required"
+        } else if (!Validation.validateEmail(email)) {
+            errors.email = "Email does not have the correct format (e.g.: email@gmail.com/ email@yahoo.com)"
+        } else if (!await Validation.isEmailInUse(email)) {
+            errors.email = "Email does not exist"
+        }
+
+        return errors
+    }
+
+    static async validatePhoneOwner(phone) {
+        const errors = {}
+
+        if (!phone) {
+            errors.phone = "Phone is required"
+        } else if (!Validation.validatePhone(phone)) {
+            errors.phone = "Phone does not have the correct format (e.g.: 12345678)"
+        } else if (!await Validation.isPhoneInUse(phone)) {
+            errors.phone = "Phone does not exist"
+        }
+
+        return errors
+    }
+
+    static async validateId(id) {
+        const errors = {}
+
+        if (!id) {
+            errors.id = "ID is required"
+        } else if (!Validation.validateNumber(id)) {
+            errors.id = "ID should be a number greater than 0."
+        } else if (!await Validation.isIdInUse(id, "owner")) {
+            errors.id = "ID does not exist"
+        }
+
+        return errors
+    }
+
+    static validateOwner(owner) {
         var firstName = owner.firstName
         var lastName = owner.lastName
         var address = owner.address
-        var phone = owner.phone
-        var email = owner.email
         var age = owner.age
 
-        if (firstName == null) {
-            return "First name is required"
-        } else if (lastName == null) {
-            return "Last name is required"
-        } else if (address == null) {
-            return "Address is required"
-        } else if (phone == null) {
-            return "Phone is required"
-        } else if (email == null) {
-            return "Email is required"
-        } else if (age == null) {
-            return "Age is required"
+        const errors = {}
+
+        if (!firstName) {
+            errors.firstName = "First name is required"
         } else if (!Validation.validateName(firstName)) {
-            return "First name should have at least 3 letters"
+            errors.firstName = "First name must contain only letters, spaces, and dashes, and be at least 3 characters long."
+        }
+
+        if (!lastName) {
+            errors.lastName = "Last name is required"
         } else if (!Validation.validateName(lastName)) {
-            return "Last name should have at least 3 letters"
-        } else if (!Validation.validatePhone(phone)) {
-            return "Phone should be a number with 8 digits long"
-        } else if (!Validation.validateEmail(email)) {
-            return "Email does not have the correct format (e.g.: email@gmail.com/ email@yahoo.com)"
+            errors.lastName = "Last name must contain only letters, spaces, and dashes, and be at least 3 characters long."
+        } 
+
+        if (!address) {
+            errors.address = "Address is required"
+        } else if (!Validation.validateName(address)) {
+            errors.address = "Address must contain only letters, spaces, and dashes, and be at least 3 characters long."
+        } 
+
+        if (!age) {
+            errors.age = "Age is required"
         } else if (!Validation.validateNumber(age)) {
-            return "Age is a number greater than 0"
-        } else if (await Validation.isEmailInUse(email)) {
-            return "Email is already in use"
-        } else if (await Validation.isPhoneInUse(phone)) {
-            return "Phone is already in use"
-        } else {
-            return null
-        }
-    }
-
-    static async validateOwnerUpdate(owner) {
-        var firstName = owner.firstName
-        var lastName = owner.lastName
-        var address = owner.address
-        var phone = owner.phone
-        var email = owner.email
-        var age = owner.age
-
-        if (firstName == null) {
-            return "First name is required"
-        } else if (lastName == null) {
-            return "Last name is required"
-        } else if (address == null) {
-            return "Address is required"
-        } else if (phone == null) {
-            return "Phone is required"
-        } else if (email == null) {
-            return "Email is required"
-        } else if (age == null) {
-            return "Age is required"
-        } else if (!Validation.validateName(firstName)) {
-            return "First name should be at least 3 characters long and only contain letters"
-        } else if (!Validation.validateName(lastName)) {
-            return "Last name should be at least 3 characters long and only contain letters"
-        } else if (!Validation.validatePhone(phone)) {
-            return "Phone should be 8 digits long"
-        } else if (!Validation.validateEmail(email)) {
-            return "Email does not have the correct format (e.g.: email@gmail.com/ email@yahoo.com)"
-        } else if (!Validation.validateAge(age)) {
-            return "Age should be 1 or higher"
-        } else if (await Validation.isEmailInUse(email)) {
-            return "Email is already in use"
-        } else if (await Validation.isPhoneInUse(phone)) {
-            return "Phone is already in use"
-        } else {
-            return null
-        }
-    }
-
-    static async validateOwner(owner, type) {
-        if (type == "add") {
-            return await ValidationOwner.validateOwnerAdd(owner)
-        } else if (type == "update") {
-            var id = owner.id
-            return await ValidationOwner.validateOwnerUpdate(owner)
+            errors.age = "Age should be a number greater than 0."
         }
 
-        return null
+        return errors
     }
 }
 

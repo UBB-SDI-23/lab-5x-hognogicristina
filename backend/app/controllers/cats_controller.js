@@ -98,7 +98,6 @@ module.exports = {
         const errors = validationCat.validateCat(req.body)
         const ownerErrors = await validationCat.validateOwner(ownerId)
         const idErrors = await validationCat.validateId(id)
-
         const allErrors = Object.assign(errors, ownerErrors, idErrors)
 
         if (Object.keys(allErrors).length > 0) {

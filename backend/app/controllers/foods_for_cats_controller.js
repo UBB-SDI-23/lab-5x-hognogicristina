@@ -44,20 +44,17 @@ module.exports = {
         var purchased = req.body.purchased
         var place = req.body.place
 
-        validateFoodCat.validateFoodForCat(req.body, "add").then(result => {
-            if (result == null) {
-                repo.createFoodCat(catId, foodId, purchased, place)
-                res.send({
-                    success: true,
-                    message: "Food for cat created successfully"
-                })
-            } else {
-                res.send({
-                    success: false,
-                    message: result
-                })
-            }
-        })
+        const errors = validateFoodCat.validateFoodForCat(req.body)
+        
+        if (Object.keys(errors).length > 0) {
+            res.status(400).send({ success: false, errors: errors })
+        } else {
+            repo.createFoodCat(id, catId, foodId, purchased, place)
+            res.send({
+                success: true,
+                message: "Food for cat created successfully"
+            })
+        }
     },
 
     deleteFoodCat: function (req, res) {
@@ -86,28 +83,20 @@ module.exports = {
         var purchased = req.body.purchased
         var place = req.body.place
 
-        validate.isIdInUse(id, "foodForCat").then(foodCat => {
-            if (foodCat) {
-                validateFoodCat.validateFoodForCat(req.body, "update").then(result => {
-                    if (result == null) {
-                        repo.updateFoodCat(id, catId, foodId, purchased, place)
-                        res.send({
-                            success: true,
-                            message: "Food for cat updated successfully"
-                        })
-                    } else {
-                        res.send({
-                            success: false,
-                            message: result
-                        })
-                    }
-                })
-            } else {
-                res.send({
-                    success: false,
-                    message: "Food for cat not found"
-                })
-            }
-        })
+        const errors = validateFoodCat.validateFoodForCat(req.body)
+        const catIdErrors = validateFoodCat.validateId(catId)
+        const foodIdErrors = validateFoodCat.validateId(foodId)
+        const idErrors = validateFoodCat.validateId(id)
+        const allErrors = Object.assign(errors, catIdErrors, foodIdErrors, idErrors)
+
+        if (Object.keys(allErrors).length > 0) {
+            res.status(400).send({ success: false, errors: allErrors })
+        } else {
+            repo.updateFoodCat(id, catId, foodId, purchased, place)
+            res.send({
+                success: true,
+                message: "Food for cat updated successfully"
+            })
+        }
     }
 }
