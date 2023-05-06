@@ -41,7 +41,7 @@ module.exports = {
         })
     },
 
-    createCat: function (req, res) {
+    createCat: async function (req, res) {
         var name = req.body.name
         var age = req.body.age
         var color = req.body.color
@@ -51,9 +51,11 @@ module.exports = {
         var ownerId = req.body.ownerId
 
         const errors = validationCat.validateCatAdd(req.body)
-        
-        if (Object.keys(errors).length > 0) {
-            res.status(400).send({ success: false, errors })
+        const ownerErrors = await validationCat.validateOwner(ownerId)
+        const allErrors = Object.assign(errors, ownerErrors)
+
+        if (Object.keys(allErrors).length > 0) {
+            res.status(400).send({ success: false, errors: allErrors })
         } else {
             repo.createCat(name, age, color, breed, weight, description, ownerId)
             res.send({
@@ -62,6 +64,7 @@ module.exports = {
             })
         }
     },
+
 
     deleteCat: function (req, res) {
         var id = req.params.id

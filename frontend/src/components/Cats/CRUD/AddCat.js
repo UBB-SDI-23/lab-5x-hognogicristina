@@ -31,7 +31,7 @@ function AddCat() {
         setIsLoading(true)
         setMessage("")
 
-        axios.post(`https://adopt-a-cat.onrender.com/cats_add`, cat, {
+        axios.post(`/cats_add`, cat, {
             // axios.post(`http://localhost:8000/cats_add`, cat, {
             headers: {
                 "Content-Type": "application/json"
@@ -39,21 +39,15 @@ function AddCat() {
         })
             .then((response) => {
                 setIsLoading(false)
-                if (response.data.errors) {
-
-                    setMessage(response.data.message)
-                    setErrors({})
-                    setCat({
-                        name: "",
-                        age: "",
-                        color: "",
-                        breed: "",
-                        weight: "",
-                        description: "",
-                        ownerId: "",
-                    })
+                setMessage(response.data.message)
+            })
+            .catch((error) => {
+                setIsLoading(false);
+                if (error.response && error.response.status === 400) {
+                    const errors = error.response.data.errors
+                    setErrors(errors)
                 } else {
-                    setErrors({})
+                    setMessage("An error occurred while processing your request, please try again")
                 }
             })
     }
@@ -89,8 +83,12 @@ function AddCat() {
             primary: {
                 main: "#d04c7d7a",
             },
+            error: {
+                main: "#ff3d3d",
+            },
         },
     })
+
 
     const h2Style = {
         fontSize: '1.6rem',
@@ -110,9 +108,8 @@ function AddCat() {
             </Typography>
             <form onSubmit={handleSubmit}>
                 <ThemeProvider theme={theme}>
-                    {errors.name && <Typography color="red">{errors.name}</Typography>}
                     <TextField
-                        required
+                        error={errors && errors.name ? true : false}
                         fullWidth
                         id="name"
                         name="name"
@@ -122,13 +119,14 @@ function AddCat() {
                         margin="normal"
                         variant="outlined"
                         placeholder="Example: Tom"
-                        error={Boolean(errors.name)}
-                        helperText={errors.name}
                         sx={{ zIndex: 0 }}
                     />
-                    {errors.age && <Typography color="red">{errors.age}</Typography>}
+                    {errors && errors.name && (
+                        <Typography color="error" variant="caption">
+                            <span style={{ color: "red", marginRight: "5px" }}>!</span>{errors.name}
+                        </Typography>)}
                     <TextField
-                        required
+                        error={errors && errors.age ? true : false}
                         fullWidth
                         id="age"
                         name="age"
@@ -138,13 +136,14 @@ function AddCat() {
                         margin="normal"
                         variant="outlined"
                         placeholder="Example: 2"
-                        error={Boolean(errors.age)}
-                        helperText={errors.age}
                         sx={{ zIndex: 0 }}
                     />
-                    {errors.color && <Typography color="red">{errors.color}</Typography>}
+                    {errors && errors.age && (
+                        <Typography color="error" variant="caption">
+                            <span style={{ color: "red", marginRight: "5px" }}>!</span>{errors.age}
+                        </Typography>)}
                     <TextField
-                        required
+                        error={errors && errors.age ? true : false}
                         fullWidth
                         id="color"
                         name="color"
@@ -154,13 +153,14 @@ function AddCat() {
                         margin="normal"
                         variant="outlined"
                         placeholder="Example: black"
-                        error={Boolean(errors.color)}
-                        helperText={errors.color}
                         sx={{ zIndex: 0 }}
                     />
-                    {errors.breed && <Typography color="red">{errors.breed}</Typography>}
+                    {errors && errors.color && (
+                        <Typography color="error" variant="caption">
+                            <span style={{ color: "red", marginRight: "5px" }}>!</span>{errors.color}
+                        </Typography>)}
                     <TextField
-                        required
+                        error={errors && errors.age ? true : false}
                         fullWidth
                         id="breed"
                         name="breed"
@@ -170,13 +170,14 @@ function AddCat() {
                         margin="normal"
                         variant="outlined"
                         placeholder="Example: Persian"
-                        error={Boolean(errors.breed)}
-                        helperText={errors.breed}
                         sx={{ zIndex: 0 }}
                     />
-                    {errors.weight && <Typography color="red">{errors.weight}</Typography>}
+                    {errors && errors.breed && (
+                        <Typography color="error" variant="caption">
+                            <span style={{ color: "red", marginRight: "5px" }}>!</span>{errors.breed}
+                        </Typography>)}
                     <TextField
-                        required
+                        error={errors && errors.age ? true : false}
                         fullWidth
                         id="weight"
                         name="weight"
@@ -186,13 +187,14 @@ function AddCat() {
                         margin="normal"
                         variant="outlined"
                         placeholder="Example: 5"
-                        error={Boolean(errors.weight)}
-                        helperText={errors.weight}
                         sx={{ zIndex: 0 }}
                     />
-                    {errors.description && <Typography color="red">{errors.description}</Typography>}
+                    {errors && errors.weight && (
+                        <Typography color="error" variant="caption">
+                            <span style={{ color: "red", marginRight: "5px" }}>!</span>{errors.weight}
+                        </Typography>)}
                     <TextField
-                        required
+                        error={errors && errors.age ? true : false}
                         fullWidth
                         id="description"
                         name="description"
@@ -202,13 +204,14 @@ function AddCat() {
                         margin="normal"
                         variant="outlined"
                         placeholder="Example: Very cute cat"
-                        error={Boolean(errors.description)}
-                        helperText={errors.description}
                         sx={{ zIndex: 0 }}
                     />
-                    {errors.ownerId && <Typography color="red">{errors.ownerId}</Typography>}
+                    {errors && errors.description && (
+                        <Typography color="error" variant="caption">
+                            <span style={{ color: "red", marginRight: "5px" }}>!</span>{errors.description}
+                        </Typography>)}
                     <TextField
-                        required
+                        error={errors && errors.age ? true : false}
                         fullWidth
                         id="ownerId"
                         name="ownerId"
@@ -218,11 +221,13 @@ function AddCat() {
                         margin="normal"
                         variant="outlined"
                         placeholder="Example: 1"
-                        error={Boolean(errors.ownerId)}
-                        helperText={errors.ownerId}
                         sx={{ zIndex: 0 }}
                     />
-                    {message && <Typography color={Object.keys(errors).length > 0 ? "red" : "green"}>{message}</Typography>}
+                    {errors && errors.ownerId && (
+                        <Typography color="error" variant="caption">
+                            <span style={{ color: "red", marginRight: "5px" }}>!</span>{errors.ownerId}
+                        </Typography>)}
+                    {message && <Typography color="red">{message}</Typography>}
                     <Button type="submit" variant="contained" sx={{ ...buttonStyles }} disabled={isLoading}>
                         {isLoading ? "Loading..." : "Submit"}
                     </Button>

@@ -54,6 +54,18 @@ class Validation {
         return owner.findOne({ where: { phone: phone } })
     }
 
+    static ownerExists(id) {
+        return owner.findOne({ where: { id: id } })
+    }
+
+    static catExists(id) {
+        return cat.findOne({ where: { id: id } })
+    }
+
+    static foodExists(id) {
+        return food.findOne({ where: { id: id } })
+    }
+
     static async isIdInUse(id, type) {
         if (type == "owner") {
             return owner.findOne({ where: { id: id } })
