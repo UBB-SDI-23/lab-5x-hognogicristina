@@ -54,6 +54,13 @@ async function getStatisticReport(page, pageSize) {
     cat.belongsTo(owner, { foreignKey: 'ownerId' })
     owner.hasMany(cat, { foreignKey: 'ownerId' })
 
+    var ageCats = await cat.findAll({
+        attributes: ['age'],
+    })
+
+    console.log(ageCats)
+    return
+
     var count = await owner.findAndCountAll({
         attributes: ['id', 'firstName', 'lastName', 'address', 'phone', 'email', 'age', [Sequelize.fn('AVG', Sequelize.col('cat.age')), 'avgAge']],
         include: [{
