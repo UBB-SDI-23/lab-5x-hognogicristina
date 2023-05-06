@@ -1,16 +1,15 @@
 const Validation = require('../validations/validater.js')
-const owner = require('../models/owners_model.js')
 
 class ValidationCat {
     static async validateOwner(ownerId) {
         const errors = {}
 
         if (!ownerId) {
-            errors.ownerId = "Owner id is required"
+            errors.ownerId = "Owner ID is required"
         } else if (!Validation.validateNumber(ownerId)) {
-            errors.ownerId = "Owner id should be a number greater than 0."
+            errors.ownerId = "Owner ID should be a number greater than 0."
         } else if (!await Validation.isIdInUse(ownerId, "owner")) {
-            errors.ownerId = "Owner id does not exist"
+            errors.ownerId = "Owner ID does not exist"
         }
 
         return errors

@@ -151,7 +151,6 @@ function UpdateCat({ catId }) {
             <form onSubmit={handleSubmit}>
                 <ThemeProvider theme={theme}>
                     <TextField
-                        required
                         fullWidth
                         id="id"
                         name="id"
@@ -164,7 +163,7 @@ function UpdateCat({ catId }) {
                         disabled
                     />
                     <TextField
-                        error={errors && errors.name ? true : false}
+                        error={Boolean(errors.name)}
                         fullWidth
                         id="name"
                         name="name"
@@ -178,7 +177,7 @@ function UpdateCat({ catId }) {
                     />
                     {errors && errors.name && (<ErrorMessage message={errors.name} severity="warning" />)}
                     <TextField
-                        error={errors && errors.age ? true : false}
+                        error={Boolean(errors.age)}
                         fullWidth
                         id="age"
                         name="age"
@@ -192,7 +191,7 @@ function UpdateCat({ catId }) {
                     />
                     {errors && errors.age && (<ErrorMessage message={errors.age} severity="warning" />)}
                     <TextField
-                        error={errors && errors.age ? true : false}
+                        error={Boolean(errors.color)}
                         fullWidth
                         id="color"
                         name="color"
@@ -206,7 +205,7 @@ function UpdateCat({ catId }) {
                     />
                     {errors && errors.color && (<ErrorMessage message={errors.color} severity="warning" />)}
                     <TextField
-                        error={errors && errors.age ? true : false}
+                        error={Boolean(errors.breed)}
                         fullWidth
                         id="breed"
                         name="breed"
@@ -220,7 +219,7 @@ function UpdateCat({ catId }) {
                     />
                     {errors && errors.breed && (<ErrorMessage message={errors.breed} severity="warning" />)}
                     <TextField
-                        error={errors && errors.age ? true : false}
+                        error={Boolean(errors.weight)}
                         fullWidth
                         id="weight"
                         name="weight"
@@ -234,7 +233,7 @@ function UpdateCat({ catId }) {
                     />
                     {errors && errors.weight && (<ErrorMessage message={errors.weight} severity="warning" />)}
                     <TextField
-                        error={errors && errors.age ? true : false}
+                        error={Boolean(errors.description)}
                         fullWidth
                         id="description"
                         name="description"
@@ -248,7 +247,7 @@ function UpdateCat({ catId }) {
                     />
                     {errors && errors.description && (<ErrorMessage message={errors.description} severity="warning" />)}
                     <TextField
-                        error={errors && errors.age ? true : false}
+                        error={Boolean(errors.ownerId)}
                         fullWidth
                         id="ownerId"
                         name="ownerId"

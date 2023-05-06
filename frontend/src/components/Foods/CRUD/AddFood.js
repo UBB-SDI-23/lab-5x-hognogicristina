@@ -144,7 +144,7 @@ function AddFood() {
             <form onSubmit={handleSubmit}>
                 <ThemeProvider theme={theme}>
                     <TextField
-                        error={errors && errors.name ? true : false}
+                        error={Boolean(errors.name)}
                         fullWidth
                         id="name"
                         name="name"
@@ -158,7 +158,7 @@ function AddFood() {
                     />
                     {errors && errors.name && <ErrorMessage message={errors.name} />}
                     <TextField
-                        error={errors && errors.brand ? true : false}
+                        error={Boolean(errors.brand)}
                         fullWidth
                         id="brand"
                         name="brand"
@@ -172,7 +172,7 @@ function AddFood() {
                     />
                     {errors && errors.brand && <ErrorMessage message={errors.brand} />}
                     <TextField
-                        error={errors && errors.price ? true : false}
+                        error={Boolean(errors.price)}
                         fullWidth
                         id="price"
                         name="price"
@@ -186,7 +186,7 @@ function AddFood() {
                     />
                     {errors && errors.price && <ErrorMessage message={errors.price} />}
                     <TextField
-                        error={errors && errors.quantity ? true : false}
+                        error={Boolean(errors.quantity)}
                         fullWidth
                         id="quantity"
                         name="quantity"
@@ -200,7 +200,7 @@ function AddFood() {
                     />
                     {errors && errors.quantity && <ErrorMessage message={errors.quantity} />}
                     <TextField
-                        error={errors && errors.type ? true : false}
+                        error={Boolean(errors.type)}
                         fullWidth
                         id="type"
                         name="type"

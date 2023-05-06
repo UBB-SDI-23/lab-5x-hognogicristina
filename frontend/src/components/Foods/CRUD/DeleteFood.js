@@ -146,7 +146,6 @@ function DeleteFood({ foodId }) {
             <form onSubmit={handleSubmit}>
                 <ThemeProvider theme={theme}>
                     <TextField
-                        required
                         fullWidth
                         id="id"
                         name="id"

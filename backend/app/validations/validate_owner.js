@@ -7,9 +7,9 @@ class ValidationOwner {
         if (!email) {
             errors.email = "Email is required"
         } else if (!Validation.validateEmail(email)) {
-            errors.email = "Email does not have the correct format (e.g.: email@gmail.com/ email@yahoo.com)"
-        } else if (!await Validation.isEmailInUse(email)) {
-            errors.email = "Email does not exist"
+            errors.email = "Email does not have the correct format (e.g.: email@gmail.com/ email@yahoo.com)."
+        } else if (await Validation.isEmailInUse(email)) {
+            errors.email = "Email already exist. Try another one."
         }
 
         return errors
@@ -21,9 +21,9 @@ class ValidationOwner {
         if (!phone) {
             errors.phone = "Phone is required"
         } else if (!Validation.validatePhone(phone)) {
-            errors.phone = "Phone does not have the correct format (e.g.: 12345678)"
-        } else if (!await Validation.isPhoneInUse(phone)) {
-            errors.phone = "Phone does not exist"
+            errors.phone = "Phone does not have the correct format (e.g.: 12345678)."
+        } else if (await Validation.isPhoneInUse(phone)) {
+            errors.phone = "Phone already exist. Try another one."
         }
 
         return errors
@@ -65,8 +65,8 @@ class ValidationOwner {
 
         if (!address) {
             errors.address = "Address is required"
-        } else if (!Validation.validateName(address)) {
-            errors.address = "Address must contain only letters, spaces, and dashes, and be at least 3 characters long."
+        } else if (!Validation.validateAddress(address)) {
+            errors.address = "Address must contain only numbers, letters, spaces, and dashes, and be at least 5 characters long."
         } 
 
         if (!age) {

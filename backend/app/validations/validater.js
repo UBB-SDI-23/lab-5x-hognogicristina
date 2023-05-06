@@ -33,6 +33,11 @@ class Validation {
         return re.test(date)
     }
 
+    static validateAddress(address) {
+        var re = /^[a-zA-Z0-9\s\.\-]{5,}$/
+        return re.test(address)
+    }
+
     static validateDateRange(dateString) {
         var date = new Date(dateString)
 

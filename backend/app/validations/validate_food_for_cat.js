@@ -5,11 +5,11 @@ class ValidationFoodForCat {
         const errors = {}
 
         if (!foodId) {
-            errors.foodId = "Food id is required"
+            errors.foodId = "Food ID is required"
         } else if (!Validation.validateNumber(foodId)) {
-            errors.foodId = "Food id should be a number greater than 0."
+            errors.foodId = "Food ID should be a number greater than 0."
         } else if (!await Validation.isIdInUse(foodId, "food")) {
-            errors.foodId = "Food id does not exist"
+            errors.foodId = "Food ID does not exist"
         }
 
         return errors
@@ -19,11 +19,11 @@ class ValidationFoodForCat {
         const errors = {}
 
         if (!catId) {
-            errors.catId = "Cat id is required"
+            errors.catId = "Cat ID is required"
         } else if (!Validation.validateNumber(catId)) {
-            errors.catId = "Cat id should be a number greater than 0."
+            errors.catId = "Cat ID should be a number greater than 0."
         } else if (!await Validation.isIdInUse(catId, "cat")) {
-            errors.catId = "Cat id does not exist"
+            errors.catId = "Cat ID does not exist"
         }
 
         return errors

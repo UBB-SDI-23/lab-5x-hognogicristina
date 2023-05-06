@@ -37,7 +37,7 @@ module.exports = {
         })
     },
 
-    createFoodCat: function (req, res) {
+    createFoodCat: async function (req, res) {
         var id = req.body.id
         var catId = req.body.catId
         var foodId = req.body.foodId
@@ -45,9 +45,12 @@ module.exports = {
         var place = req.body.place
 
         const errors = validateFoodCat.validateFoodForCat(req.body)
+        const catIdErrors = await validateFoodCat.validateId(catId)
+        const foodIdErrors = await validateFoodCat.validateId(foodId)
+        const allErrors = Object.assign(errors, catIdErrors, foodIdErrors)
         
         if (Object.keys(errors).length > 0) {
-            res.status(400).send({ success: false, errors: errors })
+            res.status(400).send({ success: false, errors: allErrors })
         } else {
             repo.createFoodCat(id, catId, foodId, purchased, place)
             res.send({
@@ -76,7 +79,7 @@ module.exports = {
         })
     },
 
-    updateFoodCat: function (req, res) {
+    updateFoodCat: async function (req, res) {
         var id = req.params.id
         var catId = req.body.catId
         var foodId = req.body.foodId
@@ -84,9 +87,9 @@ module.exports = {
         var place = req.body.place
 
         const errors = validateFoodCat.validateFoodForCat(req.body)
-        const catIdErrors = validateFoodCat.validateId(catId)
-        const foodIdErrors = validateFoodCat.validateId(foodId)
-        const idErrors = validateFoodCat.validateId(id)
+        const catIdErrors = await validateFoodCat.validateId(catId)
+        const foodIdErrors = await validateFoodCat.validateId(foodId)
+        const idErrors = await validateFoodCat.validateId(id)
         const allErrors = Object.assign(errors, catIdErrors, foodIdErrors, idErrors)
 
         if (Object.keys(allErrors).length > 0) {

@@ -3,7 +3,7 @@ var repoOwner = require("../repositories/owners_repository.js")
 const dbCats = require('../database/cats_database.js')
 const validation = require('../validations/validater.js')
 const validationOwner = require('../validations/validate_owner.js')
-const ValidationOwner = require("../validations/validate_owner.js")
+const validationCat = require('../validations/validate_cat.js')
 
 module.exports = {
     getOwner: function (req, res, page, pageSize) {
@@ -42,7 +42,7 @@ module.exports = {
         })
     },
 
-    createOwner: function (req, res) {
+    createOwner: async function (req, res) {
         var firstName = req.body.firstName
         var lastName = req.body.lastName
         var address = req.body.address
@@ -51,8 +51,8 @@ module.exports = {
         var age = req.body.age
 
         const errors = validationOwner.validateOwner(req.body)
-        const phoneErrors = ValidationOwner.validatePhoneOwner(phone)
-        const emailErrors = validationOwner.validateEmailOwner(email)
+        const phoneErrors = await validationOwner.validatePhoneOwner(phone)
+        const emailErrors = await validationOwner.validateEmailOwner(email)
         const allErrors = Object.assign(errors, phoneErrors, emailErrors)
 
         if (Object.keys(allErrors).length > 0) {
@@ -85,7 +85,7 @@ module.exports = {
         })
     },
 
-    updateOwner: function (req, res) {
+    updateOwner: async function (req, res) {
         var id = req.params.id
         var firstName = req.body.firstName
         var lastName = req.body.lastName
@@ -95,9 +95,9 @@ module.exports = {
         var age = req.body.age
 
         const errors = validationOwner.validateOwner(req.body)
-        const phoneErrors = ValidationOwner.validatePhoneOwner(phone)
-        const emailErrors = validationOwner.validateEmailOwner(email)
-        const idErrors = validationOwner.validateId(id)
+        const phoneErrors = await validationOwner.validatePhoneOwner(phone)
+        const emailErrors = await validationOwner.validateEmailOwner(email)
+        const idErrors = await validationOwner.validateId(id)
         const allErrors = Object.assign(errors, phoneErrors, emailErrors, idErrors)
 
         if (Object.keys(allErrors).length > 0) {

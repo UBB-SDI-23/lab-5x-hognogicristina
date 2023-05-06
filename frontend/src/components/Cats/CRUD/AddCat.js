@@ -152,7 +152,7 @@ function AddCat() {
             <form onSubmit={handleSubmit}>
                 <ThemeProvider theme={theme}>
                     <TextField
-                        error={errors && errors.name ? true : false}
+                        error={Boolean(errors.name)}
                         fullWidth
                         id="name"
                         name="name"
@@ -166,7 +166,7 @@ function AddCat() {
                     />
                     {errors && errors.name && (<ErrorMessage message={errors.name} />)}
                     <TextField
-                        error={errors && errors.age ? true : false}
+                        error={Boolean(errors.age)}
                         fullWidth
                         id="age"
                         name="age"
@@ -180,7 +180,7 @@ function AddCat() {
                     />
                     {errors && errors.age && (<ErrorMessage message={errors.age} />)}
                     <TextField
-                        error={errors && errors.age ? true : false}
+                        error={Boolean(errors.color)}
                         fullWidth
                         id="color"
                         name="color"
@@ -194,7 +194,7 @@ function AddCat() {
                     />
                     {errors && errors.color && (<ErrorMessage message={errors.color} />)}
                     <TextField
-                        error={errors && errors.age ? true : false}
+                        error={Boolean(errors.breed)}
                         fullWidth
                         id="breed"
                         name="breed"
@@ -208,7 +208,7 @@ function AddCat() {
                     />
                     {errors && errors.breed && (<ErrorMessage message={errors.breed} />)}
                     <TextField
-                        error={errors && errors.age ? true : false}
+                        error={Boolean(errors.weight)}
                         fullWidth
                         id="weight"
                         name="weight"
@@ -222,7 +222,7 @@ function AddCat() {
                     />
                     {errors && errors.weight && (<ErrorMessage message={errors.weight} />)}
                     <TextField
-                        error={errors && errors.age ? true : false}
+                        error={Boolean(errors.description)}
                         fullWidth
                         id="description"
                         name="description"
@@ -236,7 +236,7 @@ function AddCat() {
                     />
                     {errors && errors.description && (<ErrorMessage message={errors.description} />)}
                     <TextField
-                        error={errors && errors.age ? true : false}
+                        error={Boolean(errors.ownerId)}
                         fullWidth
                         id="ownerId"
                         name="ownerId"

@@ -37,7 +37,7 @@ module.exports = {
         })
     },
 
-    createFood: function (req, res) {
+    createFood: async function (req, res) {
         var id = req.body.id
         var name = req.body.name
         var brand = req.body.brand
@@ -77,7 +77,7 @@ module.exports = {
         })
     },
 
-    updateFood: function (req, res) {
+    updateFood: async function (req, res) {
         var id = req.params.id
         var name = req.body.name
         var brand = req.body.brand
@@ -86,7 +86,7 @@ module.exports = {
         var type = req.body.type
 
         const errors = validationFood.validateFood(req.body)
-        const idErrors = validationFood.validateId(id)
+        const idErrors = await validationFood.validateId(id)
         const allErrors = Object.assign(errors, idErrors)
 
         if (Object.keys(allErrors).length > 0) {
