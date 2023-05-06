@@ -45,7 +45,8 @@ function ListCats() {
 
     useEffect(() => {
         setIsLoading(true)
-        axios.get(`/cats?page=${page}&pageSize=${pageSize}`)
+        axios.get(`https://adopt-a-cat.onrender.com/cats?page=${page}&pageSize=${pageSize}`)
+        // axios.get(`/cats?page=${page}&pageSize=${pageSize}`)
             .then((response) => {
                 setCats(response.data.data.cats)
                 setTotalPages(response.data.data.pageInfo.totalPages)

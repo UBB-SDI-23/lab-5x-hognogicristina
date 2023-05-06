@@ -39,7 +39,8 @@ function DeleteOwner({ ownerId }) {
     const handleConfirmDelete = (event) => {
         setIsLoading(true)
 
-        axios.delete(`/owners_delete/${owner.id}`, {
+        axios.delete(`https://adopt-a-cat.onrender.com/owners_delete/${owner.id}`, {
+        // axios.delete(`/owners_delete/${owner.id}`, {
             // axios.delete(`http://localhost:8000/owners_delete/${owner.id}`, {
             headers: {
                 "Content-Type": "application/json",

@@ -32,7 +32,8 @@ function UpdateFood({ foodId }) {
         setMessage("")
         setErrors({})
 
-        axios.put(`/foods_update/${food.id}`, food, {
+        axios.put(`https://adopt-a-cat.onrender.com/foods_update/${food.id}`, food, {
+        // axios.put(`/foods_update/${food.id}`, food, {
             // axios.put(`http://localhost:8000/foods_update/${food.id}`, food, {
             headers: {
                 "Content-Type": "application/json"

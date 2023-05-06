@@ -7,7 +7,8 @@ function GetOneOwner(props) {
     const [ownerData, setOwnerData] = useState(null)
 
     useEffect(() => {
-        axios.get("/owners/" + props.id)
+        axios.get(`https://adopt-a-cat.onrender.com/owners/${props.id}`)
+        // axios.get('/owners/${props.id}')
         // axios.get("http://localhost:8000/owners/" + props.id)
             .then(response => {
                 setOwnerData(response.data.data)

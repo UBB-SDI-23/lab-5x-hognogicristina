@@ -39,7 +39,8 @@ function DeleteFood({ foodId }) {
     const handleConfirmDelete = (event) => {
         setIsLoading(true)
 
-        axios.delete(`/foods_delete/${food.id}`, {
+        axios.delete(`https://adopt-a-cat.onrender.com/foods_delete/${food.id}`, {
+        // axios.delete(`/foods_delete/${food.id}`, {
             // axios.delete(`http://localhost:8000/foods_delete/${food.id}`, {
             headers: {
                 "Content-Type": "application/json"

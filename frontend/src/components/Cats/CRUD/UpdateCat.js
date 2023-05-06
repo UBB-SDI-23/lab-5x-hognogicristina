@@ -33,7 +33,8 @@ function UpdateCat({ catId }) {
         setIsLoading(true)
         setMessage("")
         
-        axios.put(`/cats_update/${cat.id}`, cat, {
+        axios.put(`https://adopt-a-cat.onrender.com/cats_update/${cat.id}`, cat, {
+        // axios.put(`/cats_update/${cat.id}`, cat, {
         // axios.put(`http://localhost:8000/cats_update/${cat.id}`, cat, {
             headers: {
                 "Content-Type": "application/json"

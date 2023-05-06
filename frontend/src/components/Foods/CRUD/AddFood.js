@@ -29,7 +29,8 @@ function AddFood() {
         setIsLoading(true)
         setMessage("")
 
-        axios.post(`/foods_add`, food, {
+        axios.post(`https://adopt-a-cat.onrender.com/foods_add`, food, {
+        // axios.post(`/foods_add`, food, {
         // axios.post(`http://localhost:8000/foods_add`, food, {
             headers: {
                 "Content-Type": "application/json"

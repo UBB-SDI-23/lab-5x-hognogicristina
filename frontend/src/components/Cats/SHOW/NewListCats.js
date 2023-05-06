@@ -13,7 +13,8 @@ function NewListCats(props) {
 
     useEffect(() => {
         setIsLoading(true)
-        axios.get(`/cats_filter/${props.weight}?page=${page}&pageSize=${pageSize}`)
+        axios.get(`https://adopt-a-cat.onrender.com/cats_filter/${props.weight}?page=${page}&pageSize=${pageSize}`)
+        // axios.get(`/cats_filter/${props.weight}?page=${page}&pageSize=${pageSize}`)
             .then(response => {
                 setCats(response.data.data.cats)
                 setTotalPages(response.data.data.pageInfo.totalPages)

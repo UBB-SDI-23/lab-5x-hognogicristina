@@ -13,7 +13,8 @@ function StatisticListCats(props) {
 
     useEffect(() => {
         setIsLoading(true)
-        axios.get(`/cats_statistic/${props.breed}?page=${page}&pageSize=${pageSize}`)
+        axios.get(`https://adopt-a-cat.onrender.com/cats_statistic/${props.breed}?page=${page}&pageSize=${pageSize}`)
+        // axios.get(`/cats_statistic/${props.breed}?page=${page}&pageSize=${pageSize}`)
             .then(response => {
                 setCatData(response.data.data.cats)
                 setTotalPages(response.data.data.pageInfo.totalPages)
