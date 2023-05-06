@@ -15,7 +15,7 @@ const StyledTable = styled(Table)({
 
 const StyledTableCell = styled(TableCell)({
     padding: 8,
-    textAlign: 'left',
+    textAlign: 'center',
     borderBottom: '1px solid #ddd',
 })
 

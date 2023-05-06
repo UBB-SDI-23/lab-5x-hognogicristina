@@ -2,61 +2,60 @@ const Validation = require('../validations/validater.js')
 
 class ValidationCat {
     static validateCatAdd(cat) {
-        var name = cat.name;
-        var age = cat.age;
-        var color = cat.color;
-        var breed = cat.breed;
-        var weight = cat.weight;
-        var description = cat.description;
-        var ownerId = cat.ownerId;
+        var name = cat.name
+        var age = cat.age
+        var color = cat.color
+        var breed = cat.breed
+        var weight = cat.weight
+        var description = cat.description
+        var ownerId = cat.ownerId
 
-        const errors = {};
+        const errors = {}
 
         if (!name) {
-            errors.name = "Name is required";
+            errors.name = "Name is required"
         } else if (!Validation.validateName(name)) {
-            errors.name = "Name should have at least 3 letters";
+            errors.name = "Invalid name. Name must contain only letters, spaces, and dashes, and be at least 3 characters long."
         }
 
         if (!age) {
-            errors.age = "Age is required";
+            errors.age = "Age is required"
         } else if (!Validation.validateNumber(age)) {
-            errors.age = "Age should be a number greater than 0";
+            errors.age = "Invalid age. Age should be a number greater than 0."
         }
 
         if (!color) {
-            errors.color = "Color is required";
+            errors.color = "Color is required"
         } else if (!Validation.validateName(color)) {
-            errors.color = "Color should have at least 3 letters";
+            errors.color = "Invalid color. Color must contain only letters, spaces, and dashes, and be at least 3 characters long."
         }
 
         if (!breed) {
-            errors.breed = "Breed is required";
+            errors.breed = "Breed is required"
         } else if (!Validation.validateName(breed)) {
-            errors.breed = "Breed should have at least 3 letters";
+            errors.breed = "Invalid breed. Breed must contain only letters, spaces, and dashes, and be at least 3 characters long."
         }
 
         if (!weight) {
-            errors.weight = "Weight is required";
+            errors.weight = "Weight is required"
         } else if (!Validation.validateNumber(weight)) {
-            errors.weight = "Weight should be a number greater than 0";
+            errors.weight = "Invalid weight. Weight should be a number greater than 0."
         }
 
         if (!description) {
-            errors.description = "Description is required";
+            errors.description = "Description is required"
         } else if (!Validation.validateDescr(description)) {
-            errors.description = "Description should have at least 50 letters and 100 max";
+            errors.description = "Invalid description. Description must contain only letters, spaces, periods, and dashes, and be between 50 and 100 characters long."
         }
 
         if (!ownerId) {
-            errors.ownerId = "Owner id is required";
+            errors.ownerId = "Owner id is required"
         } else if (!Validation.isIdInUse(ownerId, "owner")) {
-            errors.ownerId = "Owner id does not exist";
+            errors.ownerId = "Owner id does not exist"
         }
 
-        return errors;
+        return errors
     }
-
 
     static async validateCatUpdate(cat) {
         var name = cat.name
@@ -102,7 +101,7 @@ class ValidationCat {
 
     static async validateCat(cat, type) {
         if (type == "add") {
-            return await this.validateCatAdd(cat)
+            return this.validateCatAdd(cat)
         } else if (type == "update") {
             return await this.validateCatUpdate(cat)
         }

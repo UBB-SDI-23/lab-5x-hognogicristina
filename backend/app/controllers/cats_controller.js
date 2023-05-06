@@ -50,20 +50,17 @@ module.exports = {
         var description = req.body.description
         var ownerId = req.body.ownerId
 
-        validationCat.validateCat(req.body, "add").then(result => {
-            if (result == null) {
-                repo.createCat(name, age, color, breed, weight, description, ownerId)
-                res.send({
-                    success: true,
-                    message: "Cat created successfully"
-                })
-            } else {
-                res.send({
-                    success: false,
-                    message: result
-                })
-            }
-        })
+        const errors = validationCat.validateCatAdd(req.body)
+        
+        if (Object.keys(errors).length > 0) {
+            res.status(400).send({ success: false, errors })
+        } else {
+            repo.createCat(name, age, color, breed, weight, description, ownerId)
+            res.send({
+                success: true,
+                message: "Cat created successfully"
+            })
+        }
     },
 
     deleteCat: function (req, res) {

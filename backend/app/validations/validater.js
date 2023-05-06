@@ -19,10 +19,14 @@ class Validation {
         return re.test(name)
     }
 
-    static validateDescr(name) {
+    static validateDescr(description) {
         var re = /^[a-zA-Z\s\.\-]{50,100}$/
-        return re.test(name)
+        return re.test(description)
     } 
+
+    static validateNumber(number) {
+        return !isNaN(number) && number > 0
+    }
 
     static validateDate(date) {
         var re = /^\d{4}-\d{2}-\d{2}$/
@@ -40,10 +44,6 @@ class Validation {
         var maxDate = new Date()
 
         return date >= minDate && date <= maxDate
-    }
-
-    static validateNumber(number) {
-        return !isNaN(number) && number > 0
     }
 
     static isEmailInUse(email) {

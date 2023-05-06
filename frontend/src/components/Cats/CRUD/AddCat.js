@@ -13,9 +13,10 @@ function AddCat() {
         description: "",
         ownerId: "",
     })
-    
+
     const [isLoading, setIsLoading] = useState(false)
     const [message, setMessage] = useState("")
+    const [errors, setErrors] = useState({})
 
     const handleChange = (event) => {
         const value = event.target.value
@@ -29,16 +30,31 @@ function AddCat() {
         event.preventDefault()
         setIsLoading(true)
         setMessage("")
-        
+
         axios.post(`https://adopt-a-cat.onrender.com/cats_add`, cat, {
-        // axios.post(`http://localhost:8000/cats_add`, cat, {
+            // axios.post(`http://localhost:8000/cats_add`, cat, {
             headers: {
                 "Content-Type": "application/json"
             }
         })
             .then((response) => {
                 setIsLoading(false)
-                setMessage(response.data.message)
+                if (response.data.errors) {
+
+                    setMessage(response.data.message)
+                    setErrors({})
+                    setCat({
+                        name: "",
+                        age: "",
+                        color: "",
+                        breed: "",
+                        weight: "",
+                        description: "",
+                        ownerId: "",
+                    })
+                } else {
+                    setErrors({})
+                }
             })
     }
 
@@ -52,6 +68,9 @@ function AddCat() {
             description: "",
             ownerId: "",
         })
+
+        setMessage("")
+        setErrors({})
     }
 
     const buttonStyles = {
@@ -91,6 +110,7 @@ function AddCat() {
             </Typography>
             <form onSubmit={handleSubmit}>
                 <ThemeProvider theme={theme}>
+                    {errors.name && <Typography color="red">{errors.name}</Typography>}
                     <TextField
                         required
                         fullWidth
@@ -102,8 +122,11 @@ function AddCat() {
                         margin="normal"
                         variant="outlined"
                         placeholder="Example: Tom"
+                        error={Boolean(errors.name)}
+                        helperText={errors.name}
                         sx={{ zIndex: 0 }}
                     />
+                    {errors.age && <Typography color="red">{errors.age}</Typography>}
                     <TextField
                         required
                         fullWidth
@@ -115,8 +138,11 @@ function AddCat() {
                         margin="normal"
                         variant="outlined"
                         placeholder="Example: 2"
+                        error={Boolean(errors.age)}
+                        helperText={errors.age}
                         sx={{ zIndex: 0 }}
                     />
+                    {errors.color && <Typography color="red">{errors.color}</Typography>}
                     <TextField
                         required
                         fullWidth
@@ -128,8 +154,11 @@ function AddCat() {
                         margin="normal"
                         variant="outlined"
                         placeholder="Example: black"
+                        error={Boolean(errors.color)}
+                        helperText={errors.color}
                         sx={{ zIndex: 0 }}
                     />
+                    {errors.breed && <Typography color="red">{errors.breed}</Typography>}
                     <TextField
                         required
                         fullWidth
@@ -141,8 +170,11 @@ function AddCat() {
                         margin="normal"
                         variant="outlined"
                         placeholder="Example: Persian"
+                        error={Boolean(errors.breed)}
+                        helperText={errors.breed}
                         sx={{ zIndex: 0 }}
                     />
+                    {errors.weight && <Typography color="red">{errors.weight}</Typography>}
                     <TextField
                         required
                         fullWidth
@@ -154,8 +186,11 @@ function AddCat() {
                         margin="normal"
                         variant="outlined"
                         placeholder="Example: 5"
+                        error={Boolean(errors.weight)}
+                        helperText={errors.weight}
                         sx={{ zIndex: 0 }}
                     />
+                    {errors.description && <Typography color="red">{errors.description}</Typography>}
                     <TextField
                         required
                         fullWidth
@@ -167,8 +202,11 @@ function AddCat() {
                         margin="normal"
                         variant="outlined"
                         placeholder="Example: Very cute cat"
+                        error={Boolean(errors.description)}
+                        helperText={errors.description}
                         sx={{ zIndex: 0 }}
                     />
+                    {errors.ownerId && <Typography color="red">{errors.ownerId}</Typography>}
                     <TextField
                         required
                         fullWidth
@@ -180,9 +218,11 @@ function AddCat() {
                         margin="normal"
                         variant="outlined"
                         placeholder="Example: 1"
+                        error={Boolean(errors.ownerId)}
+                        helperText={errors.ownerId}
                         sx={{ zIndex: 0 }}
                     />
-                    {message && <Typography color="red">{message}</Typography>}
+                    {message && <Typography color={Object.keys(errors).length > 0 ? "red" : "green"}>{message}</Typography>}
                     <Button type="submit" variant="contained" sx={{ ...buttonStyles }} disabled={isLoading}>
                         {isLoading ? "Loading..." : "Submit"}
                     </Button>
