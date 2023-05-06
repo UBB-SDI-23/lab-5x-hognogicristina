@@ -41,7 +41,7 @@ function DeleteCat({ catId }) {
 
         axios.delete(`https://adopt-a-cat.onrender.com/cats_delete/${cat.id}`, {
         // axios.delete(`/cats_delete/${cat.id}`, {
-            // axios.delete(`http://localhost:8000/cats_delete/${cat.id}`, {
+        // axios.delete(`http://localhost:8000/cats_delete/${cat.id}`, {
             headers: {
                 "Content-Type": "application/json"
             },

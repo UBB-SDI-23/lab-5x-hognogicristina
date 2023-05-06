@@ -15,6 +15,7 @@ function StatisticListCats(props) {
         setIsLoading(true)
         axios.get(`https://adopt-a-cat.onrender.com/cats_statistic/${props.breed}?page=${page}&pageSize=${pageSize}`)
         // axios.get(`/cats_statistic/${props.breed}?page=${page}&pageSize=${pageSize}`)
+        // axios.get(`http://localhost:8000/cats_statistic/${props.breed}?page=${page}&pageSize=${pageSize}`)
             .then(response => {
                 setCatData(response.data.data.cats)
                 setTotalPages(response.data.data.pageInfo.totalPages)
@@ -24,18 +25,6 @@ function StatisticListCats(props) {
                 setIsLoading(false)
             })
     }, [props.breed, page, pageSize])
-    
-    // useEffect(() => {
-    //     setIsLoading(true)
-    //     axios.get(`http://localhost:8000/cats_statistic/${props.breed}?page=${page}&pageSize=${pageSize}`)
-    //         .then(response => {
-    //             setCatData(response.data.data.cats)
-    //             setTotalPages(response.data.data.pageInfo.totalPages)
-    //         })
-    //         .finally(() => {
-    //             setIsLoading(false)
-    //         })
-    // }, [props.breed, page, pageSize])
 
     const pStyle = {
         fontSize: '1.2rem',

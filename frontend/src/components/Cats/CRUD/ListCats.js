@@ -45,8 +45,9 @@ function ListCats() {
 
     useEffect(() => {
         setIsLoading(true)
-        axios.get(`https://adopt-a-cat.onrender.com/cats?page=${page}&pageSize=${pageSize}`)
+        // axios.get(`https://adopt-a-cat.onrender.com/cats?page=${page}&pageSize=${pageSize}`)
         // axios.get(`/cats?page=${page}&pageSize=${pageSize}`)
+        axios.get(`http://localhost:8000/cats?page=${page}&pageSize=${pageSize}`)
             .then((response) => {
                 setCats(response.data.data.cats)
                 setTotalPages(response.data.data.pageInfo.totalPages)
@@ -55,18 +56,6 @@ function ListCats() {
                 setIsLoading(false)
             })
     }, [showListCats, page, pageSize])
-
-    // useEffect(() => {
-    //     setIsLoading(true)
-    //     axios.get(`http://localhost:8000/cats?page=${page}&pageSize=${pageSize}`)
-    //         .then((response) => {
-    //             setCats(response.data.data.cats)
-    //             setTotalPages(response.data.data.pageInfo.totalPages)
-    //         })
-    //         .finally(() => {
-    //             setIsLoading(false)
-    //         })
-    // }, [showListCats, page, pageSize])
 
     const handlePageChange = (event, value) => {
         setPage(value)
