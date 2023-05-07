@@ -37,8 +37,9 @@ module.exports = {
     },
 
     getOwner: async function (page, pageSize) {
-        const { results, pageInfo } = await db.getOwners(page, pageSize)
-        owners = results
+        const data = await db.getOwners(page, pageSize)
+        const owners = data.results
+        const pageInfo = data.pageInfo
 
         return {
             owners,

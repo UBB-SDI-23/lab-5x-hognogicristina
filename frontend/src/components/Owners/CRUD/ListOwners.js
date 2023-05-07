@@ -49,6 +49,7 @@ function ListOwners() {
         axios.get(`/owners?page=${page}&pageSize=${pageSize}`)
         // axios.get(`http://localhost:8000/owners?page=${page}&pageSize=${pageSize}`)
             .then((response) => {
+                console.log(response)
                 setOwners(response.data.data.owners)
                 setTotalPages(response.data.data.pageInfo.totalPages)
             })

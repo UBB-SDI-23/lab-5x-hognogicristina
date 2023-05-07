@@ -6,7 +6,7 @@ require('./database.js')
 async function getOwners(page, pageSize) {
     const offset = (page - 1) * pageSize
     const limit = pageSize
-    const owners = await owner.findAll({
+    var owners = await owner.findAll({
         offset,
         limit,
         include: [{
@@ -18,10 +18,9 @@ async function getOwners(page, pageSize) {
     const count = await owner.count()
     const totalPages = Math.ceil(count / pageSize)
 
-    // Add catsCount property to each owner
     owners.forEach(owner => {
-        owner.catsCount = owner.cats.length;
-        delete owner.cats; // remove the cats array to avoid serialization issues
+        owner.catsCount = owner.cats.length
+        delete owner.cats
     })
 
     return {
@@ -34,7 +33,6 @@ async function getOwners(page, pageSize) {
         },
     }
 }
-
 
 async function getOneOwnerById(id) {
     return owner.findOne({ where: { id: id } })
