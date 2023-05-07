@@ -65,7 +65,7 @@ async function getStatisticReport(page, pageSize) {
     const offset = (page - 1) * pageSize
     const limit = pageSize
 
-    owner.hasMany(cat, { foreignKey: 'ownerId' });
+    owner.hasMany(cat, { foreignKey: 'ownerId' })
     cat.belongsTo(owner, { foreignKey: 'ownerId' })
 
     const count = await owner.count()
@@ -90,7 +90,7 @@ async function getStatisticReport(page, pageSize) {
             totalPages,
             count,
         },
-    };
+    }
 }
 
 

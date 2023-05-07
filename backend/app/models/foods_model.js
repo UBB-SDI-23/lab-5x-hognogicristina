@@ -1,4 +1,6 @@
-const { Sequelize, Model, DataTypes } = require('sequelize');
+const { Sequelize, Model, DataTypes } = require('sequelize')
+// const cat = require('./cats_model')
+// const foods_for_cats = require('./foods_for_cats_model')
 const mysql2 = require('mysql2')
 
 const sequelize = new Sequelize('bo8dhdnecmi9kqgy6joa', 'utjidt7rdyxmke4r', 'YRtSHxz0xzXW2m5UY4rT', {
@@ -49,5 +51,7 @@ foods.init({
     modelName: 'foods',
     timestamps: false
 })
+
+
 
 module.exports = foods

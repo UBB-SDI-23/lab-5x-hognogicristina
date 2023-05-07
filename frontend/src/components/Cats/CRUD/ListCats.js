@@ -45,8 +45,8 @@ function ListCats() {
 
     useEffect(() => {
         setIsLoading(true)
-        // axios.get(`https://adopt-a-cat.onrender.com/cats?page=${page}&pageSize=${pageSize}`)
-        axios.get(`/cats?page=${page}&pageSize=${pageSize}`)
+        axios.get(`https://adopt-a-cat.onrender.com/cats?page=${page}&pageSize=${pageSize}`)
+        // axios.get(`/cats?page=${page}&pageSize=${pageSize}`)
         // axios.get(`http://localhost:8000/cats?page=${page}&pageSize=${pageSize}`)
             .then((response) => {
                 setCats(response.data.data.cats)
@@ -133,6 +133,7 @@ function ListCats() {
                                     <StyledTableHeadCell>Weight</StyledTableHeadCell>
                                     <StyledTableHeadCell>Description</StyledTableHeadCell>
                                     <StyledTableHeadCell>Owner</StyledTableHeadCell>
+                                    <StyledTableHeadCell>Nr. Of Food Liked</StyledTableHeadCell>
                                     <StyledTableHeadCell>Edit</StyledTableHeadCell>
                                     <StyledTableHeadCell>Delete</StyledTableHeadCell>
                                 </StyledTableRow>
@@ -149,6 +150,7 @@ function ListCats() {
                                             <StyledTableCell>{cat.weight}</StyledTableCell>
                                             <StyledTableCell>{cat.description}</StyledTableCell>
                                             <StyledTableCell>{cat.ownerId}</StyledTableCell>
+                                            <StyledTableCell>{cat.foodCount}</StyledTableCell>
                                             <StyledTableCell>
                                                 <Button variant="contained" sx={{ ...buttonStyles }} onClick={() => handleEdit(cat)}>Edit</Button>
                                             </StyledTableCell>

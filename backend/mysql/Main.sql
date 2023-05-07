@@ -1,7 +1,4 @@
-TRUNCATE TABLE owners;
-TRUNCATE TABLE cats;
-TRUNCATE TABLE foods;
-TRUNCATE TABLE foods_for_cats;
+
 
 LOAD DATA INFILE 'D:/Fukulta/Collage/Courses/Second Year/Semester 4/Systems for Design and Implementation/Laboratories/Laboratory 5/records/owners_data.csv'
 INTO TABLE owners

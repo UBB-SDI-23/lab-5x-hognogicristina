@@ -45,11 +45,13 @@ function ListOwners() {
 
     useEffect(() => {
         setIsLoading(true)
-        // axios.get(`https://adopt-a-cat.onrender.com/owners?page=${page}&pageSize=${pageSize}`)
-        axios.get(`/owners?page=${page}&pageSize=${pageSize}`)
+        axios.get(`https://adopt-a-cat.onrender.com/owners?page=${page}&pageSize=${pageSize}`)
+        // axios.get(`/owners?page=${page}&pageSize=${pageSize}`)
         // axios.get(`http://localhost:8000/owners?page=${page}&pageSize=${pageSize}`)
             .then((response) => {
-                console.log(response)
+                response.data.data.owners.forEach((owner) => {
+                    owner.noCats = owner.cats.length
+                })
                 setOwners(response.data.data.owners)
                 setTotalPages(response.data.data.pageInfo.totalPages)
             })
@@ -133,6 +135,7 @@ function ListOwners() {
                                     <StyledTableHeadCell>Phone</StyledTableHeadCell>
                                     <StyledTableHeadCell>Email</StyledTableHeadCell>
                                     <StyledTableHeadCell>Age</StyledTableHeadCell>
+                                    <StyledTableHeadCell>Nr. Of Cats Owns</StyledTableHeadCell>
                                     <StyledTableHeadCell>Edit</StyledTableHeadCell>
                                     <StyledTableHeadCell>Delete</StyledTableHeadCell>
                                 </StyledTableRow>
@@ -147,6 +150,7 @@ function ListOwners() {
                                         <StyledTableCell>{owner.phone}</StyledTableCell>
                                         <StyledTableCell>{owner.email}</StyledTableCell>
                                         <StyledTableCell>{owner.age}</StyledTableCell>
+                                        <StyledTableCell>{owner.noCats}</StyledTableCell>
                                         <StyledTableCell>
                                             <Button variant="contained" sx={{ ...buttonStyles }} onClick={() => handleEdit(owner)}>Edit</Button>
                                         </StyledTableCell>

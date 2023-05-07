@@ -1,12 +1,29 @@
 const cat = require('../models/cats_model.js')
 const owner = require('../models/owners_model.js')
+const food = require('../models/foods_model.js')
+const foodCat = require('../models/foods_for_cats_model.js')
 const Sequelize = require('sequelize')
 require('./database.js')
 
 async function getCats(page, pageSize) {
     const offset = (page - 1) * pageSize
     const limit = pageSize
-    const cats = await cat.findAll({ offset, limit })
+    const cats = await cat.findAll({
+        offset,
+        limit,
+        include: [{
+            model: food,
+            through: foodCat,
+            as: 'foods',
+            attributes: []
+        }],
+        attributes: {
+            include: [
+                [Sequelize.literal('(SELECT COUNT(*) FROM `foods_for_cats` WHERE `foods_for_cats`.`catId` = `cat`.`id`)'), 'foodCount']
+            ]
+        }
+    })
+
     const count = await cat.count()
     const totalPages = Math.ceil(count / pageSize)
 
@@ -79,11 +96,11 @@ async function getStatisticReportBreed(breed, page, pageSize) {
             model: owner,
             attributes: ['firstName'],
         }],
-        where: { breed: breed },    
+        where: { breed: breed },
         group: ['owner.firstName'],
         order: [[Sequelize.fn('AVG', Sequelize.col('owner.age')), 'ASC']]
     })
-    
+
     count = count.rows.length
 
     const data = await cat.findAndCountAll({

@@ -1,4 +1,6 @@
 const { Sequelize, Model, DataTypes } = require('sequelize')
+const foods_for_cats = require('./foods_for_cats_model')
+const food = require('./foods_model')
 const mysql2 = require('mysql2')
 
 const sequelize = new Sequelize('bo8dhdnecmi9kqgy6joa', 'utjidt7rdyxmke4r', 'YRtSHxz0xzXW2m5UY4rT', {
@@ -61,5 +63,8 @@ cat.init({
     modelName: 'cat',
     timestamps: false
 })
+
+cat.belongsToMany(food, { through: foods_for_cats, as: 'foods' })
+food.belongsToMany(cat, { through: foods_for_cats, as: 'cats' })
 
 module.exports = cat

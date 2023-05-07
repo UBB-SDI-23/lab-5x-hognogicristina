@@ -1,10 +1,28 @@
 const food = require('../models/foods_model.js')
+const cat = require('../models/cats_model.js')
+const foodCat = require('../models/foods_for_cats_model.js')
+const Sequelize = require('sequelize')
 require('./database.js')
 
 async function getFoods(page, pageSize) {
     const offset = (page - 1) * pageSize
     const limit = pageSize
-    const foods = await food.findAll({ offset, limit })
+    const foods = await food.findAll({ 
+        offset, 
+        limit,
+        include: [{
+            model: cat,
+            through: foodCat,
+            as: 'cats',
+            attributes: []
+        }],
+        attributes: {
+            include: [
+                [Sequelize.literal('(SELECT COUNT(*) FROM `foods_for_cats` WHERE `foods_for_cats`.`foodId` = `foods`.`id`)'), 'catCount']
+            ]
+        }
+    })
+
     const count = await food.count()
     const totalPages = Math.ceil(count / pageSize)
 

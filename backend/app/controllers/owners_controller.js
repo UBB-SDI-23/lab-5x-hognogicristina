@@ -168,8 +168,8 @@ module.exports = {
                         success: true,
                         message: "Cats created successfully",
                         data: dataWithoutIds,
-                    });
-                });
+                    })
+                })
             } else {
                 res.send({
                     success: false,

@@ -1,6 +1,3 @@
-// many to many relationship between cats and foods
-// many cats can eat the same food, and many foods can be eaten by the same cat
-
 const { Sequelize, Model, DataTypes } = require('sequelize')
 const mysql2 = require('mysql2')
 
