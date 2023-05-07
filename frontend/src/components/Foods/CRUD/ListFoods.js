@@ -45,9 +45,9 @@ function ListFoods() {
 
     useEffect(() => {
         setIsLoading(true)
-        // axios.get(`https://adopt-a-cat.onrender.com/foods?page=${page}&pageSize=${pageSize}`)
+        axios.get(`https://adopt-a-cat.onrender.com/foods?page=${page}&pageSize=${pageSize}`)
         // axios.get(`/foods?page=${page}&pageSize=${pageSize}`)
-        axios.get(`http://localhost:8000/foods?page=${page}&pageSize=${pageSize}`)
+        // axios.get(`http://localhost:8000/foods?page=${page}&pageSize=${pageSize}`)
             .then((response) => {
                 setFoods(response.data.data.food)
                 setTotalPages(response.data.data.pageInfo.totalPages)
