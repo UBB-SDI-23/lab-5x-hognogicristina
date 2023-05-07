@@ -2,7 +2,7 @@ module.exports = (app) => {
     const controllerCat = require("../controllers/cats_controller.js")
 
     app.get('/cats', (req, res) => {
-        // res.header("Access-Control-Allow-Origin", "https://meow-adopt-a-cat.onrender.com")
+        res.header("Access-Control-Allow-Origin", "https://meow-adopt-a-cat.onrender.com")
         const page = parseInt(req.query.page) || 1
         const pageSize = parseInt(req.query.pageSize) || 5
         controllerCat.getCat(req, res, page, pageSize)
